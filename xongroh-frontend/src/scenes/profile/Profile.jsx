@@ -33,7 +33,7 @@ const Profile = () => {
         <div className='p-2 pt-6 pb-2'>
           <div className='overflow-x-scroll whitespace-nowrap'>
               <div className='w-full justify-around flex flex-row font-semibold'>
-                  <button className='border-2 border-black rounded-3xl px-3 py-0.5 bg-[#F5F5F7] mr-2'>Portfolio</button>
+                  <button className='border-2 border-black rounded-3xl px-3 py-0.5 bg-[#C8E4B2] mr-2'>Portfolio</button>
                   <button className='border-2 border-black rounded-3xl px-3 py-0.5 bg-[#F5F5F7] mr-2'>Tribe</button>
                   <button className='border-2 border-black rounded-3xl px-3 py-0.5 bg-[#F5F5F7] mr-2'>Store</button>
                   <button className='border-2 border-black rounded-3xl px-3 py-0.5 bg-[#F5F5F7]'>Events</button>
