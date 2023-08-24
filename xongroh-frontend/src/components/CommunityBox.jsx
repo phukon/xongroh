@@ -3,7 +3,7 @@ import Assets from '@/assets/Assets'
 const CommunityBox = () => {
   return (
     <div className='bg-white flex flex-row p-3 m-3 mt-4 border-2 border-black rounded-2xl justify-between items-center'>
-        <div className='flex items-center p'>
+        <div className='flex items-center'>
            <div className='pr-4'>
            <img src={Assets.music} alt = 'bell'/>
             </div> 

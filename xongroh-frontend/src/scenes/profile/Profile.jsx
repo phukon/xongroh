@@ -10,21 +10,21 @@ const Profile = () => {
               <div className='w-full flex flex-row -mb-10 justify-around'>
                 <div className='text-center'>
                   <div className='font-bold'>25</div>
-                  <div>Creations</div>
+                  <div className='font-medium	text-sm'>Creations</div>
                 </div>
                 <img src={Assets.user2} className='relative bottom-16'/>
                 <div className='text-center'>
                   <div className='font-bold'>25k</div>
-                  <div>Supporters</div>
+                  <div className='font-medium	text-sm'>Supporters</div>
                 </div>
               </div>
               
               <div className='font-bold text-lg pt-2 pb-2'>Mahindra Alpha Beta</div>
-              <p className=' px-5 text-center pb-6'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis a est dapibus posuere. Donec molestie risus ac elit imperdiet pretium. Phasellus volutpat nec ligula at accumsan.</p>
+               <p className=' px-5 text-center pb-6 text-xs'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis a est dapibus posuere. Donec molestie risus ac elit imperdiet pretium. Phasellus volutpat nec ligula gfsjak...</p>
               
               <div className='w-full flex justify-center flex-row'>
-                  <button className='border-2 px-3 py-0.5 mx-4 border-black rounded-3xl bg-[#F5F5F7]'>Support</button>
-                  <button className='border-2 px-3 py-0.5 mx-4 border-black rounded-3xl bg-[#C8E4B2]'>Message</button>
+                  <button className='border-2 px-3 py-0.5 mx-4 border-black rounded-3xl text-sm font-medium	 bg-[#F5F5F7]'>Support</button>
+                  <button className='border-2 px-3 py-0.5 mx-4 border-black text-sm font-medium	 rounded-3xl bg-[#C8E4B2]'>Message</button>
           
               </div>
           </div>
@@ -32,7 +32,7 @@ const Profile = () => {
 
         <div className='p-2 pt-6 pb-2'>
           <div className='overflow-x-scroll whitespace-nowrap'>
-              <div className='w-full justify-around flex flex-row font-semibold'>
+              <div className='w-full justify-evenly flex flex-row font-semibold text-sm'>
                   <button className='border-2 border-black rounded-3xl px-3 py-0.5 bg-[#C8E4B2] mr-2'>Portfolio</button>
                   <button className='border-2 border-black rounded-3xl px-3 py-0.5 bg-[#F5F5F7] mr-2'>Tribe</button>
                   <button className='border-2 border-black rounded-3xl px-3 py-0.5 bg-[#F5F5F7] mr-2'>Store</button>
