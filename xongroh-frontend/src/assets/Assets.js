@@ -1,5 +1,5 @@
-import chat from '@/assets/chat.png'
-import bell from '@/assets/bell.png'
+import chat from '@/assets/chat.svg'
+import bell from '@/assets/bell.svg'
 import dummy1 from '@/assets/dummy1.png'
 import save from '@/assets/save.png'
 import home from '@/assets/home.svg'

@@ -4,11 +4,11 @@ import UserBox from '@/components/UserBox'
 const SearchPage = () => {
   return (
     <div className='bg-[#F8E8EE]'>
-        <div className='w-full header pb-10 pt-5 bg-[#C8E4B2] rounded-b-3xl flex flex-col'>
+        <div className='w-full header pb-10 bg-[#C8E4B2] rounded-b-3xl flex flex-col'>
         <div>
-            <div className='relative'>
+            <div className='relative '>
                 <img src={Assets.search} className='absolute left-12 top-1/2 transform -translate-y-1/2' />
-                <input type="search" id="site-search" name="search" className='pl-10 m-9 h-12 w-5/6 bg-white border-2 border-black rounded-2xl' placeholder='Search...' />
+                <input type="search" id="site-search" name="search" className='pl-10 m-8 mt-7 h-12 w-5/6 bg-white border-2 border-black rounded-2xl' placeholder='Search...' />
             </div>
         </div>
 
@@ -28,10 +28,10 @@ const SearchPage = () => {
                 
                 <div className='overflow-x-scroll whitespace-nowrap'>
                     <div className='w-full justify-stretch flex flex-row font-semibold text-sm'>
-                        <button className='border-2 border-black rounded-3xl px-3 py-0.5 w-52 h-8 ml-3 mr-1 bg-[#FDCEDF]'>Creators</button>
-                        <button className='border-2 border-black rounded-3xl px-3 py-0.5 w-52 h-8 mx-1 bg-[#F5F5F7]'>Communities</button>
-                        <button className='border-2 border-black rounded-3xl px-3 py-0.5 w-52 h-8 mx-1 bg-[#F5F5F7]'>Events</button>
-                        <button className='border-2 border-black rounded-3xl px-3 py-0.5 w-52 h-8 bg-[#F5F5F7]  mr-3 ml-1'>Courses</button>
+                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 ml-3 mr-1 bg-[#FDCEDF]'>Creators</button>
+                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 mx-1 bg-[#F5F5F7]'>Communities</button>
+                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 mx-1 bg-[#F5F5F7]'>Events</button>
+                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 bg-[#F5F5F7]  mr-3 ml-1'>Courses</button>
                     </div>
                 </div>
         </div>
