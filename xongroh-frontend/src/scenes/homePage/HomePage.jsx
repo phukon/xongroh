@@ -14,7 +14,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <p className='text-medium font-base p-5 '>Hi <span className='font-bold'>Mahendra</span>, have a nice day rgebb trbtr la!</p>
+        <p className='text-medium text-base font-normal p-5 '><span className='font-bold'>Hi Mahendra</span>, have a nice day!</p>
 
         <div className='grid grid-cols-2 gap-4 px-5 font-semibold text-sm'>
           <button className='border-2 border-black rounded-3xl w-25 h-10 bg-[#FDCEDF]'>Drafts</button>

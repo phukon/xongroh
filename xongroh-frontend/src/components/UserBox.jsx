@@ -10,7 +10,7 @@ const UserBox = () => {
           
           <div className='ml-2 mr-5'>
             <h3 className='font-bold'>John Doe</h3>
-            <p className='text-xs'>lorem ipsum lorem ipsum aru kiba kibi likhi asu...</p>
+            <p className='text-xs line-clamp-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis a est dapibus posuere. Donec molestie risus ac elit imperdiet pretium. Phasellus volutpat nec ligula gfsjak...</p>
           </div>
 
         </div>
