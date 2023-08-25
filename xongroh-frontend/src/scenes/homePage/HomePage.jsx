@@ -27,7 +27,7 @@ const HomePage = () => {
 
       </div>
       <div className='px-3'>
-        <h1 className='text-2xl font-bold pt-6 pl-6 pb-5'>Creations</h1>
+        <h1 className='text-2xl font-bold pt-6 pl-6'>Creations</h1>
 
     <div>
       <div className='overflow-x-scroll whitespace-nowrap p-2 pt-6 pb-2'>
@@ -41,6 +41,10 @@ const HomePage = () => {
       
     </div>
 
+       
+      </div>
+
+      <div className='px-4'>
         <ImageDiv/>
         <ImageDiv/>
         <ImageDiv/>
@@ -48,7 +52,10 @@ const HomePage = () => {
         <ImageDiv/>
         <ImageDiv/>
       </div>
+
     </div>
+
+    
   )
 }
 

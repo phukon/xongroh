@@ -1,5 +1,5 @@
 import Assets from '@/assets/Assets'
-import ImageDiv from '@/components/ImageDiv'
+import ProfilePost from '@/components/ProfilePost'
 
 const Profile = () => {
   return (
@@ -19,8 +19,8 @@ const Profile = () => {
                 </div>
               </div>
               
-              <div className='font-bold text-lg pt-2 pb-2'>Mahindra Alpha Beta</div>
-               <p className=' px-5 text-center pb-6 text-xs'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis a est dapibus posuere. Donec molestie risus ac elit imperdiet pretium. Phasellus volutpat nec ligula gfsjak...</p>
+              <div className='font-bold text-xl pt-2 pb-2'>Mahindra Alpha Beta</div>
+               <p className=' px-5 text-center pb-6 text-sm font-normal '>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis a est dapibus posuere. Donec molestie risus ac elit imperdiet pretium. Phasellus volutpat nec ligula gfsjak...</p>
               
               <div className='w-full flex justify-center flex-row'>
                   <button className='border-2 px-3 py-1 mx-4 border-black rounded-3xl text-sm font-medium	 bg-[#F5F5F7]'>Support</button>
@@ -43,9 +43,10 @@ const Profile = () => {
         </div>
 
       <div className='px-4'>
-        <ImageDiv/>
-        <ImageDiv/>
-        <ImageDiv/>
+        <ProfilePost/>
+        <ProfilePost/>
+        <ProfilePost/>
+        <ProfilePost/>
       </div>
 
   </div>
