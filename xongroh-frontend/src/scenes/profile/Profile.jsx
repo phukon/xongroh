@@ -3,7 +3,7 @@ import ImageDiv from '@/components/ImageDiv'
 
 const Profile = () => {
   return (
-      <div className='bg-[#FFDEB4]'>
+      <div className='bg-[#FFDEB4] overflow-hidden'>
         <div className='flex flex-col'>
           <img src={Assets.dummy1} className=' h-40 object-cover'/>
           <div className='header px-3 pt-5 pb-6 bg-[#F0D9FF] rounded-b-3xl flex flex-col items-center'>
@@ -32,11 +32,11 @@ const Profile = () => {
 
         <div className='p-2 pt-6 pb-2'>
           <div className='overflow-x-scroll whitespace-nowrap'>
-              <div className='w-full justify-evenly flex flex-row font-semibold text-sm'>
-                  <button className='border-2 border-black rounded-3xl px-3 py-1 bg-[#C8E4B2] mr-2'>Portfolio</button>
-                  <button className='border-2 border-black rounded-3xl px-3 py-1 bg-[#F5F5F7] mr-2'>Tribe</button>
-                  <button className='border-2 border-black rounded-3xl px-3 py-1 bg-[#F5F5F7] mr-2'>Store</button>
-                  <button className='border-2 border-black rounded-3xl px-3 py-1 bg-[#F5F5F7]'>Events</button>
+              <div className='w-full justify-stretch flex flex-row font-semibold text-sm'>
+                  <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 ml-3 mr-1 bg-[#C8E4B2]'>Portfolio</button>
+                  <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 mx-1 bg-[#F5F5F7]'>Tribe</button>
+                  <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 mx-1 bg-[#F5F5F7]'>Store</button>
+                  <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 bg-[#F5F5F7] mr-3 ml-1'>Events</button>
                   
               </div>
           </div>

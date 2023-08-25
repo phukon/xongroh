@@ -14,7 +14,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <p className='text-medium font-semibold p-5 '>Hi <span className='font-bold'>Mahendra</span>, Have a nice day rgebb trbtr la !</p>
+        <p className='text-medium font-base p-5 '>Hi <span className='font-bold'>Mahendra</span>, have a nice day rgebb trbtr la!</p>
 
         <div className='grid grid-cols-2 gap-4 px-5 font-semibold text-sm'>
           <button className='border-2 border-black rounded-3xl w-25 h-10 bg-[#FDCEDF]'>Drafts</button>
@@ -27,17 +27,18 @@ const HomePage = () => {
 
       </div>
       <div className='px-3'>
-        <h1 className='text-2xl font-bold pt-6 pb-5'>Creations</h1>
+        <h1 className='text-2xl font-bold pt-6 pl-6 pb-5'>Creations</h1>
 
-    <div className='p-2 pt-6 pb-2'>
-      <div className='overflow-x-scroll whitespace-nowrap'>
-        <div className='w-full justify-evenly flex flex-row font-semibold text-sm'>
-          <button className='border-2 border-black rounded-3xl px-3 py-1 mr-2 bg-[#FDCEDF]'>New</button>
-          <button className='border-2 border-black rounded-3xl px-3 py-1 mr-2 bg-[#F5F5F7]'>Popular</button>
-          <button className='border-2 border-black rounded-3xl px-3 py-1 mr-2 bg-[#F5F5F7]'>Mine</button>
-          <button className='border-2 border-black rounded-3xl px-3 py-1 bg-[#F5F5F7]'>Saved</button>
+    <div>
+      <div className='overflow-x-scroll whitespace-nowrap p-2 pt-6 pb-2'>
+        <div className='w-full justify-stretch flex flex-row font-semibold text-sm'>
+          <button className='border-2 border-black rounded-3xl w-52 h-8 px-3 py-1 mr-2 bg-[#FDCEDF]'>New</button>
+          <button className='border-2 border-black rounded-3xl w-52 h-8 px-3 py-1 mr-2 bg-[#F5F5F7]'>Popular</button>
+          <button className='border-2 border-black rounded-3xl w-52 h-8 px-3 py-1 mr-2 bg-[#F5F5F7]'>Mine</button>
+          <button className='border-2 border-black rounded-3xl w-52 h-8 px-3 py-1 bg-[#F5F5F7]'>Saved</button>
         </div>
       </div>
+      
     </div>
 
         <ImageDiv/>

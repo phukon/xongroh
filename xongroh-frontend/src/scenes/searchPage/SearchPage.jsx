@@ -3,7 +3,7 @@ import UserBox from '@/components/UserBox'
 
 const SearchPage = () => {
   return (
-    <div className='bg-[#F8E8EE]'>
+    <div className='bg-[#F8E8EE] w-full overflow-hidden'>
         <div className='w-full header pb-10 bg-[#C8E4B2] rounded-b-3xl flex flex-col'>
         <div>
             <div className='relative '>
@@ -24,14 +24,14 @@ const SearchPage = () => {
         </div>
 
         <div>
-                <h1 className='text-2xl font-bold py-6 p-3 pl-4'>Popular</h1>
+                <h1 className='text-2xl font-bold pl-6 pt-6'>Popular</h1>
                 
-                <div className='overflow-x-scroll whitespace-nowrap'>
+                <div className='overflow-x-scroll whitespace-nowrap p-2 pt-6 pb-2'>
                     <div className='w-full justify-stretch flex flex-row font-semibold text-sm'>
                         <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 ml-3 mr-1 bg-[#FDCEDF]'>Creators</button>
                         <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 mx-1 bg-[#F5F5F7]'>Communities</button>
                         <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 mx-1 bg-[#F5F5F7]'>Events</button>
-                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 bg-[#F5F5F7]  mr-3 ml-1'>Courses</button>
+                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 bg-[#F5F5F7] mr-3 ml-1'>Courses</button>
                     </div>
                 </div>
         </div>
