@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import LoginPage from '@/scenes/loginPage'
 import RegisterPage from '@/scenes/registerPage'
-import HomePage from "@/scenes/homePage/homePage"
+import HomePage from "@/scenes/homePage/HomePage"
 import PageNotFound from '@/scenes/pageNotFound/PageNotFound'
 import SearchPage from "@/scenes/searchPage/SearchPage"
 import Communities from "@/scenes/communities/Communities"
