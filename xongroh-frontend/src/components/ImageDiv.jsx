@@ -29,7 +29,7 @@ const ImageDiv = () => {
           <div>
             <button className='border-2 border-black rounded-3xl w-20 h-8 bg-[#FDCEDF]'>100+</button>
           </div>
-          <div className='text-xs pl-3 pr-4 '>
+          <div className='text-sm pl-3 pr-4 font-bold'>
             <p className='line-clamp-2'>lorem ipsum lorem ipsum aru kiba kibi lorem ipsum lorem ipsum aru kiba kibi likhi
              asu lorem ipsum lorem ipsum aru kiba kibi likhi asu lorem ipsum lorem ipsum aru kiba kibi likhi asu </p>
           </div> 
