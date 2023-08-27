@@ -1,4 +1,4 @@
-import Assets from '@/assets/Assets'
+import Assets from "@/assets/Assets"
 
 const CommunityBox = () => {
   return (
