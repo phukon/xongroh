@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "Please provide a unique email"],
       unique: true,
     },
+    friends: {
+      type: Array,
+      default: []
+    },
     firstName: { type: String },
     lastName: { type: String },
     mobile: { type: Number },
