@@ -2,7 +2,7 @@ import Assets from "@/assets/Assets";
 
 const UserBox = () => {
   return (
-    <div className="m-3 mt-4 flex flex-row items-center justify-between rounded-2xl border-2 border-black bg-white p-3">
+    <div className="m-4 mt-4 flex flex-row items-center justify-between rounded-2xl shadow-card bg-white p-3">
       <div className="flex items-center">
         <img className="h-50 w-50 rounded-full" src={Assets.user1} alt="dp" />
 
@@ -17,7 +17,7 @@ const UserBox = () => {
       </div>
 
       <div>
-        <button className="h-7 w-20 rounded-3xl border border-black bg-[#FFD9B7] text-sm">
+        <button className="h-7 w-20 rounded-3xl shadow-button bg-[#FFD9B7] text-sm font-medium ">
           Support
         </button>
       </div>
