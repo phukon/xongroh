@@ -40,20 +40,20 @@ const SearchPage = () => {
       </div>
 
       <div>
-        <h1 className="pl-6 pt-8 text-2xl font-bold">Popular</h1>
+        <h1 className="pl-3 pt-8 text-2xl font-bold">Popular</h1>
 
-        <div className="overflow-x-scroll whitespace-nowrap p-2 pb-2 pt-6">
+        <div className="overflow-x-scroll whitespace-nowrap mx-3 pb-2 pt-6">
           <div className="flex w-full flex-row justify-stretch text-sm font-semibold">
-            <button className="shadow-button ml-3 mr-1 h-8 w-52 rounded-3xl bg-[#FFD1D1] px-3 py-1">
+            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#FFD1D1] px-3 py-1">
               Creators
             </button>
-            <button className="shadow-button mx-1 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
+            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
               Communities
             </button>
-            <button className="shadow-button mx-1 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
+            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
               Events
             </button>
-            <button className="shadow-button ml-1 mr-3 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
+            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
               Courses
             </button>
           </div>

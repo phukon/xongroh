@@ -3,7 +3,7 @@ import ImageDiv from "@/components/ImageDiv";
 
 const HomePage = () => {
   return (
-    <div className="bg-[#FAF2FF]">
+    <div className="overflow-hidden bg-[#FAF2FF]">
       <div className="header shadow-card rounded-b-3xl bg-[#F5F0BB] px-5 pb-12">
         <div className="header-text flex flex-row items-center justify-between py-5">
           <h1 className="text-3xl font-bold">Xongroh</h1>
@@ -38,8 +38,9 @@ const HomePage = () => {
           </button>
         </div>
       </div>
+
       <div className="px-3">
-        <h1 className="pl-6 pt-8 text-2xl font-bold">Creations</h1>
+        <h1 className="pl-3 pt-8 text-2xl font-bold">Creations</h1>
 
         <div>
           <div className="overflow-x-scroll whitespace-nowrap p-2 pb-2 pt-6">
