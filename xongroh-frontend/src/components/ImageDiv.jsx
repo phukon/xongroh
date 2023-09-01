@@ -38,9 +38,11 @@ const ImageDiv = () => {
               100+
             </button>
           </div>
-          <div className="pl-3 pr-4 text-sm font-semibold">
+          <div className="pl-3 pr-4 text-sm font-bold">
             <p className="line-clamp-2">
-            Create the Perfect Title for Your New Blog Post. Generate dozens of relevant title suggestions in just a click and get new content ideas for your blog.{" "}
+              Create the Perfect Title for Your New Blog Post. Generate dozens
+              of relevant title suggestions in just a click and get new content
+              ideas for your blog.{" "}
             </p>
           </div>
         </div>
