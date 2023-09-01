@@ -27,10 +27,10 @@ const Profile = () => {
           </p>
 
           <div className="flex w-full flex-row justify-center">
-            <button className="shadow-button h-8 w-28 mx-4 rounded-3xl bg-[#FFFFFF] px-4 py-1 text-sm	 font-medium">
-              Support
+            <button className="shadow-button mx-4 h-9 w-28 rounded-3xl bg-[#DFCCFB] px-4 py-1 text-sm	 font-medium">
+              Supporting
             </button>
-            <button className="shadow-button h-8 w-28 mx-4 rounded-3xl bg-[#DFCCFB] px-4 py-1	 text-sm font-medium">
+            <button className="shadow-button mx-4 h-9 w-28 rounded-3xl bg-[#FFFFFF] px-4 py-1 text-sm font-medium">
               Message
             </button>
           </div>
