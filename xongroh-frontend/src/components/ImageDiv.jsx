@@ -31,19 +31,17 @@ const ImageDiv = () => {
         />
       </div>
 
-      <div className="flex h-14 w-full flex-row items-center rounded-b-2xl border-x-2 bg-[#F5F0BB] py-3 pl-4 font-semibold">
+      <div className="flex h-14 w-full flex-row items-center rounded-b-2xl border-x-2 bg-[#F5F0BB] py-3 pl-4 ">
         <div className="flex items-center">
           <div>
-            <button className="shadow-button h-8 w-20 rounded-3xl bg-[#DFCCFB]">
+            <button className="shadow-button h-8 w-20 rounded-3xl bg-[#DFCCFB] font-semibold">
               100+
             </button>
           </div>
-          <div className="pl-3 pr-4 text-sm font-bold">
-            <p className="line-clamp-2">
-              Create the Perfect Title for Your New Blog Post. Generate dozens
-              of relevant title suggestions in just a click and get new content
-              ideas for your blog.{" "}
-            </p>
+          <div className="line-clamp-2 pl-3 pr-4 text-sm font-bold ">
+            Create the Perfect Title for Your New Blog Post. Generate dozens of
+            relevant title suggestions in just a click and get new content ideas
+            for your blog.{" "}
           </div>
         </div>
       </div>

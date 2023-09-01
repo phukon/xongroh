@@ -2,7 +2,7 @@ import Assets from "@/assets/Assets";
 
 const CommunityBox = () => {
   return (
-    <div className="m-3 mt-4 flex flex-row items-center justify-between rounded-2xl border-2 border-black bg-white p-3">
+    <div className="m-4 mt-5 flex flex-row items-center justify-between rounded-2xl  bg-[#FFFBDC] shadow-card p-3">
       <div className="flex items-center">
         <div className="pr-4">
           <img src={Assets.music} alt="bell" />
