@@ -3,10 +3,10 @@ import ProfilePost from "@/components/ProfilePost";
 
 const Profile = () => {
   return (
-    <div className="overflow-hidden bg-[#FFDEB4]">
+    <div className="overflow-hidden bg-[#FFF5E8]">
       <div className="flex flex-col">
         <img src={Assets.dummy1} className=" h-40 object-cover" />
-        <div className="header flex flex-col items-center rounded-b-3xl bg-[#F0D9FF] px-3 pb-6 pt-5">
+        <div className="header shadow-card flex flex-col items-center rounded-b-3xl bg-[#C8E4B2] px-3 pb-6 pt-5">
           <div className="-mb-10 flex w-full flex-row justify-around">
             <div className="text-center">
               <div className="font-bold">25</div>
@@ -27,29 +27,29 @@ const Profile = () => {
           </p>
 
           <div className="flex w-full flex-row justify-center">
-            <button className="mx-4 rounded-3xl border-2 border-black bg-[#F5F5F7] px-3 py-1 text-sm	 font-medium">
+            <button className="shadow-button mx-4 rounded-3xl bg-[#FFFFFF] px-4 py-1 text-sm	 font-medium">
               Support
             </button>
-            <button className="mx-4 rounded-3xl border-2 border-black bg-[#C8E4B2] px-3 py-1	 text-sm font-medium">
+            <button className="shadow-button mx-4 rounded-3xl bg-[#DFCCFB] px-4 py-1	 text-sm font-medium">
               Message
             </button>
           </div>
         </div>
       </div>
 
-      <div className="p-2 pb-2 pt-6">
+      <div className="p-2 pb-2 pt-10">
         <div className="overflow-x-scroll whitespace-nowrap">
           <div className="flex w-full flex-row justify-stretch text-sm font-semibold">
-            <button className="ml-3 mr-1 h-8 w-52 rounded-3xl border-2 border-black bg-[#C8E4B2] px-3 py-1">
+            <button className="shadow-button ml-3 mr-1 h-8 w-52 rounded-3xl bg-[#DFCCFB] px-3 py-1">
               Portfolio
             </button>
-            <button className="mx-1 h-8 w-52 rounded-3xl border-2 border-black bg-[#F5F5F7] px-3 py-1">
+            <button className="shadow-button mx-1 h-8 w-52 rounded-3xl bg-[#FFFFFF] px-3 py-1">
               Tribe
             </button>
-            <button className="mx-1 h-8 w-52 rounded-3xl border-2 border-black bg-[#F5F5F7] px-3 py-1">
+            <button className="shadow-button mx-1 h-8 w-52 rounded-3xl bg-[#FFFFFF] px-3 py-1">
               Store
             </button>
-            <button className="ml-1 mr-3 h-8 w-52 rounded-3xl border-2 border-black bg-[#F5F5F7] px-3 py-1">
+            <button className="shadow-button ml-1 mr-3 h-8 w-52 rounded-3xl bg-[#FFFFFF] px-3 py-1">
               Events
             </button>
           </div>
