@@ -104,8 +104,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
             query: ({ postId, reactions }) => ({
                 url: `posts/${postId}`,
                 method: 'PATCH',
-                // In a real app, we'd probably need to base this on user ID somehow
-                // so that a user can't do the same reaction more than once
                 body: { reactions }
             }),
             async onQueryStarted({ postId, reactions }, { dispatch, queryFulfilled }) {
