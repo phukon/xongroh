@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 const PageNotFound = () => {
   return (
-    <div className='text-center p-10 font-medium text-5xl'>PageNotFound</div>
-  )
-}
+    <div className="p-10 text-center text-5xl font-medium">PageNotFound</div>
+  );
+};
 
-export default PageNotFound
+export default PageNotFound;

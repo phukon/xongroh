@@ -1,23 +1,23 @@
-import Assets from '@/assets/Assets'
-import { Link } from 'react-router-dom'
+import Assets from "@/assets/Assets";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="flex flex-row justify-between py-3 px-10 bg-white fixed bottom-0 left-0 w-full">
+    <nav className="fixed bottom-0 left-0 flex w-full flex-row justify-between bg-white px-10 py-3">
       <Link to="/home">
-        <img className='w-8 h-8' src={Assets.home} alt="Home"/>
+        <img className="h-8 w-8" src={Assets.home} alt="Home" />
       </Link>
       <Link to="/search">
-        <img className='w-8 h-8' src={Assets.search} alt="About"/>
+        <img className="h-8 w-8" src={Assets.search} alt="About" />
       </Link>
       <Link to="/communities">
-        <img className='w-8 h-8' src={Assets.world} alt="About"/>
+        <img className="h-8 w-8" src={Assets.world} alt="About" />
       </Link>
       <Link to="/profile">
-        <img className='w-8 h-8' src={Assets.profile} alt="About"/>
+        <img className="h-8 w-8" src={Assets.profile} alt="About" />
       </Link>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

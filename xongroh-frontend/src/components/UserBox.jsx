@@ -1,26 +1,28 @@
-import Assets from '@/assets/Assets'
+import Assets from "@/assets/Assets";
 
 const UserBox = () => {
   return (
-    <div className='bg-white flex flex-row p-3 m-3 mt-4 border-2 border-black rounded-2xl justify-between items-center'>
-        
-        <div className='flex items-center'>
+    <div className="m-3 mt-4 flex flex-row items-center justify-between rounded-2xl border-2 border-black bg-white p-3">
+      <div className="flex items-center">
+        <img className="h-50 w-50 rounded-full" src={Assets.user1} alt="dp" />
 
-          <img className='rounded-full h-50 w-50' src={Assets.user1} alt = 'dp'/>
-          
-          <div className='ml-2 mr-5'>
-            <h3 className='font-bold'>John Doe</h3>
-            <p className='text-xs line-clamp-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis a est dapibus posuere. Donec molestie risus ac elit imperdiet pretium. Phasellus volutpat nec ligula gfsjak...</p>
-          </div>
-
+        <div className="ml-2 mr-5">
+          <h3 className="font-bold">John Doe</h3>
+          <p className="line-clamp-2 text-xs">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id
+            felis a est dapibus posuere. Donec molestie risus ac elit imperdiet
+            pretium. Phasellus volutpat nec ligula gfsjak...
+          </p>
         </div>
+      </div>
 
-        <div>
-          <button className='rounded-3xl w-20 h-7 border text-sm border-black bg-[#FFD9B7]'>Support</button>
-        </div>
-
+      <div>
+        <button className="h-7 w-20 rounded-3xl border border-black bg-[#FFD9B7] text-sm">
+          Support
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserBox
+export default UserBox;

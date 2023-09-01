@@ -1,51 +1,75 @@
-import Assets from '@/assets/Assets'
-import UserBox from '@/components/UserBox'
+import Assets from "@/assets/Assets";
+import UserBox from "@/components/UserBox";
 
 const SearchPage = () => {
   return (
-    <div className='bg-[#F8E8EE] w-full overflow-hidden'>
-        <div className='w-full header pb-10 bg-[#C8E4B2] rounded-b-3xl flex flex-col'>
+    <div className="w-full overflow-hidden bg-[#F8E8EE]">
+      <div className="header flex w-full flex-col rounded-b-3xl bg-[#C8E4B2] pb-10">
         <div>
-            <div className='relative '>
-                <img src={Assets.search} className='absolute left-12 top-1/2 transform -translate-y-1/2' />
-                <input type="search" id="site-search" name="search" className='pl-10 m-8 mt-7 h-12 w-5/6 bg-white border-2 border-black rounded-2xl' placeholder='Search...' />
-            </div>
+          <div className="relative ">
+            <img
+              src={Assets.search}
+              className="absolute left-12 top-1/2 -translate-y-1/2 transform"
+            />
+            <input
+              type="search"
+              id="site-search"
+              name="search"
+              className="m-8 mt-7 h-12 w-5/6 rounded-2xl border-2 border-black bg-white pl-10"
+              placeholder="Search..."
+            />
+          </div>
         </div>
 
-        <h1 className='text-2xl font-bold p-4 pl-6 pt-2 pb-6'>Find</h1>
-            
-            <div className='grid grid-cols-2 gap-4 px-5 font-semibold text-sm '>
-            <button className='border-2 border-black rounded-3xl w-25 h-10 bg-[#FDCEDF]'>Communities</button>
-            <button className='border-2 border-black rounded-3xl w-25 h-10 bg-[#FDCEDF]'>Creators</button>
-            <button className='border-2 border-black rounded-3xl w-25 h-10 bg-[#F5F5F7]'>Events</button>
-            <button className='border-2 border-black rounded-3xl w-25 h-10 bg-[#F5F5F7]'>Courses</button>
-            </div>
+        <h1 className="p-4 pb-6 pl-6 pt-2 text-2xl font-bold">Find</h1>
 
+        <div className="grid grid-cols-2 gap-4 px-5 text-sm font-semibold ">
+          <button className="w-25 h-10 rounded-3xl border-2 border-black bg-[#FDCEDF]">
+            Communities
+          </button>
+          <button className="w-25 h-10 rounded-3xl border-2 border-black bg-[#FDCEDF]">
+            Creators
+          </button>
+          <button className="w-25 h-10 rounded-3xl border-2 border-black bg-[#F5F5F7]">
+            Events
+          </button>
+          <button className="w-25 h-10 rounded-3xl border-2 border-black bg-[#F5F5F7]">
+            Courses
+          </button>
         </div>
+      </div>
 
-        <div>
-                <h1 className='text-2xl font-bold pl-6 pt-6'>Popular</h1>
-                
-                <div className='overflow-x-scroll whitespace-nowrap p-2 pt-6 pb-2'>
-                    <div className='w-full justify-stretch flex flex-row font-semibold text-sm'>
-                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 ml-3 mr-1 bg-[#FDCEDF]'>Creators</button>
-                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 mx-1 bg-[#F5F5F7]'>Communities</button>
-                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 mx-1 bg-[#F5F5F7]'>Events</button>
-                        <button className='border-2 border-black rounded-3xl px-3 py-1 w-52 h-8 bg-[#F5F5F7] mr-3 ml-1'>Courses</button>
-                    </div>
-                </div>
+      <div>
+        <h1 className="pl-6 pt-6 text-2xl font-bold">Popular</h1>
+
+        <div className="overflow-x-scroll whitespace-nowrap p-2 pb-2 pt-6">
+          <div className="flex w-full flex-row justify-stretch text-sm font-semibold">
+            <button className="ml-3 mr-1 h-8 w-52 rounded-3xl border-2 border-black bg-[#FDCEDF] px-3 py-1">
+              Creators
+            </button>
+            <button className="mx-1 h-8 w-52 rounded-3xl border-2 border-black bg-[#F5F5F7] px-3 py-1">
+              Communities
+            </button>
+            <button className="mx-1 h-8 w-52 rounded-3xl border-2 border-black bg-[#F5F5F7] px-3 py-1">
+              Events
+            </button>
+            <button className="ml-1 mr-3 h-8 w-52 rounded-3xl border-2 border-black bg-[#F5F5F7] px-3 py-1">
+              Courses
+            </button>
+          </div>
         </div>
+      </div>
 
-      <UserBox/>
-      <UserBox/>
-      <UserBox/>
-      <UserBox/>
-      <UserBox/>
-      <UserBox/>
-      <UserBox/>
-      <UserBox/>
+      <UserBox />
+      <UserBox />
+      <UserBox />
+      <UserBox />
+      <UserBox />
+      <UserBox />
+      <UserBox />
+      <UserBox />
     </div>
-  )
-}
+  );
+};
 
-export default SearchPage
+export default SearchPage;
