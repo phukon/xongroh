@@ -13,7 +13,7 @@ const CommunityPage = () => {
               <img src={Assets.music} alt="bell" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold ">Music Community</h3>
+              <h3 className="text-sm font-semibold ">Assam Music Community</h3>
               <p className="text-xs font-normal ">Members: 1.3k</p>
             </div>
           </div>
