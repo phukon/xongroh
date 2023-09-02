@@ -29,7 +29,7 @@ function App() {
 
             <Route path="home" element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
-            <Route path="communities" element={<Communities />} />
+            <Route path="communities" element={<MyCommunities />} />
             <Route path="profile" element={<Profile />} />
             
           </Route>
