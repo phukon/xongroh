@@ -24,16 +24,16 @@ const HomePage = () => {
           <button className="w-25 shadow-button h-10 rounded-3xl bg-[#DFCCFB]">
             Discussions
           </button>
-          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#F5F5F7]">
+          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#FFFFFF]">
             Store
           </button>
-          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#F5F5F7]">
+          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#FFFFFF]">
             Masterclass
           </button>
-          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#F5F5F7]">
+          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#FFFFFF]">
             Events
           </button>
-          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#F5F5F7]">
+          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#FFFFFF]">
             Analytics
           </button>
         </div>
@@ -48,13 +48,13 @@ const HomePage = () => {
               <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#DFCCFB] px-3 py-1">
                 New
               </button>
-              <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
+              <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#FFFFFF] px-3 py-1">
                 Popular
               </button>
-              <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
+              <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#FFFFFF] px-3 py-1">
                 Mine
               </button>
-              <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
+              <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#FFFFFF] px-3 py-1">
                 Saved
               </button>
             </div>

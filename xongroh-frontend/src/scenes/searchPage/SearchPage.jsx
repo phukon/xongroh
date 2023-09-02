@@ -30,10 +30,10 @@ const SearchPage = () => {
           <button className="w-25 shadow-button h-10 rounded-3xl bg-[#FFD1D1]">
             Creators
           </button>
-          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#F5F5F7]">
+          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#FFFFFF]">
             Events
           </button>
-          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#F5F5F7]">
+          <button className="w-25 shadow-button h-10 rounded-3xl bg-[#FFFFFF]">
             Courses
           </button>
         </div>
@@ -42,18 +42,18 @@ const SearchPage = () => {
       <div>
         <h1 className="pl-3 pt-8 text-2xl font-bold">Popular</h1>
 
-        <div className="overflow-x-scroll whitespace-nowrap mx-3 pb-2 pt-6">
+        <div className="mx-3 overflow-x-scroll whitespace-nowrap pb-2 pt-6">
           <div className="flex w-full flex-row justify-stretch text-sm font-semibold">
             <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#FFD1D1] px-3 py-1">
               Creators
             </button>
-            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
+            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#FFFFFF] px-3 py-1">
               Communities
             </button>
-            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
+            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#FFFFFF] px-3 py-1">
               Events
             </button>
-            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#F5F5F7] px-3 py-1">
+            <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#FFFFFF] px-3 py-1">
               Courses
             </button>
           </div>

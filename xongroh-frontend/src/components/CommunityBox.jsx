@@ -2,13 +2,14 @@ import Assets from "@/assets/Assets";
 
 const CommunityBox = () => {
   return (
-    <div className="m-4 mt-5 flex flex-row items-center justify-between rounded-2xl  bg-[#FFFBDC] shadow-card p-3">
+    <div className="shadow-card m-4 flex flex-row items-center justify-between  rounded-2xl bg-[#FFFBDC] p-3">
       <div className="flex items-center">
-        <div className="pr-4">
+        <div className="pr-3">
           <img src={Assets.music} alt="bell" />
         </div>
         <div>
-          <h3 className="font-semibold">Music Community</h3>
+          <h3 className="text-sm font-semibold ">Assam Music Community</h3>
+          <p className="text-xs font-normal ">Members: 1.3k</p>
         </div>
       </div>
       <div>

@@ -15,7 +15,7 @@ const ProfilePost = () => {
           className="mt-5 flex h-60 w-full flex-row justify-between rounded-t-2xl "
           style={divStyle}
         >
-          <div className="shadow-button ml-3 mt-3 flex h-[15%] w-[50%] items-center justify-evenly rounded-3xl bg-[#DFCCFB] py-1.5 text-center font-semibold">
+          <div className="shadow-button ml-3 mt-3 flex h-[13%] w-[50%] items-center justify-evenly rounded-3xl bg-[#DFCCFB] py-1.5 text-center font-semibold">
             <div>
               <img
                 className="h-8 w-8 rounded-full "
@@ -25,7 +25,7 @@ const ProfilePost = () => {
             </div>
             <div className="text-sm font-semibold">Mahendra Alpha</div>
           </div>
-          <button className="shadow-button mr-3 mt-3 h-9 w-20 rounded-3xl bg-[#DFCCFB] font-medium ">
+          <button className="shadow-button mr-3 mt-3 h-8 w-20 rounded-3xl bg-[#DFCCFB] font-medium ">
             100+
           </button>
         </div>

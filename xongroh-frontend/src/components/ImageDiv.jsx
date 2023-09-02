@@ -14,7 +14,7 @@ const ImageDiv = () => {
         className="mt-5 flex h-60 w-full flex-row justify-between rounded-t-2xl"
         style={divStyle}
       >
-        <div className="shadow-button ml-4 mt-3 flex h-[15%] w-[50%] items-center justify-evenly rounded-3xl bg-[#DFCCFB] py-1.5 text-center font-semibold">
+        <div className="shadow-button ml-4 mt-3 flex h-[13%] w-[50%] items-center justify-evenly rounded-3xl bg-[#DFCCFB] py-1.5 text-center font-semibold">
           <div>
             <img
               className="h-8 w-8 rounded-full "
@@ -25,7 +25,7 @@ const ImageDiv = () => {
           <div className="text-sm font-semibold">Mahendra Alpha</div>
         </div>
         <img
-          className="mr-4 mt-2 max-h-[18%] py-1.5"
+          className="mr-4 mt-2 max-h-[16%] py-1.5"
           src={Assets.save}
           alt="save"
         />
