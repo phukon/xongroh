@@ -1,9 +1,9 @@
-import CommunityBox from "@/components/CommunityBox";
+import DiscussionCard from "@/components/DiscussionCard";
 import Assets from "@/assets/Assets";
 
 const CommunityPage = () => {
   return (
-    <div className="w-full h-full overflow-hidden bg-[#EEF1FF]">
+    <div className="h-full w-full overflow-hidden bg-[#EEF1FF]">
       <div className="header shadow-card flex w-full flex-col rounded-b-3xl bg-[#FFFBDC] pb-6">
         <div className="m-4 mt-6 flex flex-row items-center justify-between  rounded-2xl bg-[#FFFBDC]">
           <div className="flex items-center">
@@ -32,7 +32,7 @@ const CommunityPage = () => {
       </div>
 
       <div>
-        <div className="overflow-x-scroll whitespace-nowrap p-2 pb-2 pt-6">
+        <div className="mx-3 overflow-x-scroll whitespace-nowrap pt-8">
           <div className="flex w-full flex-row justify-stretch text-sm font-semibold">
             <button className="shadow-button mr-2 h-8 w-52 rounded-3xl bg-[#B8E8FC] px-3 py-1">
               New
@@ -53,8 +53,18 @@ const CommunityPage = () => {
         </div>
       </div>
 
-      <div className="pt-2">
-        
+      <div className="px-4">
+        <DiscussionCard />
+        <DiscussionCard />
+        <DiscussionCard />
+        <DiscussionCard />
+        <DiscussionCard />
+        <DiscussionCard />
+        <DiscussionCard />
+        <DiscussionCard />
+        <DiscussionCard />
+        <DiscussionCard />
+        <DiscussionCard />
       </div>
     </div>
   );
