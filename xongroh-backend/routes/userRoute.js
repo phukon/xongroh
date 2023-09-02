@@ -11,10 +11,10 @@ import rateLimiter from '../middleware/rateLimiter.js';
 router.route('/register').post(rateLimiter, userController.register); // register user
 router.route('/registerMail').post(registerMail); // send the email
 router.route('/authenticate').post(userController.verifyUser, (req, res) => res.end()); // authenticate user
-router.route('/login').post(rateLimiter, userController.verifyUser,userController.login); // login in app
+router.route('/login').post(rateLimiter, userController.verifyUser, userController.login); // login in app
 
 /** GET Methods */
-router.route('/getAllUsers').get(userController.getAllUsers); // get all users
+router.route('/getAllUsers').get(userController.verifyUser, userController.getAllUsers); // get all users
 router.route('/generateOTP').get(userController.verifyUser, localVariables, userController.generateOTP) // generate random OTP
 router.route('/verifyOTP').get(userController.verifyUser, userController.verifyOTP) // verify generated OTP
 router.route('/createResetSession').get(userController.createResetSession) // reset all the variables

@@ -114,7 +114,7 @@ export const login = asyncHandler(async (req, res) => {
 // @access Private
 export const getAllUsers = asyncHandler(async (req, res) => {
   // Get all users from MongoDB
-  const users = await User.find().select('-password').lean()
+  const users = await UserModel.find().select('-password').lean()
 
   // If no users 
   if (!users?.length) {

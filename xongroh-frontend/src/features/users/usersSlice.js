@@ -4,18 +4,18 @@ import {
 } from "@reduxjs/toolkit";
 import { apiSlice } from "../api/apiSlice";
 
-const usersAdapter = createEntityAdapter()
+// const usersAdapter = createEntityAdapter()
 
-// const usersAdapter = createEntityAdapter({
-//     selectId: (e) => e._id
-// })
+const usersAdapter = createEntityAdapter({
+    selectId: (e) => e._id
+})
 
 const initialState = usersAdapter.getInitialState()
 
 export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getUsers: builder.query({
-            query: () => '/user/getAllUsers',
+            query: () => '/user/getAllUsers?username=admin',
             transformResponse: responseData => {
                 return usersAdapter.setAll(initialState, responseData)
             },
