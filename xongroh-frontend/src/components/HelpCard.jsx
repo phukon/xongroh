@@ -1,6 +1,6 @@
 import Assets from "@/assets/Assets";
 
-const DiscussionCard = () => {
+const HelpCard = () => {
   return (
     <div className="overflow-hidden">
       <div className="mt-5 w-full justify-between rounded-t-2xl bg-[#CEF1FF]">
@@ -15,7 +15,7 @@ const DiscussionCard = () => {
             </div>
             <div className="text-sm font-semibold">Mahendra Alpha</div>
           </div>
-          <div className="mr-4 mt-4 text-xs font-semibold">Discussion</div>
+          <div className="mr-4 mt-4 text-xs font-semibold">Help</div>
         </div>
         <div className="mx-5 mt-5 text-sm font-semibold ">
           <div>Lorem Ipsum is simply dummy text of the printing and....</div>
@@ -42,7 +42,7 @@ const DiscussionCard = () => {
           </div>
           <div>
             <button className="shadow-button h-8 w-36 rounded-3xl bg-[#FFFFFF] font-semibold">
-              <div>Response <span className="text-xs">(14)</span> </div>
+              <div>Response <span className="text-xs">(228)</span> </div>
             </button>
          
         </div>
@@ -51,4 +51,4 @@ const DiscussionCard = () => {
   );
 };
 
-export default DiscussionCard;
+export default HelpCard;

@@ -1,4 +1,6 @@
 import DiscussionCard from "@/components/DiscussionCard";
+import HelpCard from "@/components/HelpCard";
+import PollCard from "@/components/PollCard";
 import Assets from "@/assets/Assets";
 
 const CommunityPage = () => {
@@ -55,12 +57,11 @@ const CommunityPage = () => {
 
       <div className="px-4">
         <DiscussionCard />
-        <DiscussionCard />
-        <DiscussionCard />
-        <DiscussionCard />
-        <DiscussionCard />
-        <DiscussionCard />
-        <DiscussionCard />
+        <HelpCard />
+        <PollCard />
+        <HelpCard />
+        <HelpCard />
+        <PollCard />
         <DiscussionCard />
         <DiscussionCard />
         <DiscussionCard />
