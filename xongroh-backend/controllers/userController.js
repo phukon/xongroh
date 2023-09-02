@@ -69,7 +69,7 @@ export const register = asyncHandler(async (req, res) => {
 
 
 
-/** POST: http://localhost:8080/api/login 
+/** POST: http://localhost:8000/api/login 
  * @param: {
   "username" : "example123",
   "password" : "admin123"
@@ -109,9 +109,24 @@ export const login = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Get all users
+// @route GET /usersAllUsers
+// @access Private
+export const getAllUsers = asyncHandler(async (req, res) => {
+  // Get all users from MongoDB
+  const users = await User.find().select('-password').lean()
+
+  // If no users 
+  if (!users?.length) {
+      return res.status(400).json({ message: 'No users found' })
+  }
+
+  res.json(users)
+})
 
 
-/** GET: http://localhost:8080/api/user/example123 */
+
+/** GET: http://localhost:8080/v1/user/example123 */
 export const getUser = asyncHandler(async (req, res) => {
   const { username } = req.params;
 

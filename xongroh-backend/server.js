@@ -11,6 +11,7 @@ import corsOptions from './config/corsOptions.js';
 import connectDB from './config/dbConn.js';
 import mongoose from 'mongoose';
 import userRoute from './routes/userRoute.js';
+// import postRoute from './routes/postRoute.js';
 import rootRoute from './routes/root.js'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
@@ -44,6 +45,7 @@ app.use('/', express.static(path.join(__dirname, 'public'), { cacheControl: fals
 app.use('/', rootRoute);
 // app.use('/auth', require('./routes/authRoutes'));
 app.use('/v1/user', userRoute);
+// app.use('/v1/post', postRoute);
 app.use('/v1/api', apiCheckRoute);
 
 // app.use(require("./routes/auth"));
