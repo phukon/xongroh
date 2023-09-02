@@ -8,7 +8,7 @@ const DiscussionCard = () => {
           <div className="shadow-button ml-4 mt-3 flex h-[10%] w-[50%] items-center justify-evenly rounded-3xl bg-[#FFFFFF] text-center font-semibold">
             <div>
               <img
-                className="h-7 w-7 rounded-full "
+                className="h-8 w-8 rounded-full "
                 src={Assets.user1}
                 alt="dp"
               />
@@ -17,11 +17,11 @@ const DiscussionCard = () => {
           </div>
           <div className="mr-4 mt-4 text-xs font-semibold">Discussion</div>
         </div>
-        <div className="mx-4 mt-4 text-sm font-semibold">
+        <div className="mx-5 mt-4 text-sm font-semibold text-justify">
           <div>Lorem Ipsum is simply dummy text of the printing and....</div>
         </div>
-        <div className="mx-4 mt-3 text-xs">
-          <div className="line-clamp-8">
+        <div className="mx-5 mt-3 text-xs">
+          <div className="line-clamp-8 text-justify">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of it to
