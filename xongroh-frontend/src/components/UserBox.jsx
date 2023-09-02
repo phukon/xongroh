@@ -1,4 +1,4 @@
-import Assets from "@/assets/Assets";
+import Assets from '@/assets/Assets'
 
 const UserBox = () => {
   return (
@@ -22,7 +22,7 @@ const UserBox = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default UserBox;
+export default UserBox

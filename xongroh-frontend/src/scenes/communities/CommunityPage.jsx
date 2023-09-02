@@ -1,7 +1,7 @@
-import DiscussionCard from "@/components/DiscussionCard";
-import HelpCard from "@/components/HelpCard";
-import PollCard from "@/components/PollCard";
-import Assets from "@/assets/Assets";
+import DiscussionCard from '@/components/DiscussionCard'
+import HelpCard from '@/components/HelpCard'
+import PollCard from '@/components/PollCard'
+import Assets from '@/assets/Assets'
 
 const CommunityPage = () => {
   return (
@@ -68,7 +68,7 @@ const CommunityPage = () => {
         <DiscussionCard />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CommunityPage;
+export default CommunityPage

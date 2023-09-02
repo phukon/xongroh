@@ -1,12 +1,12 @@
-import Assets from "@/assets/Assets";
+import Assets from '@/assets/Assets'
 
 const ProfilePost = () => {
   const divStyle = {
     backgroundImage: `url(${Assets.dummy1})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
-  };
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+  }
 
   return (
     <div className="overflow-hidden">
@@ -49,7 +49,7 @@ const ProfilePost = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProfilePost;
+export default ProfilePost

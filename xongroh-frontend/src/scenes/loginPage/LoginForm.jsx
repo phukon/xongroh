@@ -1,23 +1,23 @@
-import { Link } from "react-router-dom";
-import * as yup from "yup";
-import { Formik, Form, ErrorMessage, Field } from "formik";
+import { Link } from 'react-router-dom'
+import * as yup from 'yup'
+import { Formik, Form, ErrorMessage, Field } from 'formik'
 
 const LoginForm = () => {
   const loginSchema = yup.object().shape({
-    email: yup.string().email("Invalid email").required("Email is required"),
-    password: yup.string().required("Password is required"),
-  });
+    email: yup.string().email('Invalid email').required('Email is required'),
+    password: yup.string().required('Password is required'),
+  })
 
   const initialValuesLogin = {
-    email: "",
-    password: "",
-  };
+    email: '',
+    password: '',
+  }
 
   const onSubmit = (values, { resetForm }) => {
-    console.log("onSubmit", values);
+    console.log('onSubmit', values)
 
-    resetForm();
-  };
+    resetForm()
+  }
 
   // const login = async (values) => {
   //     const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
@@ -78,7 +78,7 @@ const LoginForm = () => {
 
           <div className="py-4 text-center">
             <span className="text-gray-500">
-              Don't have an account?{" "}
+              Don't have an account?{' '}
               <Link className="font-medium text-orange-400" to="/register">
                 Create an account
               </Link>
@@ -87,7 +87,7 @@ const LoginForm = () => {
         </Form>
       )}
     </Formik>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

@@ -1,8 +1,8 @@
-import Assets from "@/assets/Assets";
-import { Link } from "react-router-dom";
+import Assets from '@/assets/Assets'
+import { Link } from 'react-router-dom'
 
 const CommunityBox = () => {
-  const CommunityPage = "/communitypage";
+  const CommunityPage = '/communitypage'
 
   return (
     <Link to={CommunityPage} className="text-decoration-none">
@@ -21,7 +21,7 @@ const CommunityBox = () => {
         </div>
       </div>
     </Link>
-  );
-};
+  )
+}
 
-export default CommunityBox;
+export default CommunityBox

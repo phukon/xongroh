@@ -1,5 +1,5 @@
-import Assets from "@/assets/Assets";
-import UserBox from "@/components/UserBox";
+import Assets from '@/assets/Assets'
+import UserBox from '@/components/UserBox'
 
 const SearchPage = () => {
   return (
@@ -69,7 +69,7 @@ const SearchPage = () => {
       <UserBox />
       <UserBox />
     </div>
-  );
-};
+  )
+}
 
-export default SearchPage;
+export default SearchPage

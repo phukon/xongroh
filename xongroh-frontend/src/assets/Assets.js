@@ -10,19 +10,18 @@ import user1 from '@/assets/user1.png'
 import music from '@/assets/music.png'
 import user2 from '@/assets/user2.png'
 
-
 const Assets = {
-    chat,
-    bell,
-    dummy1,
-    save,
-    home,
-    profile,
-    search,
-    world,
-    user1,
-    user2,
-    music
+  chat,
+  bell,
+  dummy1,
+  save,
+  home,
+  profile,
+  search,
+  world,
+  user1,
+  user2,
+  music,
 }
 
 export default Assets

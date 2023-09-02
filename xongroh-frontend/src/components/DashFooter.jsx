@@ -18,7 +18,7 @@ const DashFooter = () => {
         <img className="h-8 w-8" src={Assets.profile} alt="About" />
       </Link>
     </nav>
-  );
+  )
 }
 
 export default DashFooter

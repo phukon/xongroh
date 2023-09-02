@@ -1,4 +1,4 @@
-import Assets from "@/assets/Assets";
+import Assets from '@/assets/Assets'
 
 const DiscussionCard = () => {
   return (
@@ -44,13 +44,13 @@ const DiscussionCard = () => {
         <div>
           <button className="shadow-button h-8 w-36 rounded-3xl bg-[#FFFFFF] font-semibold">
             <div>
-              Response <span className="text-xs">(14)</span>{" "}
+              Response <span className="text-xs">(14)</span>{' '}
             </div>
           </button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DiscussionCard;
+export default DiscussionCard

@@ -1,4 +1,4 @@
-import Assets from "@/assets/Assets";
+import Assets from '@/assets/Assets'
 
 const PollCard = () => {
   return (
@@ -59,13 +59,13 @@ const PollCard = () => {
         <div>
           <button className="shadow-button h-8 w-36 rounded-3xl bg-[#FFFFFF] font-semibold">
             <div>
-              Response <span className="text-xs">(1.6k)</span>{" "}
+              Response <span className="text-xs">(1.6k)</span>{' '}
             </div>
           </button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PollCard;
+export default PollCard

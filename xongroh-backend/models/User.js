@@ -1,26 +1,26 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: [true, "Please provide a unique username"],
-      unique: [true, "Username already exists"],
+      required: [true, 'Please provide a unique username'],
+      unique: [true, 'Username already exists'],
     },
     password: {
       type: String,
-      required: [true, "Please provide a password"],
+      required: [true, 'Please provide a password'],
     },
     email: {
       type: String,
-      required: [true, "Please provide a unique email"],
-      unique: [true, "Email already exists"],
+      required: [true, 'Please provide a unique email'],
+      unique: [true, 'Email already exists'],
       validate: {
         validator: function (value) {
           // Use a regular expression to validate email format
-          return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(value);
+          return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(value)
         },
-        message: "Please provide a valid email address",
+        message: 'Please provide a valid email address',
       },
     },
     bio: { type: String },
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
     profilePicture: { type: String }, // Add a field for profile pictures
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   },
-  { timestamps: true }
-);
+  { timestamps: true },
+)
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema)

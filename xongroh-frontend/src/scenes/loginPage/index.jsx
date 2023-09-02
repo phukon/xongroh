@@ -1,9 +1,9 @@
-import LoginForm from "./LoginForm";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import LoginForm from './LoginForm'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const LoginPage = () => {
-  const userIcon = <FontAwesomeIcon icon={faUser} />;
+  const userIcon = <FontAwesomeIcon icon={faUser} />
   return (
     <>
       <h1 className="p-10 text-center text-xl font-medium text-orange-400">
@@ -12,7 +12,7 @@ const LoginPage = () => {
       <div className="text-center">{userIcon}</div>
       <LoginForm />
     </>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

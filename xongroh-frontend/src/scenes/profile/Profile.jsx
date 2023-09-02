@@ -1,5 +1,5 @@
-import Assets from "@/assets/Assets";
-import ProfilePost from "@/components/ProfilePost";
+import Assets from '@/assets/Assets'
+import ProfilePost from '@/components/ProfilePost'
 
 const Profile = () => {
   return (
@@ -63,7 +63,7 @@ const Profile = () => {
         <ProfilePost />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

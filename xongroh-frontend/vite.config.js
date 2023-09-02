@@ -6,13 +6,13 @@ import path from 'node:path'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000
+    port: 3000,
   },
 
   // for absolute paths
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src")
-    }
-  }
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 })

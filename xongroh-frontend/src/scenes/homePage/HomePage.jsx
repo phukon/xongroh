@@ -1,10 +1,9 @@
-import HomePost from "@/components/HomePost";
+import HomePost from '@/components/HomePost'
 
 const HomePage = () => {
   return (
     <div className="overflow-hidden bg-[#FAF2FF]">
       <div className="header shadow-card rounded-b-3xl bg-[#F5F0BB] px-5 pb-12">
-
         <p className="text-medium p-5 pb-7 text-base font-normal ">
           <span className="font-bold">Hi Mahendra</span>, have a nice day!
         </p>
@@ -62,7 +61,7 @@ const HomePage = () => {
         <HomePost />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

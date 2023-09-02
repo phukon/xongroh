@@ -1,26 +1,26 @@
-import { Link } from "react-router-dom";
-import * as yup from "yup";
-import { Formik, Form, ErrorMessage, Field } from "formik";
+import { Link } from 'react-router-dom'
+import * as yup from 'yup'
+import { Formik, Form, ErrorMessage, Field } from 'formik'
 
 const RegisterForm = () => {
   const loginSchema = yup.object().shape({
-    firstname: yup.string().required("First name is required"),
-    lastname: yup.string().required("Last name is required"),
-    username: yup.string().required("Username is required"),
-    email: yup.string().email("Invalid email").required("Email is required"),
-    password: yup.string().required("Password is required"),
-  });
+    firstname: yup.string().required('First name is required'),
+    lastname: yup.string().required('Last name is required'),
+    username: yup.string().required('Username is required'),
+    email: yup.string().email('Invalid email').required('Email is required'),
+    password: yup.string().required('Password is required'),
+  })
 
   const initialValuesLogin = {
-    email: "",
-    password: "",
-  };
+    email: '',
+    password: '',
+  }
 
   const onSubmit = (values, { resetForm }) => {
-    console.log("onSubmit", values);
+    console.log('onSubmit', values)
 
-    resetForm();
-  };
+    resetForm()
+  }
 
   // const login = async (values) => {
   //     const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
@@ -117,7 +117,7 @@ const RegisterForm = () => {
 
           <div className="py-4 text-center">
             <span className="text-gray-500">
-              Already have an account?{" "}
+              Already have an account?{' '}
               <Link className="font-medium text-orange-400" to="/login">
                 Log in here
               </Link>
@@ -126,7 +126,7 @@ const RegisterForm = () => {
         </Form>
       )}
     </Formik>
-  );
-};
+  )
+}
 
-export default RegisterForm;
+export default RegisterForm

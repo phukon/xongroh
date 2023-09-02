@@ -1,4 +1,4 @@
-import CommunityBox from "@/components/CommunityBox";
+import CommunityBox from '@/components/CommunityBox'
 
 const myCommunities = () => {
   return (
@@ -21,7 +21,7 @@ const myCommunities = () => {
         <CommunityBox />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default myCommunities;
+export default myCommunities

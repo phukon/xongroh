@@ -1,12 +1,12 @@
-import Assets from "@/assets/Assets";
+import Assets from '@/assets/Assets'
 
 const HomePost = () => {
   const divStyle = {
     backgroundImage: `url(${Assets.dummy1})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
-  };
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+  }
 
   return (
     <div className="overflow-hidden">
@@ -41,12 +41,12 @@ const HomePost = () => {
           <div className="line-clamp-2 pl-3 pr-4 text-sm font-bold ">
             Create the Perfect Title for Your New Blog Post. Generate dozens of
             relevant title suggestions in just a click and get new content ideas
-            for your blog.{" "}
+            for your blog.{' '}
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomePost;
+export default HomePost
