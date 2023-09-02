@@ -15,31 +15,33 @@ const PollCard = () => {
             </div>
             <div className="text-sm font-semibold">Mahendra Alpha</div>
           </div>
-          <div className="mr-4 mt-4 text-xs font-semibold">Poll</div>
+          <div className="mr-4 mt-4 text-sm font-semibold">Poll</div>
         </div>
-        <div className="mx-5 mt-5 mb-4 text-sm font-semibold">
-          <div>Sample question about something that i want to host the poll with.</div>
+        <div className="mx-5 mb-4 mt-5 text-sm font-semibold">
+          <div>
+            Sample question about something that i want to host the poll with.
+          </div>
         </div>
         <div className="mx-5 mt-3 text-xs">
           <div>
-            <div className="pr-4 pb-4">
-              <button className="shadow-button px-3 py-1.5 rounded-3xl bg-[#FFFFFF] font-semibold">
-              Option 1 with some text some text
+            <div className="pb-4 pr-4">
+              <button className="shadow-button rounded-3xl bg-[#FFFFFF] px-3 py-2 font-semibold">
+                Option 1 with some text some text
               </button>
             </div>
-            <div className="pr-4 pb-4">
-              <button className="shadow-button px-3 py-1.5 rounded-3xl bg-[#FFFFFF] font-semibold">
-              Option 2 with some text
+            <div className="pb-4 pr-4">
+              <button className="shadow-button rounded-3xl bg-[#FFFFFF] px-3 py-2 font-semibold">
+                Option 2 with some text
               </button>
             </div>
-            <div className="pr-4 pb-4">
-              <button className="shadow-button px-3 py-1.5 rounded-3xl bg-[#FFFFFF] font-semibold">
-              Option 3 with some text some text some text
+            <div className="pb-4 pr-4">
+              <button className="shadow-button rounded-3xl bg-[#FFFFFF] px-3 py-2 font-semibold">
+                Option 3 with some text some text some text
               </button>
             </div>
-            <div className="pr-4 pb-4">
-              <button className="shadow-button px-3 py-1.5 rounded-3xl bg-[#FFFFFF] font-semibold">
-              Option 4 with some text
+            <div className="pb-4 pr-4">
+              <button className="shadow-button rounded-3xl bg-[#FFFFFF] px-3 py-2 font-semibold">
+                Option 4 with some text
               </button>
             </div>
           </div>

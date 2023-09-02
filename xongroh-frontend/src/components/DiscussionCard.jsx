@@ -15,7 +15,7 @@ const DiscussionCard = () => {
             </div>
             <div className="text-sm font-semibold">Mahendra Alpha</div>
           </div>
-          <div className="mr-4 mt-4 text-xs font-semibold">Discussion</div>
+          <div className="mr-4 mt-4 text-sm font-semibold">Discussion</div>
         </div>
         <div className="mx-5 mt-5 text-sm font-semibold ">
           <div>Lorem Ipsum is simply dummy text of the printing and....</div>
