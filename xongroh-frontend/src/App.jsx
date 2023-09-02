@@ -5,7 +5,7 @@ import HomePage from "@/scenes/homePage/HomePage";
 import PageNotFound from "@/scenes/pageNotFound/PageNotFound";
 import SearchPage from "@/scenes/searchPage/SearchPage";
 import MyCommunities from "@/scenes/communities/MyCommunities";
-import CommunityPost from "@/scenes/communities/communityPost";
+import CommunityPost from "@/scenes/communities/CommunityPost";
 import Profile from "@/scenes/profile/Profile";
 import Layout from "@/scenes/Layout";
 
