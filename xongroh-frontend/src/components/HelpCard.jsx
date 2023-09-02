@@ -15,13 +15,15 @@ const HelpCard = () => {
             </div>
             <div className="text-sm font-semibold">Mahendra Alpha</div>
           </div>
-          <div className="mr-4 mt-4 text-sm font-semibold">Help</div>
+          <div className="mr-4 mt-4 text-sm font-semibold text-[#808080] ">
+            Help
+          </div>
         </div>
         <div className="mx-5 mt-5 text-sm font-semibold ">
           <div>Lorem Ipsum is simply dummy text of the printing and....</div>
         </div>
         <div className="mx-5 mt-3 text-xs">
-          <div className="line-clamp-8 text-justify pb-4">
+          <div className="line-clamp-8 pb-4 text-justify">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of it to
@@ -33,18 +35,18 @@ const HelpCard = () => {
         </div>
       </div>
 
-      <div className="flex h-14 w-full flex-row items-center justify-start rounded-b-2xl border-x-2 bg-[#B8E8FC] py-3 px-4 ">
-        
-          <div className="pr-4">
-            <button className="shadow-button h-8 w-20 rounded-3xl bg-[#FFFFFF] font-semibold">
-              Like
-            </button>
-          </div>
-          <div>
-            <button className="shadow-button h-8 w-36 rounded-3xl bg-[#FFFFFF] font-semibold">
-              <div>Response <span className="text-xs">(228)</span> </div>
-            </button>
-         
+      <div className="flex h-14 w-full flex-row items-center justify-start rounded-b-2xl border-x-2 bg-[#B8E8FC] px-4 py-3 ">
+        <div className="pr-4">
+          <button className="shadow-button h-8 w-20 rounded-3xl bg-[#FFFFFF] font-semibold">
+            Like
+          </button>
+        </div>
+        <div>
+          <button className="shadow-button h-8 w-36 rounded-3xl bg-[#FFFFFF] font-semibold">
+            <div>
+              Response <span className="text-xs">(228)</span>{" "}
+            </div>
+          </button>
         </div>
       </div>
     </div>

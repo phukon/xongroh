@@ -1,5 +1,5 @@
 import Assets from "@/assets/Assets";
-import ImageDiv from "@/components/ImageDiv";
+import HomePost from "@/components/HomePost";
 
 const HomePage = () => {
   return (
@@ -63,12 +63,11 @@ const HomePage = () => {
       </div>
 
       <div className="px-4">
-        <ImageDiv />
-        <ImageDiv />
-        <ImageDiv />
-        <ImageDiv />
-        <ImageDiv />
-        <ImageDiv />
+        <HomePost />
+        <HomePost />
+        <HomePost />
+        <HomePost />
+        <HomePost />
       </div>
     </div>
   );

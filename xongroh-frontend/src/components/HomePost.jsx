@@ -1,6 +1,6 @@
 import Assets from "@/assets/Assets";
 
-const ImageDiv = () => {
+const HomePost = () => {
   const divStyle = {
     backgroundImage: `url(${Assets.dummy1})`,
     backgroundSize: "cover",
@@ -49,4 +49,4 @@ const ImageDiv = () => {
   );
 };
 
-export default ImageDiv;
+export default HomePost;

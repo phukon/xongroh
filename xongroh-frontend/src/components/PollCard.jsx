@@ -15,7 +15,9 @@ const PollCard = () => {
             </div>
             <div className="text-sm font-semibold">Mahendra Alpha</div>
           </div>
-          <div className="mr-4 mt-4 text-sm font-semibold">Poll</div>
+          <div className="mr-4 mt-4 text-sm font-semibold text-[#808080]">
+            Poll
+          </div>
         </div>
         <div className="mx-5 mb-4 mt-5 text-sm font-semibold">
           <div>
