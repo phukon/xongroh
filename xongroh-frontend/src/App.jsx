@@ -11,12 +11,13 @@ import Layout from '@/scenes/Layout'
 import Prefetch from '@/features/auth/Prefetch'
 import DashLayout from '@/components/DashLayout'
 import Welcome from '@/features/auth/Welcome'
+import Public from '@/components/Public'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<DashLayout />} />
+        <Route index element={<Public />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
 
