@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom' 
-import xongroh from '@/assets/xongroh.svg'
-import backgroundWebP from '@/assets/background.webp'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import xongroh from '@/assets/xongroh.svg';
+import backgroundWebP from '@/assets/background.webp';
 
 function AuthenticationPage() {
   return (
@@ -9,15 +9,15 @@ function AuthenticationPage() {
       {/* Left Black Box */}
       <div className="lg:w-1/2 bg-gray-900 text-white p-10 hidden lg:flex flex-col justify-between">
         <div>
-          <img src={xongroh} alt="Xongroh" className="w-16 mx-auto mb-4" />
-          <div className="text-lg font-medium">Xongroh</div>
-          <blockquote className="mt-4 space-y-2">
+          <img src={xongroh} alt="Xongroh" className="mr-2 h-6 w-6" />
+          <div className="text-lg font-medium">Xongroh </div>
+        </div>
+
+        <p className="text-sm text-gray-400 mt-4">
+          <blockquote className="space">
             <p className="text-lg">&ldquo;Jibon Kosupator Pani&rdquo;</p>
             <footer className="text-sm">Zubeen Garg</footer>
           </blockquote>
-        </div>
-        <p className="text-sm text-gray-400 mt-4">
-          © {new Date().getFullYear()} Xongroh. All rights reserved.
         </p>
       </div>
 
@@ -104,4 +104,4 @@ function AuthenticationPage() {
   )
 }
 
-export default AuthenticationPage
+export default AuthenticationPage;
