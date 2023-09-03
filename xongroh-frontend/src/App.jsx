@@ -11,8 +11,6 @@ import Layout from '@/scenes/Layout'
 import Prefetch from '@/features/auth/Prefetch'
 import DashLayout from '@/components/DashLayout'
 import Welcome from '@/features/auth/Welcome'
-import Public from '@/components/Public'
-import AuthenticationPage from '@/scenes/authentication'
 
 function App() {
   return (
@@ -21,8 +19,6 @@ function App() {
         <Route index element={<Public />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="authentication" element={<AuthenticationPage />} />
-
         <Route element={<Prefetch />}>
           <Route path="dash" element={<DashLayout />}>
             <Route index element={<Welcome />} />
@@ -31,6 +27,7 @@ function App() {
             <Route path="communities" element={<MyCommunities />} />
             <Route path="profile" element={<Profile />} />
             <Route path="communitypage" element={<CommunityPage />} />
+            <Route path="postpage" element={<PostPage />} />
           </Route>
         </Route>
         <Route path="*" element={<PageNotFound />} />
