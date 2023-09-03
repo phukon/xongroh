@@ -11,8 +11,8 @@ import Profile from '@/scenes/profile/Profile'
 import Layout from '@/scenes/Layout'
 import Prefetch from '@/features/auth/Prefetch'
 import DashLayout from '@/components/DashLayout'
-import Welcome from '@/features/auth/Welcome'
-import Public from '@/components/Public'
+
+
 import AuthenticationPage from '@/scenes/onboard'
 
 function App() {
