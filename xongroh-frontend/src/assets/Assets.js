@@ -10,6 +10,7 @@ import user1 from '@/assets/user1.png'
 import music from '@/assets/music.png'
 import user2 from '@/assets/user2.png'
 import xongroh from '@/assets/xongroh.svg'
+import background from '@/assets/background.webp'
 
 const Assets = {
   chat,
@@ -24,6 +25,7 @@ const Assets = {
   user2,
   music,
   xongroh,
+  background
 }
 
 export default Assets

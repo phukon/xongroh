@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom' // Assuming you use React Router
 import xongroh from '@/assets/xongroh.svg'
+import backgroundWebP from '@/assets/background.webp' // Replace with your WebP image
 
 function AuthenticationPage() {
   return (
@@ -21,14 +22,22 @@ function AuthenticationPage() {
       </div>
 
       {/* Right Authentication Form */}
-      <div className="lg:w-1/2 p-8 bg-white rounded-lg shadow-md">
-        <div className="mb-8 text-center">
+      <div className="lg:w-1/2 p-8 bg-white rounded-lg shadow-md relative">
+        {/* Mobile Background Image */}
+        <div
+          className="bg-cover bg-center absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url(${backgroundWebP})`, // Use your WebP image here
+          }}
+        />
+
+        <div className="mb-8 text-center relative z-10">
           <h1 className="text-2xl font-semibold mt-2">Create an Account</h1>
           <p className="text-sm text-gray-600">
             Enter your email below to create your account
           </p>
         </div>
-        <form className="space-y-4">
+        <form className="space-y-4 relative z-10">
           <div>
             <label
               htmlFor="email"
