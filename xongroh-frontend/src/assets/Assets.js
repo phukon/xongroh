@@ -9,6 +9,7 @@ import world from '@/assets/world.svg'
 import user1 from '@/assets/user1.png'
 import music from '@/assets/music.png'
 import user2 from '@/assets/user2.png'
+import xongroh from '@/assets/xongroh.svg'
 
 const Assets = {
   chat,
@@ -22,6 +23,7 @@ const Assets = {
   user1,
   user2,
   music,
+  xongroh,
 }
 
 export default Assets
