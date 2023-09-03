@@ -1,71 +1,94 @@
 import React from 'react'
-import { cn } from '@/lib/utils'
-import Assets from '@/assets/Assets'
-import xongroh from '@/assets/xongroh.svg' // Import the xongroh image
-
-const metadata = {
-  title: 'Authentication',
-  description: 'Authentication forms built using the components.',
-}
+import { Link } from 'react-router-dom' // Assuming you use React Router
+import xongroh from '@/assets/xongroh.svg'
 
 function AuthenticationPage() {
   return (
-    <>
-      <div className="container relative min-h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 overflow-hidden">
-        <a
-          href="/examples/authentication"
-          className="absolute right-4 top-4 md:right-8 md:top-8"
-        >
-          Login
-        </a>
-        {/* Show the black box on medium and larger screens */}
-        <div className="relative min-h-screen flex-col bg-muted p-10 text-white dark:border-r lg:flex md:block hidden">
-          <div className="absolute inset-0 bg-zinc-900" />
-          <div className="relative z-20 flex items-center text-lg font-medium">
-            <img src={xongroh} alt="Xongroh" className="mr-2 h-6 w-6" />{' '}
-            {/* Use the xongroh image */}
-            Xongroh
-          </div>
-          <div className="relative z-20 mt-auto">
-            <blockquote className="space-y-2">
-              <p className="text-lg">&ldquo;Jibon Kosupator Pani&rdquo;</p>
-              <footer className="text-sm">Zubeen Garg</footer>
-            </blockquote>
-          </div>
+    <div className="min-h-screen flex flex-col lg:flex-row bg-gray-100">
+      {/* Left Black Box */}
+      <div className="lg:w-1/2 bg-gray-900 text-white p-10 hidden lg:flex flex-col justify-between">
+        <div>
+          <img src={xongroh} alt="Xongroh" className="w-16 mx-auto mb-4" />
+          <div className="text-lg font-medium">Xongroh</div>
+          <blockquote className="mt-4 space-y-2">
+            <p className="text-lg">&ldquo;Jibon Kosupator Pani&rdquo;</p>
+            <footer className="text-sm">Zubeen Garg</footer>
+          </blockquote>
         </div>
-<div className="lg:p-8">
-  <div className="mx-auto flex items-center flex-col w-full space-y-6 sm:w-[350px]">
-    <div className="flex flex-col space-y-2 text-center">
-      <h1 className="text-2xl font-semibold tracking-tight">
-        Create an account
-      </h1>
-      <p className="text-sm text-muted-foreground">
-        Enter your email below to create your account
-      </p>
-    </div>
-    {/* <UserAuthForm /> */}
-    <p className="px-8 text-center text-sm text-muted-foreground">
-      By clicking continue, you agree to our{' '}
-      <a
-        href="/terms"
-        className="underline underline-offset-4 hover:text-primary"
-      >
-        Terms of Service
-      </a>{' '}
-      and{' '}
-      <a
-        href="/privacy"
-        className="underline underline-offset-4 hover:text-primary"
-      >
-        Privacy Policy
-      </a>
-      .
-    </p>
-  </div>
-</div>
-
+        <p className="text-sm text-gray-400 mt-4">
+          © {new Date().getFullYear()} Xongroh. All rights reserved.
+        </p>
       </div>
-    </>
+
+      {/* Right Authentication Form */}
+      <div className="lg:w-1/2 p-8 bg-white rounded-lg shadow-md">
+        <div className="mb-8 text-center">
+          <h1 className="text-2xl font-semibold mt-2">Create an Account</h1>
+          <p className="text-sm text-gray-600">
+            Enter your email below to create your account
+          </p>
+        </div>
+        <form className="space-y-4">
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="mt-1 p-3 w-full border border-gray-300 rounded-md"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="mt-1 p-3 w-full border border-gray-300 rounded-md"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              className="w-full bg-primary text-white py-3 rounded-md hover:bg-primary-dark focus:outline-none focus:ring focus:ring-primary-dark"
+            >
+              Create Account
+            </button>
+          </div>
+        </form>
+        <p className="text-sm text-gray-600 mt-4">
+          By clicking "Create Account," you agree to our{' '}
+          <Link to="/terms" className="text-primary">
+            Terms of Service
+          </Link>{' '}
+          and{' '}
+          <Link to="/privacy" className="text-primary">
+            Privacy Policy
+          </Link>
+          .
+        </p>
+        <p className="text-sm text-gray-600 mt-2">
+          Already have an account?{' '}
+          <Link to="/login" className="text-primary">
+            Log in here
+          </Link>
+        </p>
+      </div>
+    </div>
   )
 }
 
