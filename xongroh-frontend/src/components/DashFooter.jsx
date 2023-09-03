@@ -5,7 +5,7 @@ import Assets from '@/assets/Assets'
 const DashFooter = () => {
   return (
     <nav className="fixed bottom-0 left-0 flex w-full flex-row justify-between bg-white px-10 py-3">
-      <Link to="/dash/home">
+      <Link to="/dash">
         <img className="h-8 w-8" src={Assets.home} alt="Home" />
       </Link>
       <Link to="/dash/search">

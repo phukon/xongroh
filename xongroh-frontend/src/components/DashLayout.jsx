@@ -10,7 +10,7 @@ const DashLayout = () => {
   // Define a function to determine the background color based on the URL
   const getBackgroundColor = () => {
     switch (location.pathname) {
-      case '/dash/home':
+      case '/dash':
         return '#F5F0BB'
       case '/dash/search':
         return '#CDF0EA'

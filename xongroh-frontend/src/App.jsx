@@ -25,8 +25,7 @@ function App() {
 
         <Route element={<Prefetch />}>
           <Route path="dash" element={<DashLayout />}>
-            <Route index element={<Welcome />} />
-            <Route path="home" element={<HomePage />} />
+            <Route index element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="communities" element={<MyCommunities />} />
             <Route path="profile" element={<Profile />} />
