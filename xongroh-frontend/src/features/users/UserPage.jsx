@@ -5,7 +5,7 @@ import { useGetPostsByUserIdQuery } from '../posts/postsSlice'
 
 const UserPage = () => {
   const { userId } = useParams()
-  const user = useSelector((state) => selectUserById(state, Number(userId)))
+  const user = useSelector((state) => selectUserById(state, userId))
 
   const {
     data: postsForUser,
@@ -31,7 +31,7 @@ const UserPage = () => {
 
   return (
     <section>
-      <h2>{user?.name}</h2>
+      <h2>{user?.username}</h2>
 
       <ol>{content}</ol>
     </section>

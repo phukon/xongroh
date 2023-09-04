@@ -11,9 +11,9 @@ import Profile from '@/scenes/profile/Profile'
 import Layout from '@/scenes/Layout'
 import Prefetch from '@/features/auth/Prefetch'
 import DashLayout from '@/components/DashLayout'
-
-
+import UsersList from '@/features/users/UsersList'
 import AuthenticationPage from '@/scenes/onboard'
+import UserPage from './features/users/UserPage'
 
 function App() {
   return (
@@ -31,6 +31,11 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="communitypage" element={<CommunityPage />} />
             <Route path="postpage" element={<PostPage />} />
+            
+            <Route path="users">
+              <Route index element={<UsersList />}/>
+              <Route path=":userId" element={<UserPage/>}/>
+            </Route>
           </Route>
         </Route>
         <Route path="*" element={<PageNotFound />} />

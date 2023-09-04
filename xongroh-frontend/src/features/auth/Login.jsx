@@ -28,7 +28,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { accessToken } = await login({ username, password }).unwrap()
+      const { accessToken } = await login({ username, password }).unwrap() // using unwrap to use try-catch blocks
       dispatch(setCredentials({ accessToken }))
       setUsername('')
       setPassword('')

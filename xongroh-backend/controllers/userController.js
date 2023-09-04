@@ -1,6 +1,5 @@
 import UserModel from '../models/User.js'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 import otpGenerator from './otp-gen.js'
 import asyncHandler from 'express-async-handler'
 
@@ -61,46 +60,6 @@ export const register = asyncHandler(async (req, res) => {
       const result = await user.save()
       return res.status(201).send({ msg: 'User Register Successfully' })
     }
-  } catch (error) {
-    return res.status(500).send({ error })
-  }
-})
-
-/** POST: http://localhost:8000/api/login 
- * @param: {
-  "username" : "example123",
-  "password" : "admin123"
-}
-*/
-export const login = asyncHandler(async (req, res) => {
-  const { username, password } = req.body
-
-  try {
-    const user = await UserModel.findOne({ username })
-    if (!user) {
-      return res.status(404).send({ error: 'Username not Found' })
-    }
-
-    const passwordCheck = await bcrypt.compare(password, user.password)
-    if (!passwordCheck) {
-      return res.status(400).send({ error: 'Password does not Match' })
-    }
-
-    // Create jwt token
-    const token = jwt.sign(
-      {
-        userId: user._id,
-        username: user.username,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' },
-    )
-
-    return res.status(200).send({
-      msg: 'Login Successful...!',
-      username: user.username,
-      token,
-    })
   } catch (error) {
     return res.status(500).send({ error })
   }

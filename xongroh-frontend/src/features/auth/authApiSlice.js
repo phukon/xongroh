@@ -1,18 +1,18 @@
-import { apiSlice } from '../../app/api/apiSlice'
+import { apiSlice } from '../api/apiSlice' 
 import { logOut } from './authSlice'
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: '/auth',
+        url: '/user/login',
         method: 'POST',
         body: { ...credentials },
       }),
     }),
     sendLogout: builder.mutation({
       query: () => ({
-        url: '/auth/logout',
+        url: '/user/logout',
         method: 'POST',
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
