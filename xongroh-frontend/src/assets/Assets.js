@@ -14,8 +14,15 @@ import more from '@/assets/more.svg'
 
 
 
-import xongroh from '@/assets/xongroh.svg'
-import background from '@/assets/background.webp'
+import bookmark from '@/assets/bookmark.svg'
+import more from '@/assets/more.svg'
+import comment from '@/assets/comment.svg'
+import feedback from '@/assets/feedback.svg'
+import share from '@/assets/share.svg'
+import support from '@/assets/support.svg'
+
+
+
 
 const Assets = {
   chat,
@@ -31,8 +38,12 @@ const Assets = {
   music,
   bookmark,
   more
-  xongroh,
-  background
+  bookmark,
+  more,
+  support,
+  share,
+  comment,
+  feedback
 }
 
 export default Assets

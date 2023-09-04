@@ -15,6 +15,7 @@ export const login = asyncHandler(async (req, res) => {
 
     const foundUser = await User.findOne({ username }).exec()
 
+    // if (!foundUser || !foundUser.active) can be used for enforcing bans
     if (!foundUser) {
         return res.status(401).json({ message: 'Unauthorized' })
     }
