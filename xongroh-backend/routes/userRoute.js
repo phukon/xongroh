@@ -4,13 +4,13 @@ const router = Router()
 import * as userController from '../controllers/userController.js'
 import { registerMail } from '../controllers/mailer.js'
 import verifyJWT, { localVariables } from '../middleware/verifyJWT.js'
-import rateLimiter from '../middleware/rateLimiter.js'
+import loginLimiter from '../middleware/rateLimiter.js'
 
 /** POST Methods */
-router.route('/register').post(rateLimiter, userController.register) // register user
+router.route('/register').post(loginLimiter, userController.register) // register user
 router.route('/registerMail').post(registerMail) // send the email
 router.route('/authenticate').post(userController.verifyUser, (req, res) => res.end()) // authenticate user
-// router.route('/login').post(rateLimiter, userController.verifyUser, userController.login) // login in app
+// router.route('/login').post(loginLimiter, userController.verifyUser, userController.login) // login in app
 
 /** GET Methods */
 router.route('/getAllUsers').get(userController.verifyUser, userController.getAllUsers) // get all users

@@ -12,6 +12,8 @@ import connectDB from './config/dbConn.js'
 import mongoose from 'mongoose'
 import userRoute from './routes/userRoute.js'
 // import postRoute from './routes/postRoute.js';
+import authRoute from './routes/authRoutes.js'
+
 import rootRoute from './routes/root.js'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
@@ -37,14 +39,14 @@ app.use(cookieParser())
 // without having to write individual routes for each file.
 app.use(
   '/',
-  express.static(path.join(__dirname, 'public'), { cacheControl: false }),
+  express.static(path.join(__dirname, 'public'), { cacheControl: false })
 )
 
 // This code snippet allows the web application
 // to serve the index.html file to the client when
 // the client requests the root URL.
 app.use('/', rootRoute)
-// app.use('/auth', require('./routes/authRoutes'));
+app.use('/v1/auth', authRoute)
 app.use('/v1/user', userRoute)
 // app.use('/v1/post', postRoute);
 app.use('/v1/api', apiCheckRoute)
@@ -75,7 +77,7 @@ mongoose.connection.on('error', (err) => {
   console.log(`Error connecting to MongoDB: ${err}`)
   logEvents(
     `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
-    'mongoErrLog.log',
+    'mongoErrLog.log'
   )
 })
 

@@ -1,70 +1,75 @@
-import xongroh from '@/assets/xongroh.svg';
-import backgroundWebP from '@/assets/background.webp';
+import xongroh from '@/assets/xongroh.svg'
+import backgroundWebP from '@/assets/background.webp'
 
-import { useRef, useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setCredentials } from '@/features/auth/authSlice';
-import { useLoginMutation } from '@/features/auth/authApiSlice';
+import { useRef, useState, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setCredentials } from '@/features/auth/authSlice'
+import { useLoginMutation } from '@/features/auth/authApiSlice'
 
 function AuthenticationPage() {
-  const userRef = useRef();
-  const errRef = useRef();
-  const [email, setEmail] = useState(''); // Use "email" state here
-  const [username, setUsername] = useState(''); // Use "username" state here
-  const [password, setPassword] = useState('');
-  const [errMsg, setErrMsg] = useState('');
-  const [isLoginMode, setIsLoginMode] = useState(false);
+  const userRef = useRef()
+  const errRef = useRef()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [errMsg, setErrMsg] = useState('')
+  const [isLoginMode, setIsLoginMode] = useState(false)
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const [login, { isLoading }] = useLoginMutation();
-
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
+  const [login, { isLoading }] = useLoginMutation()
 
   useEffect(() => {
-    setErrMsg('');
-  }, [username, password]);
+    userRef.current.focus()
+  }, [])
+
+  useEffect(() => {
+    setErrMsg('')
+  }, [username, password, email])
 
   const handleToggleMode = () => {
-    setIsLoginMode(!isLoginMode);
-    setEmail(''); // Clear email state
-    setUsername(''); // Clear username state
-    setPassword('');
-    setErrMsg('');
-  };
+    setIsLoginMode(!isLoginMode)
+    setUsername('')
+    setPassword('')
+    setEmail('')
+    setErrMsg('')
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      const { accessToken } = await login({ username, password }).unwrap();
-      dispatch(setCredentials({ accessToken }));
-      setUsername('');
-      setPassword('');
-      navigate('/dash');
+      const { accessToken } = await login({ username, password }).unwrap()
+      dispatch(setCredentials({ accessToken }))
+      setUsername('')
+      setPassword('')
+      navigate('/dash')
     } catch (err) {
       if (!err.status) {
-        setErrMsg('No Server Response');
+        setErrMsg('No Server Response')
       } else if (err.status === 400) {
-        setErrMsg('Missing Username or Password');
+        setErrMsg('Missing Username or Password')
       } else if (err.status === 401) {
-        setErrMsg('Unauthorized');
+        setErrMsg('Unauthorized')
       } else {
-        setErrMsg(err.data?.message);
+        setErrMsg(err.data?.message)
       }
-      errRef.current.focus();
+      errRef.current.focus()
     }
-  };
+  }
 
-  const handleUserInput = (e) => setUsername(e.target.value);
-  const handlePwdInput = (e) => setPassword(e.target.value);
+  const handleUserInput = (e) => {
+    if (isLoginMode) {
+      setUsername(e.target.value)
+    } else {
+      setEmail(e.target.value)
+    }
+  }
 
-  const errClass = errMsg ? 'errmsg' : 'offscreen';
+  const handlePwdInput = (e) => setPassword(e.target.value)
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-gray-100">
@@ -107,7 +112,7 @@ function AuthenticationPage() {
             </p>
           </div>
           <form className="space-y-4" onSubmit={handleSubmit}>
-            {!isLoginMode && (
+            {!isLoginMode ? (
               <div>
                 <label
                   htmlFor="email"
@@ -123,8 +128,29 @@ function AuthenticationPage() {
                   required
                   id="email"
                   ref={userRef}
-                  value={email} // Use "email" state here
-                  onChange={(e) => setEmail(e.target.value)} // Update email state
+                  value={email}
+                  onChange={handleUserInput}
+                  autoComplete="off"
+                />
+              </div>
+            ) : (
+              <div>
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  className="mt-1 p-3 w-full border border-gray-300 rounded-md"
+                  placeholder="Username"
+                  required
+                  id="username"
+                  ref={userRef}
+                  value={username}
+                  onChange={handleUserInput}
                   autoComplete="off"
                 />
               </div>
@@ -148,7 +174,7 @@ function AuthenticationPage() {
                 autoComplete="on"
               />
             </div>
-            <p ref={errRef} className={errClass} aria-live="assertive">
+            <p ref={errRef} aria-live="assertive">
               {errMsg}
             </p>
             <div>
@@ -161,8 +187,8 @@ function AuthenticationPage() {
             </div>
           </form>
           <p className="text-sm text-gray-600 mt-4">
-            By clicking "{isLoginMode ? 'Log in' : 'Create Account'}," you
-            agree to our{' '}
+            By clicking "{isLoginMode ? 'Log in' : 'Create Account'}," you agree
+            to our{' '}
             <Link to="/terms" className="text-primary">
               Terms of Service
             </Link>{' '}
@@ -187,7 +213,7 @@ function AuthenticationPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AuthenticationPage;
+export default AuthenticationPage

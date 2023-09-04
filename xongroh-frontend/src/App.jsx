@@ -31,10 +31,10 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="communitypage" element={<CommunityPage />} />
             <Route path="postpage" element={<PostPage />} />
-            
+
             <Route path="users">
-              <Route index element={<UsersList />}/>
-              <Route path=":userId" element={<UserPage/>}/>
+              <Route index element={<UsersList />} />
+              <Route path=":userId" element={<UserPage />} />
             </Route>
           </Route>
         </Route>

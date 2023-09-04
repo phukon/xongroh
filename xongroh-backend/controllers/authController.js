@@ -1,4 +1,4 @@
-import UserModel from '../models/User'
+import User from '../models/User.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import asyncHandler from 'express-async-handler'
@@ -15,7 +15,7 @@ export const login = asyncHandler(async (req, res) => {
 
     const foundUser = await User.findOne({ username }).exec()
 
-    if (!foundUser || !foundUser.active) {
+    if (!foundUser) {
         return res.status(401).json({ message: 'Unauthorized' })
     }
 
