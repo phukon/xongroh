@@ -1,10 +1,14 @@
 import { useSelector } from 'react-redux'
-import { selectPostIds } from './postsSlice'
+import { selectPostIds } from './postsApiSlice'
 import PostsExcerpt from './PostsExcerpt'
-import { useGetPostsQuery } from './postsSlice'
+import { useGetPostsQuery } from './postsApiSlice'
 
 const PostsList = () => {
-  const { isLoading, isSuccess, isError, error } = useGetPostsQuery()
+  const { isLoading, isSuccess, isError, error } = useGetPostsQuery(postsList, {
+    pollingInterval: 15000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  })
 
   const orderedPostIds = useSelector(selectPostIds)
 

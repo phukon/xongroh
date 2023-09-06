@@ -1,6 +1,7 @@
 import xongroh from '@/assets/xongroh.svg'
 import backgroundWebP from '@/assets/background.webp'
 
+import usePersist from '@/hooks/usePersist'
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -15,6 +16,7 @@ function AuthenticationPage() {
   const [email, setEmail] = useState('')
   const [errMsg, setErrMsg] = useState('')
   const [isLoginMode, setIsLoginMode] = useState(false)
+  const [persist, setPersist] = usePersist()
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -68,6 +70,7 @@ function AuthenticationPage() {
   }
 
   const handlePwdInput = (e) => setPassword(e.target.value)
+  const handleToggle = () => setPersist((prev) => !prev)
 
   if (isLoading) return <p>Loading...</p>
 
@@ -177,6 +180,17 @@ function AuthenticationPage() {
             <p ref={errRef} aria-live="assertive">
               {errMsg}
             </p>
+            {isLoginMode && (
+              <label htmlFor="persist" className="form__persist">
+                <input
+                  type="checkbox"
+                  id="persist"
+                  onChange={handleToggle}
+                  checked={persist}
+                />
+                Trust This Device
+              </label>
+            )}
             <div>
               <button
                 type="submit"

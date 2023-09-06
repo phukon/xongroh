@@ -13,28 +13,32 @@ import Prefetch from '@/features/auth/Prefetch'
 import DashLayout from '@/components/DashLayout'
 import UsersList from '@/features/users/UsersList'
 import AuthenticationPage from '@/scenes/onboard'
-import UserPage from './features/users/UserPage'
+import UserPage from '@/features/users/UserPage'
+import PersistLogin from '@/features/auth/PersistLogin'
+import Public from '@/features/auth/Public'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<AuthenticationPage />} />
+        <Route index element={<Public />} />
+        <Route path='login' element={<AuthenticationPage />} />
         {/* <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} /> */}
+        <Route element={<PersistLogin />}>
+          <Route element={<Prefetch />}>
+            <Route path="dash" element={<DashLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path="search" element={<SearchPage />} />
+              <Route path="communities" element={<MyCommunities />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="communitypage" element={<CommunityPage />} />
+              <Route path="postpage" element={<PostPage />} />
 
-        <Route element={<Prefetch />}>
-          <Route path="dash" element={<DashLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="search" element={<SearchPage />} />
-            <Route path="communities" element={<MyCommunities />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="communitypage" element={<CommunityPage />} />
-            <Route path="postpage" element={<PostPage />} />
-
-            <Route path="users">
-              <Route index element={<UsersList />} />
-              <Route path=":userId" element={<UserPage />} />
+              <Route path="users">
+                <Route index element={<UsersList />} />
+                <Route path=":userId" element={<UserPage />} />
+              </Route>
             </Route>
           </Route>
         </Route>

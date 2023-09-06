@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { selectAllUsers } from '../users/usersSlice'
+import { selectAllUsers } from '../users/usersApiSlice'
 import { useNavigate } from 'react-router-dom'
-import { useAddNewPostMutation } from './postsSlice'
+import { useAddNewPostMutation } from './postsApiSlice'
 
 const AddPostForm = () => {
   const [addNewPost, { isLoading }] = useAddNewPostMutation()

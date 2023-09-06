@@ -1,21 +1,49 @@
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectAllUsers } from './usersSlice'
 import { Link } from 'react-router-dom'
+import { useGetUsersQuery } from '@/features/users/usersApiSlice'
 
 const UsersList = () => {
-  const users = useSelector(selectAllUsers)
+  const {
+    data: users,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetUsersQuery('usersList', {
+    pollingInterval: 5*60*1000,
+    refetchOnFocus: false,
+    refetchOnMountOrArgChange: true,
+  })
 
-  const renderedUsers = users.map((user) => (
-    <li key={user._id}>
-      <Link to={`/dash/users/${user._id}`}>{user.username}</Link>
-    </li>
-  ))
+  let tableContent = null
+
+  if (isLoading) {
+    tableContent = <p>Loading...</p>
+  }
+
+  if (isError) {
+    tableContent = <p className="errmsg">{error?.data?.message}</p>
+  }
+
+  if (isSuccess) {
+    const { ids, entities } = users
+
+    tableContent = ids?.length ? (
+      ids.map((userId) => (
+        <li key={userId}>
+          <Link to={`/dash/users/${userId}`}>{entities[userId].username}</Link>
+        </li>
+      ))
+    ) : (
+      <p>No users found.</p>
+    )
+  }
 
   return (
     <section>
       <h2>Users</h2>
-
-      <ul>{renderedUsers}</ul>
+      <ul>{tableContent}</ul>
     </section>
   )
 }

@@ -1,6 +1,6 @@
 import { store } from '@/app/store'
 // import { postsApiSlice } from '@/features/posts/postsSlice'
-import { usersApiSlice } from '@/features/users/usersSlice'
+import { usersApiSlice } from '@/features/users/usersApiSlice'
 import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 
