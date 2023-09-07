@@ -4,8 +4,6 @@ This repository contains information about the Xongroh social marketplace's API 
 
 **Stay tuned for more updates and features as we continue to enhance the Xongroh platform. We're constantly working to provide a seamless experience for both creators and users.**
 
-**⚠Important Notice:** The Vercel deployment has been temporarily paused to align the codebase and model structure with the MongoDB database. The ongoing backend deployment maintains a continuous connection with the MongoDB database, hindering updates to the MongoDB models. To facilitate changes in the MongoDB models, it is essential to terminate the existing connection.
-
 ## Getting Started
 
 Stay tuned for more updates and features as we continue to enhance the Xongroh platform. We're constantly working to provide a seamless experience for both creators and users.
