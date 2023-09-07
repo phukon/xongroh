@@ -3,6 +3,7 @@ xongroh-frontend/node_modules/
 
 # environment variable
 xongroh-backend/.env
+xongroh-backend/crypto.js
 
 xongroh-backend/logs/
 /logs/

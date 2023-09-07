@@ -14,7 +14,9 @@ const Public = () => {
         <div className="bg-yellow-300 border-l-4 border-yellow-600 p-4 rounded-md mb-4 max-w-2xl w-full">
           <div className="flex items-center justify-between">
             <p className="text-yellow-900">
-              Warning: New routes have not been protected yet.
+              Use credentials
+              username: test
+              pass: test
             </p>
             <button
               className="text-red-600 hover:text-red-800"
