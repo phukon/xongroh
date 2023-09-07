@@ -11,7 +11,7 @@ const initialState = usersAdapter.getInitialState()
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => '/user/getAllUsers?username=admin',
+      query: () => '/user/getAllUsers',
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError
       },

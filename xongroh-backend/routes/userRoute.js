@@ -6,6 +6,8 @@ import { registerMail } from '../controllers/mailer.js'
 import verifyJWT, { localVariables } from '../middleware/verifyJWT.js'
 import loginLimiter from '../middleware/rateLimiter.js'
 
+router.use(verifyJWT)
+
 /** POST Methods */
 router.route('/register').post(loginLimiter, userController.register) // register user
 router.route('/registerMail').post(registerMail) // send the email
@@ -13,7 +15,7 @@ router.route('/authenticate').post(userController.verifyUser, (req, res) => res.
 // router.route('/login').post(loginLimiter, userController.verifyUser, userController.login) // login in app
 
 /** GET Methods */
-router.route('/getAllUsers').get(userController.verifyUser, userController.getAllUsers) // get all users
+router.route('/getAllUsers').get(userController.getAllUsers) // get all users
 router.route('/generateOTP').get(userController.verifyUser, localVariables, userController.generateOTP) // generate random OTP
 router.route('/verifyOTP').get(userController.verifyUser, userController.verifyOTP) // verify generated OTP
 router.route('/createResetSession').get(userController.createResetSession) // reset all the variables
@@ -25,7 +27,7 @@ router.route('/:username').get(userController.getUser) // user with username
 // one that should have been handled by the first route (/:username).
 
 /** PUT Methods */
-router.route('/updateuser').put(verifyJWT, userController.updateUser) // to update the user profile
+// router.route('/updateuser').put(verifyJWT, userController.updateUser) // to update the user profile
 router.route('/resetPassword').put(userController.verifyUser, userController.resetPassword) // use to reset password
 
 export default router
