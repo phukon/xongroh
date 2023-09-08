@@ -1,7 +1,7 @@
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3500',
-  'https://xongroh-backend.onrender.com/',
-  'https://teamxongroh.vercel.app/',
+  'https://xongroh.vercel.app/',
+  'https://xongroh-9xkm.vercel.app/',
 ]
 export default allowedOrigins

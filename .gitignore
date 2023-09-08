@@ -2,9 +2,10 @@ xongroh-backend/node_modules/
 xongroh-frontend/node_modules/
 
 # environment variable
+xongroh-frontend/.env
 xongroh-backend/.env
-xongroh-backend/crypto.js
 
+xongroh-backend/crypto.js
 xongroh-backend/logs/
 /logs/
 .vscode/

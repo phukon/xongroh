@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '@/features/auth/authSlice'
+const apiUrl = import.meta.env.VITE_API
 
 const baseQuery = fetchBaseQuery({
-  baseUrl:  'https://xongroh-backend.onrender.com/v1/' , //'http://localhost:8000/v1/'
+  baseUrl:  apiUrl,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token
