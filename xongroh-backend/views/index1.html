@@ -216,7 +216,7 @@
         setInterval(updateDateTime, 1000)
 
         // Fetch API data from the endpoint
-        fetch('https://xongroh-backend.onrender.com/v1/api/apiStatus')
+        fetch('https://xongroh.vercel.app/v1/api/apiStatus')
           .then((response) => response.json())
           .then((data) => {
             updateApiTable(data)
