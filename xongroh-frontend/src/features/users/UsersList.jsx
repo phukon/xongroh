@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useGetUsersQuery } from '@/features/users/usersApiSlice'
 
 const UsersList = () => {
+  console.log(process.env.NODE_ENV)
   const {
     data: users,
     isLoading,
@@ -11,7 +12,7 @@ const UsersList = () => {
     isError,
     error,
   } = useGetUsersQuery('usersList', {
-    pollingInterval: 5*60*1000,
+    pollingInterval: 5 * 60 * 1000,
     refetchOnFocus: false,
     refetchOnMountOrArgChange: true,
   })
@@ -28,6 +29,8 @@ const UsersList = () => {
 
   if (isSuccess) {
     const { ids, entities } = users
+
+    console.log(users)
 
     tableContent = ids?.length ? (
       ids.map((userId) => (

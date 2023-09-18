@@ -15,55 +15,52 @@ export const verifyUser = asyncHandler(async (req, res, next) => {
   next()
 })
 
-/** POST: http://localhost:8080/api/register 
- * @param : {
-  "username" : "example123",
-  "password" : "admin123",
-  "email": "example@gmail.com",
-  "firstName" : "bill",
-  "lastName": "william",
-  "mobile": 8009860560,
-  "address" : "Apt. 556, Kulas Light, Gwenborough",
-  "profile": ""
-}
-*/
-export const register = asyncHandler(async (req, res) => {
-  const { username, password, profile, email } = req.body
+// @desc Create new user
+// @route POST /users
+// @access Private
+export const register = async (req, res) => {
+  const { username, password, email } = req.body
 
-  // Check the existing user
-  const existUsername = UserModel.findOne({ username }).then((user) => {
-    if (user) {
-      throw { error: 'Please use unique username' }
-    }
-  })
-
-  const existEmail = UserModel.findOne({ email }).then((email) => {
-    if (email) {
-      throw { error: 'Please use unique Email' }
-    }
-  })
-
-  try {
-    await Promise.all([existUsername, existEmail])
-
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10)
-
-      const user = new UserModel({
-        username,
-        password: hashedPassword,
-        profile: profile || '',
-        email,
-      })
-
-      // Return save result as a response
-      const result = await user.save()
-      return res.status(201).send({ msg: 'User Register Successfully' })
-    }
-  } catch (error) {
-    return res.status(500).send({ error })
+  // Confirm data
+  if (!username || !password || !email) {
+    return res.status(400).json({ message: 'All fields are required' })
   }
-})
+
+  // Check for duplicate username
+  const duplicateUsername = await User.findOne({ username })
+    .collation({ locale: 'en', strength: 2 })
+    .lean()
+    .exec()
+
+  if (duplicateUsername) {
+    return res.status(409).json({ message: 'Duplicate username' })
+  }
+
+  // Check for duplicate mail
+  const duplicateMail = await User.findOne({ username })
+    .collation({ locale: 'en', strength: 2 })
+    .lean()
+    .exec()
+
+  if (duplicateMail) {
+    return res.status(409).json({ message: 'Duplicate mail' })
+  }
+
+  // Hash password
+  const hashedPwd = await bcrypt.hash(password, 10) // salt rounds
+
+  const userObject = { username, password: hashedPwd, email }
+
+  // Create and store new user
+  const user = await UserModel.create(userObject)
+
+  if (user) {
+    //created
+    res.status(201).json({ message: `New user ${username} created` })
+  } else {
+    res.status(400).json({ message: 'Invalid user data received' })
+  }
+}
 
 // @desc Get all users
 // @route GET /usersAllUsers
@@ -184,7 +181,7 @@ export const resetPassword = asyncHandler(async (req, res) => {
 
       await UserModel.updateOne(
         { username: user.username },
-        { password: hashedPassword },
+        { password: hashedPassword }
       )
 
       req.app.locals.resetSession = false // Reset session

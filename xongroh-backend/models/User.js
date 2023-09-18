@@ -23,6 +23,26 @@ const userSchema = new mongoose.Schema(
         message: 'Please provide a valid email address',
       },
     },
+    user_type: {
+      type: String,
+      enum: ['Creator', 'Patron', 'Admin'],
+      required: true,
+    },
+    dob: {
+      type: Date,
+      required: true,
+    },
+    phone: String,
+    created_at: {
+      type: Date,
+      default: Date.now,
+    },
+    creations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Creations' }],
+    supporting: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    portfolio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Portfolio' }],
+    communities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Community' }],
+    tribe: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tribe' }],
+    saved: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Creations' }],
     bio: { type: String },
     firstName: { type: String },
     lastName: { type: String },
@@ -31,7 +51,7 @@ const userSchema = new mongoose.Schema(
     profilePicture: { type: String }, // Add a field for profile pictures
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   },
-  { timestamps: true },
+  { timestamps: true }
 )
 
 export default mongoose.model('User', userSchema)

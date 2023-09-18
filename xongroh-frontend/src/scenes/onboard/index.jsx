@@ -6,7 +6,12 @@ import { useRef, useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '@/features/auth/authSlice'
-import { useLoginMutation } from '@/features/auth/authApiSlice'
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from '@/features/auth/authApiSlice'
+import { set } from 'date-fns'
+import SuccessDialog from './SuccessDialog'
 
 function AuthenticationPage() {
   const userRef = useRef()
@@ -22,6 +27,7 @@ function AuthenticationPage() {
   const dispatch = useDispatch()
 
   const [login, { isLoading }] = useLoginMutation()
+  const [register, { isSuccess }] = useRegisterMutation()
 
   useEffect(() => {
     userRef.current.focus()
@@ -42,18 +48,28 @@ function AuthenticationPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { accessToken } = await login({ username, password }).unwrap()
-      dispatch(setCredentials({ accessToken }))
-      setUsername('')
-      setPassword('')
-      navigate('/dash')
+      if (isLoginMode) {
+        const { accessToken } = await login({ username, password }).unwrap()
+        dispatch(setCredentials({ accessToken }))
+        setUsername('')
+        setPassword('')
+        navigate('/dash')
+      } else {
+        await register({ username, password, email }).unwrap()
+        setUsername('')
+        setPassword('')
+        setEmail('')
+        setIsSuccessDialogOpen(true)
+      }
     } catch (err) {
       if (!err.status) {
         setErrMsg('No Server Response')
       } else if (err.status === 400) {
-        setErrMsg('Missing Username or Password')
+        setErrMsg('All fields required')
       } else if (err.status === 401) {
         setErrMsg('Unauthorized')
+      } else if (err.status === 409) {
+        setErrMsg('Username or email already exists')
       } else {
         setErrMsg(err.data?.message)
       }
@@ -65,7 +81,11 @@ function AuthenticationPage() {
     if (isLoginMode) {
       setUsername(e.target.value)
     } else {
-      setEmail(e.target.value)
+      if (e.target.name === 'email') {
+        setEmail(e.target.value)
+      } else {
+        setUsername(e.target.value)
+      }
     }
   }
 
@@ -132,6 +152,23 @@ function AuthenticationPage() {
                   id="email"
                   ref={userRef}
                   value={email}
+                  onChange={handleUserInput}
+                  autoComplete="off"
+                />
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  className="mt-1 p-3 w-full border border-gray-300 rounded-md"
+                  placeholder="Username"
+                  required
+                  id="username"
+                  value={username}
                   onChange={handleUserInput}
                   autoComplete="off"
                 />

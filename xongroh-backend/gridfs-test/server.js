@@ -2,8 +2,8 @@ import fs from 'fs'
 import { MongoClient, GridFSBucket, ObjectId } from 'mongodb'
 import path from 'path'
 
-const url =
-  'mongodb+srv://admin:admin@cluster0.zrd2xpa.mongodb.net/?retryWrites=true&w=majority' // Your MongoDB connection URL
+// const url =
+
 const dbName = 'gridfs-test'
 const client = await MongoClient.connect(url)
 const db = client.db(dbName) // Your MongoDB database name

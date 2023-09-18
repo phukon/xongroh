@@ -6,10 +6,10 @@ import { registerMail } from '../controllers/mailer.js'
 import verifyJWT, { localVariables } from '../middleware/verifyJWT.js'
 import loginLimiter from '../middleware/rateLimiter.js'
 
+router.route('/register').post(loginLimiter, userController.register) // register user
 router.use(verifyJWT)
 
 /** POST Methods */
-router.route('/register').post(loginLimiter, userController.register) // register user
 router.route('/registerMail').post(registerMail) // send the email
 router.route('/authenticate').post(userController.verifyUser, (req, res) => res.end()) // authenticate user
 // router.route('/login').post(loginLimiter, userController.verifyUser, userController.login) // login in app

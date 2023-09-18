@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import HomePage from '@/scenes/homePage/HomePage'
 import PostPage from '@/scenes/postPage/PostPage'
 import PageNotFound from '@/scenes/pageNotFound/PageNotFound'
-import SearchPage from '@/scenes/searchPage/SearchPage'
+import Search from '@/features/search/routes/Search'
 import MyCommunities from '@/scenes/communities/MyCommunities'
 import CommunityPage from '@/scenes/communities/CommunityPage'
 import Profile from '@/scenes/profile/Profile'
@@ -22,19 +22,18 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Public />} />
-        <Route path='login' element={<AuthenticationPage />} />
+        <Route path="login" element={<AuthenticationPage />} />
         {/* <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} /> */}
         <Route element={<PersistLogin />}>
           <Route element={<Prefetch />}>
             <Route path="dash" element={<DashLayout />}>
               <Route index element={<HomePage />} />
-              <Route path="search" element={<SearchPage />} />
+              <Route path="search" element={<Search />} />
               <Route path="communities" element={<MyCommunities />} />
               <Route path="profile" element={<Profile />} />
               <Route path="communitypage" element={<CommunityPage />} />
               <Route path="postpage" element={<PostPage />} />
-
               <Route path="users">
                 <Route index element={<UsersList />} />
                 <Route path=":userId" element={<UserPage />} />
