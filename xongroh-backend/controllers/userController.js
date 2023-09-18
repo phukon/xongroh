@@ -27,7 +27,7 @@ export const register = async (req, res) => {
   }
 
   // Check for duplicate username
-  const duplicateUsername = await User.findOne({ username })
+  const duplicateUsername = await UserModel.findOne({ username })
     .collation({ locale: 'en', strength: 2 })
     .lean()
     .exec()
@@ -37,7 +37,7 @@ export const register = async (req, res) => {
   }
 
   // Check for duplicate mail
-  const duplicateMail = await User.findOne({ username })
+  const duplicateMail = await UserModel.findOne({ username })
     .collation({ locale: 'en', strength: 2 })
     .lean()
     .exec()
