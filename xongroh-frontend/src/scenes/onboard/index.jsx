@@ -11,7 +11,6 @@ import {
   useRegisterMutation,
 } from '@/features/auth/authApiSlice'
 import { set } from 'date-fns'
-import SuccessDialog from './SuccessDialog'
 
 function AuthenticationPage() {
   const userRef = useRef()
@@ -21,6 +20,7 @@ function AuthenticationPage() {
   const [email, setEmail] = useState('')
   const [errMsg, setErrMsg] = useState('')
   const [isLoginMode, setIsLoginMode] = useState(false)
+  const [isAccountCreated, setIsAccountCreated] = useState(false)
   const [persist, setPersist] = usePersist()
 
   const navigate = useNavigate()
@@ -59,7 +59,7 @@ function AuthenticationPage() {
         setUsername('')
         setPassword('')
         setEmail('')
-        setIsSuccessDialogOpen(true)
+        setIsAccountCreated(true)
       }
     } catch (err) {
       if (!err.status) {
@@ -76,6 +76,12 @@ function AuthenticationPage() {
       errRef.current.focus()
     }
   }
+
+  if (isAccountCreated) {
+    window.alert('Account created successfully!')
+    setIsAccountCreated(false)
+  }
+
 
   const handleUserInput = (e) => {
     if (isLoginMode) {
@@ -166,7 +172,7 @@ function AuthenticationPage() {
                   name="username"
                   className="mt-1 p-3 w-full border border-gray-300 rounded-md"
                   placeholder="Username"
-                  // required
+                  required
                   id="username"
                   value={username}
                   onChange={handleUserInput}
