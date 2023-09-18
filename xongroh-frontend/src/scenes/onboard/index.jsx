@@ -166,7 +166,7 @@ function AuthenticationPage() {
                   name="username"
                   className="mt-1 p-3 w-full border border-gray-300 rounded-md"
                   placeholder="Username"
-                  required
+                  // required
                   id="username"
                   value={username}
                   onChange={handleUserInput}

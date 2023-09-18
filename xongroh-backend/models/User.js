@@ -25,12 +25,10 @@ const userSchema = new mongoose.Schema(
     },
     user_type: {
       type: String,
-      enum: ['Creator', 'Patron', 'Admin'],
-      required: true,
+      enum: ['Creator', 'Patron', 'Admin']
     },
     dob: {
-      type: Date,
-      required: true,
+      type: Date
     },
     phone: String,
     created_at: {
