@@ -28,7 +28,7 @@ export const login = asyncHandler(async (req, res) => {
         {
             "UserInfo": {
                 "username": foundUser.username,
-                "roles": foundUser.roles
+                "roles": foundUser.user_type
             }
         },
         process.env.ACCESS_TOKEN_SECRET,

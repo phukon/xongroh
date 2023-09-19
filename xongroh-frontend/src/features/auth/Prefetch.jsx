@@ -11,13 +11,7 @@ const Prefetch = () => {
   useEffect(() => {
     if (token) {
       console.log('Prefetching data')
-
-      const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate())
-
-      return () => {
-        console.log('Unsubscribing')
-        users.unsubscribe()
-      }
+      store.dispatch(usersApiSlice.util.prefetch('getUsers', 'User', { force: true }))
     }
   }, [token])
 
