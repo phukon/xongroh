@@ -7,7 +7,7 @@ const HomePage = () => {
     <div className="overflow-hidden bg-[#FAF2FF]">
       <div className="header shadow-card rounded-b-3xl bg-[#F5F0BB] px-5 pb-12">
         <p className="text-medium p-5 pb-7 text-base font-normal ">
-          <span className="font-bold">Hi ${username}</span>, have a nice day!
+          Hi <span className="font-bold">{username}</span>, have a nice day!
         </p>
 
         <div className="grid grid-cols-2 gap-7 px-5 text-sm font-semibold">
