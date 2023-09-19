@@ -11,7 +11,7 @@ const useAuth = () => {
 
     if (token) {
         const decoded = jwtDecode(token)
-        const { username } = decoded.UserInfo // add roles later
+        const { username, userId } = decoded.UserInfo // add roles later
 
         // isCreator = roles.includes('Creator') do it later after a logic has been agreed upon
         // isPatron = roles.includes('Patron')
@@ -21,9 +21,9 @@ const useAuth = () => {
         // if (isPatron) status = "Patron"
         // if (isAdmin) status = "Admin"
 
-        return { username } // add status later
+        return { username, userId } // add status later
     }
 
-    return { username: '', status }
+    return { username: '', status, userId }
 }
 export default useAuth

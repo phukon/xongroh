@@ -11,8 +11,8 @@ const PageNotFound = () => {
         <p className="text-gray-300 mb-4">
           Sorry, the page you are looking for does not exist.
         </p>
-        <Link to="/" className="text-blue-500 hover:underline">
-          &larr; Go back to the previous page
+        <Link to="/dash" className="text-blue-500 hover:underline">
+          &larr; Go back to the Homepage.
         </Link>
       </div>
     </div>

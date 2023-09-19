@@ -1,7 +1,28 @@
 import Assets from '@/assets/Assets'
 import ProfilePost from '@/components/ProfilePost'
+import useAuth from '@/hooks/useAuth'
+import { useEffect, useState } from 'react'
+import { selectUserById } from '@/features/users/usersApiSlice'
+import { useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+
 
 const Profile = () => {
+  const navigate = useNavigate()
+  const [isValid, setIsValid] = useState(false)
+  const { username } = useAuth()
+  const { id } = useParams()
+  const user = useSelector((state) => selectUserById(state, id))
+
+  useEffect(() => {
+    if (user !== undefined) {
+      setIsValid(true)
+    } else {
+      setIsValid(false)
+      navigate('/user-not-found')
+    }
+  }, [user, navigate])
+
   return (
     <div className="overflow-hidden bg-[#FFF5E8]">
       <div className="flex flex-col">
@@ -19,7 +40,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="pb-2 pt-2 text-xl font-bold">Mahindra Alpha Beta</div>
+          <div className="pb-2 pt-2 text-xl font-bold">{username}</div>
           <p className=" px-5 pb-6 text-center text-sm font-normal ">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id
             felis a est dapibus posuere. Donec molestie risus ac elit imperdiet
@@ -28,10 +49,10 @@ const Profile = () => {
 
           <div className="flex w-full flex-row justify-center">
             <button className="shadow-button mx-4 h-9 w-28 rounded-3xl bg-[#DFCCFB] px-4 py-1 text-sm	 font-medium">
-              Supporting
+              Create
             </button>
             <button className="shadow-button mx-4 h-9 w-28 rounded-3xl bg-[#FFFFFF] px-4 py-1 text-sm font-medium">
-              Message
+              Edit profile
             </button>
           </div>
         </div>

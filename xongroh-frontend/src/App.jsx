@@ -31,7 +31,7 @@ function App() {
               <Route index element={<HomePage />} />
               <Route path="search" element={<Search />} />
               <Route path="communities" element={<MyCommunities />} />
-              <Route path="profile" element={<Profile />} />
+              <Route path="profile/:id" element={<Profile />} />
               <Route path="communitypage" element={<CommunityPage />} />
               <Route path="postpage" element={<PostPage />} />
               <Route path="users">

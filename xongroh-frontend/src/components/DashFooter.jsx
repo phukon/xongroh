@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Assets from '@/assets/Assets'
+import useAuth from '@/hooks/useAuth'
 
 const DashFooter = () => {
+  const {userId} = useAuth()
+
   return (
     <nav className="fixed bottom-0 left-0 flex w-full flex-row justify-between bg-white px-10 py-3">
       <Link to="/dash">
@@ -14,7 +17,7 @@ const DashFooter = () => {
       <Link to="/dash/communities">
         <img className="h-8 w-8" src={Assets.world} alt="About" />
       </Link>
-      <Link to="/dash/profile">
+      <Link to={`/dash/profile/${userId}`}>
         <img className="h-8 w-8" src={Assets.profile} alt="About" />
       </Link>
     </nav>

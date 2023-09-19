@@ -5,10 +5,10 @@ import asyncHandler from 'express-async-handler'
 
 /** middleware for verify user */
 export const verifyUser = asyncHandler(async (req, res, next) => {
-  const { username } = req.method === 'GET' ? req.query : req.body
+  const { userId } = req.method === 'GET' ? req.query : req.body
 
   // Check the user existence
-  let exist = await UserModel.findOne({ username })
+  let exist = await UserModel.findOne({ _id : userId })
   if (!exist) {
     return res.status(404).send({ error: "Can't find User!" })
   }
