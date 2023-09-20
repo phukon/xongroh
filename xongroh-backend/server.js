@@ -11,7 +11,7 @@ import corsOptions from './config/corsOptions.js'
 import connectDB from './config/dbConn.js'
 import mongoose from 'mongoose'
 import userRoute from './routes/userRoute.js'
-// import postRoute from './routes/postRoute.js';
+import postRoute from './routes/postRoute.js';
 import authRoute from './routes/authRoutes.js'
 
 import rootRoute from './routes/root.js'
@@ -48,7 +48,7 @@ app.use(
 app.use('/', rootRoute)
 app.use('/v1/auth', authRoute)
 app.use('/v1/user', userRoute)
-// app.use('/v1/post', postRoute);
+app.use('/v1/post', postRoute);
 app.use('/v1/api', apiCheckRoute)
 
 // app.use(require("./routes/auth"));

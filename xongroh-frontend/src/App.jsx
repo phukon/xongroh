@@ -16,6 +16,8 @@ import AuthenticationPage from '@/scenes/onboard'
 import UserPage from '@/features/users/UserPage'
 import PersistLogin from '@/features/auth/PersistLogin'
 import Public from '@/features/auth/Public'
+import UserNotFound from '@/scenes/userNotFound/UserNotFound'
+import EditProfile from '@/scenes/profile/EditProfile'
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
               <Route path="search" element={<Search />} />
               <Route path="communities" element={<MyCommunities />} />
               <Route path="profile/:id" element={<Profile />} />
+              <Route path="profile/:id/edit" element={<EditProfile />} />
+              <Route path="profile/user-not-found" element={<UserNotFound />} />
               <Route path="communitypage" element={<CommunityPage />} />
               <Route path="postpage" element={<PostPage />} />
               <Route path="users">

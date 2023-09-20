@@ -4,22 +4,23 @@ import ProfilePost from '@/components/ProfilePost'
 import useAuth from '@/hooks/useAuth'
 import { useVerifyUserMutation } from '@/features/auth/authApiSlice'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useGetPostsQuery } from '@/features/posts/postsApiSlice'
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
   const navigate = useNavigate()
   const { username } = useAuth()
   const { id } = useParams()
 
-  const [verifyUser, { isLoading }] = useVerifyUserMutation()
+  const [verifyUser] = useVerifyUserMutation()
 
   const handleVerifyUser = async () => {
     try {
       const reef = await verifyUser({ userId: id }).unwrap()
-      console.log(reef)
     } catch (error) {
-      if (error.status === 404) {
+      if (error.status === 404 || 400) {
         console.error('User not found')
-        navigate('/dash')
+        navigate('/dash/profile/user-not-found')
       }
     }
   }
@@ -29,6 +30,45 @@ const Profile = () => {
       handleVerifyUser()
     }
   }, [id])
+
+  const {
+    data: posts,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetPostsQuery('Posts', {
+    pollingInterval: 5 * 60 * 1000,
+    refetchOnFocus: false,
+    refetchOnMountOrArgChange: true,
+  })
+
+  let content = null
+
+  if (isLoading) {
+    content = <p>Loading...</p>
+  } else if (isError) {
+    ;<p>{error?.data?.message}</p>
+  } else if (isSuccess) {
+    const { ids, entities } = posts
+
+    console.log(posts)
+
+    content = ids?.length ? (
+      ids.map((postId) => (
+        <Link key={postId} to={`/dash/posts/${postId}`}>
+          <ProfilePost
+            title={entities[postId].title}
+            content={entities[postId].content}
+            cover={entities[postId].cover}
+            author={entities[postId].author} 
+          />
+        </Link>
+      ))
+    ) : (
+      <p>No posts found.</p>
+    )
+  }
 
   return (
     <div className="overflow-hidden bg-[#FFF5E8]">
@@ -85,10 +125,7 @@ const Profile = () => {
       </div>
 
       <div className="px-4">
-        <ProfilePost />
-        <ProfilePost />
-        <ProfilePost />
-        <ProfilePost />
+        {content}
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ import { sub } from 'date-fns'
 import { apiSlice } from '../api/apiSlice'
 
 const postsAdapter = createEntityAdapter({
-  sortComparer: (a, b) => b.date.localeCompare(a.date),
+  sortComparer: (a, b) => b.timestamp.localeCompare(a.timestamp),
 })
 
 const initialState = postsAdapter.getInitialState()
@@ -11,122 +11,62 @@ const initialState = postsAdapter.getInitialState()
 export const postsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: () => '/posts',
+      query: () => ({
+        url: '/post/getAllPosts',
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError
+        },
+      }),
       transformResponse: (responseData) => {
-        let min = 1
         const loadedPosts = responseData.map((post) => {
-          if (!post?.date)
-            post.date = sub(new Date(), { minutes: min++ }).toISOString()
-          if (!post?.reactions)
-            post.reactions = {
-              thumbsUp: 0,
-              wow: 0,
-              heart: 0,
-              rocket: 0,
-              coffee: 0,
-            }
+          post.id = post._id
           return post
         })
         return postsAdapter.setAll(initialState, loadedPosts)
       },
-      providesTags: (result, error, arg) => [
-        { type: 'Post', id: 'LIST' },
-        ...result.ids.map((id) => ({ type: 'Post', id })),
-      ],
-    }),
-    getPostsByUserId: builder.query({
-      query: (id) => `/posts/?userId=${id}`,
-      transformResponse: (responseData) => {
-        let min = 1
-        const loadedPosts = responseData.map((post) => {
-          if (!post?.date)
-            post.date = sub(new Date(), { minutes: min++ }).toISOString()
-          if (!post?.reactions)
-            post.reactions = {
-              thumbsUp: 0,
-              wow: 0,
-              heart: 0,
-              rocket: 0,
-              coffee: 0,
-            }
-          return post
-        })
-        return postsAdapter.setAll(initialState, loadedPosts)
+      providesTags: (result, error, arg) => {
+        if (result?.ids) {
+          return [
+            { type: 'Post', id: 'LIST' },
+            ...result.ids.map((id) => ({ type: 'Post', id })),
+          ]
+        } else return [{ type: 'Post', id: 'LIST' }]
       },
-      providesTags: (result, error, arg) => [
-        ...result.ids.map((id) => ({ type: 'Post', id })),
-      ],
     }),
     addNewPost: builder.mutation({
       query: (initialPost) => ({
-        url: '/posts',
+        url: '/post/createPost',
         method: 'POST',
         body: {
           ...initialPost,
-          userId: Number(initialPost.userId),
-          date: new Date().toISOString(),
-          reactions: {
-            thumbsUp: 0,
-            wow: 0,
-            heart: 0,
-            rocket: 0,
-            coffee: 0,
-          },
         },
       }),
       invalidatesTags: [{ type: 'Post', id: 'LIST' }],
     }),
     updatePost: builder.mutation({
       query: (initialPost) => ({
-        url: `/posts/${initialPost.id}`,
-        method: 'PUT',
+        url: '/post/updatePost',
+        method: 'PATCH',
         body: {
           ...initialPost,
-          date: new Date().toISOString(),
         },
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
     }),
     deletePost: builder.mutation({
       query: ({ id }) => ({
-        url: `/posts/${id}`,
+        url: `/post/deletePost`,
         method: 'DELETE',
         body: { id },
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
-    }),
-    addReaction: builder.mutation({
-      query: ({ postId, reactions }) => ({
-        url: `posts/${postId}`,
-        method: 'PATCH',
-        body: { reactions },
-      }),
-      async onQueryStarted(
-        { postId, reactions },
-        { dispatch, queryFulfilled },
-      ) {
-        // `updateQueryData` requires the endpoint name and cache key arguments,
-        // so it knows which piece of cache state to update
-        const patchResult = dispatch(
-          postsApiSlice.util.updateQueryData('getPosts', undefined, (draft) => {
-            // The `draft` is Immer-wrapped and can be "mutated" like in createSlice
-            const post = draft.entities[postId]
-            if (post) post.reactions = reactions
-          }),
-        )
-        try {
-          await queryFulfilled
-        } catch {
-          patchResult.undo()
-        }
-      },
     }),
   }),
 })
 
 export const {
   useGetPostsQuery,
-  useGetPostsByUserIdQuery,
+  // useGetPostsByUserIdQuery,
   useAddNewPostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
@@ -139,7 +79,7 @@ export const selectPostsResult = postsApiSlice.endpoints.getPosts.select()
 // Creates memoized selector
 const selectPostsData = createSelector(
   selectPostsResult,
-  (postsResult) => postsResult.data, // normalized state object with ids & entities
+  (postsResult) => postsResult.data // normalized state object with ids & entities
 )
 
 //getSelectors creates these selectors and we rename them with aliases using destructuring

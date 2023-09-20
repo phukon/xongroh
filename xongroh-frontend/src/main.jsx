@@ -6,9 +6,11 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store.js'
+import INFMTN from './INFMTN.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <INFMTN/>
     <Provider store={store}>
       <BrowserRouter>
         <App />

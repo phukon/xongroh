@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectUserById } from './usersApiSlice'
 import { Link, useParams } from 'react-router-dom'
-import { useGetPostsByUserIdQuery } from '../posts/postsApiSlice'
 
 const UserPage = () => {
   const { userId } = useParams()
