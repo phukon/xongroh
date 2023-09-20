@@ -7,12 +7,20 @@ import asyncHandler from 'express-async-handler'
 export const verifyUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.method === 'GET' ? req.query : req.body
 
-  // Check the user existence
-  let exist = await UserModel.findOne({ _id : userId })
-  if (!exist) {
-    return res.status(404).send({ error: "Can't find User!" })
+  try {
+    const objectId = mongoose.Types.ObjectId(userId)
+
+    let exist = await UserModel.findOne({ _id: objectId })
+
+    if (!exist) {
+      return res.status(404).send({ error: "Can't find User!" })
+    }
+
+    next()
+  } catch (error) {
+    console.error('Error converting userId to ObjectId:', error)
+    return res.status(400).send({ error: 'Invalid userId format' })
   }
-  next()
 })
 
 // @desc Create new user

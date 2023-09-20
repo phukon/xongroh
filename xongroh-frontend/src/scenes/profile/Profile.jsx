@@ -1,27 +1,34 @@
+import React, { useEffect } from 'react'
 import Assets from '@/assets/Assets'
 import ProfilePost from '@/components/ProfilePost'
 import useAuth from '@/hooks/useAuth'
-import { useEffect, useState } from 'react'
-import { selectUserById } from '@/features/users/usersApiSlice'
-import { useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-
+import { useVerifyUserMutation } from '@/features/auth/authApiSlice'
+import { useParams, useNavigate } from 'react-router-dom'
 
 const Profile = () => {
   const navigate = useNavigate()
-  const [isValid, setIsValid] = useState(false)
   const { username } = useAuth()
   const { id } = useParams()
-  const user = useSelector((state) => selectUserById(state, id))
+
+  const [verifyUser, { isLoading }] = useVerifyUserMutation()
+
+  const handleVerifyUser = async () => {
+    try {
+      const reef = await verifyUser({ userId: id }).unwrap()
+      console.log(reef)
+    } catch (error) {
+      if (error.status === 404) {
+        console.error('User not found')
+        navigate('/dash')
+      }
+    }
+  }
 
   useEffect(() => {
-    if (user !== undefined) {
-      setIsValid(true)
-    } else {
-      setIsValid(false)
-      navigate('/user-not-found')
+    if (id) {
+      handleVerifyUser()
     }
-  }, [user, navigate])
+  }, [id])
 
   return (
     <div className="overflow-hidden bg-[#FFF5E8]">

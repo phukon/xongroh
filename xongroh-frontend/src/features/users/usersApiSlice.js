@@ -1,5 +1,5 @@
 import { createSelector, createEntityAdapter } from '@reduxjs/toolkit'
-import { apiSlice } from '../api/apiSlice'
+import { apiSlice } from '@/features/api/apiSlice'
 const usersAdapter = createEntityAdapter({})
 
 const initialState = usersAdapter.getInitialState()
@@ -77,6 +77,7 @@ const selectUsersData = createSelector(
   selectUsersResult,
   (usersResult) => usersResult.data // normalized state object with ids & entities
 )
+
 
 //getSelectors creates these selectors and we rename them with aliases using destructuring
 export const {

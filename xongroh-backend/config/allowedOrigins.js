@@ -1,10 +1,9 @@
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3500',
-  'https://xongroh.vercel.app/',
-  'https://xongroh-9xkm.vercel.app/',
-  'https://xongroh-9xkm-phukon.vercel.app/',
-  'https://xongroh-9xkm-git-main-phukon.vercel.app/',
-  'https://xongroh-9xkm-96up0osc2-phukon.vercel.app/',
+  'https://xongroh.vercel.app',
+  'https://xongroh-public.vercel.app',
 ]
 export default allowedOrigins
+
+// Don't use a trailing slash. The last time I used it, it caused a bug.

@@ -6,7 +6,7 @@ import { useGetPostsByUserIdQuery } from '../posts/postsApiSlice'
 const UserPage = () => {
   const { userId } = useParams()
   const user = useSelector((state) => selectUserById(state, userId))
-  console.log(user?.following) // Use optional chaining here
+  console.log(user?.email) // Use optional chaining here
   let posts = null
 
   if (user?.following?.length === 0) {
