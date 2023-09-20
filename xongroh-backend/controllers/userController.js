@@ -2,6 +2,7 @@ import UserModel from '../models/User.js'
 import bcrypt from 'bcrypt'
 import otpGenerator from './otp-gen.js'
 import asyncHandler from 'express-async-handler'
+import mongoose from 'mongoose';
 
 /** middleware for verify user */
 export const verifyUser = asyncHandler(async (req, res, next) => {
