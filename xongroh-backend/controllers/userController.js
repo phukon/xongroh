@@ -2,14 +2,14 @@ import UserModel from '../models/User.js'
 import bcrypt from 'bcrypt'
 import otpGenerator from './otp-gen.js'
 import asyncHandler from 'express-async-handler'
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 /** middleware for verify user */
 export const verifyUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.method === 'GET' ? req.query : req.body
 
   try {
-    const objectId = mongoose.Types.ObjectId(userId)
+    const objectId = new mongoose.Types.ObjectId(userId)
 
     let exist = await UserModel.findOne({ _id: objectId })
 
