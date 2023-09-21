@@ -27,7 +27,7 @@ function AuthenticationPage() {
   const dispatch = useDispatch()
 
   const [login, { isLoading }] = useLoginMutation()
-  const [register, { isSuccess }] = useRegisterMutation()
+  const [register] = useRegisterMutation()
 
   useEffect(() => {
     userRef.current.focus()
@@ -81,7 +81,6 @@ function AuthenticationPage() {
     window.alert('Account created successfully!')
     setIsAccountCreated(false)
   }
-
 
   const handleUserInput = (e) => {
     if (isLoginMode) {

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 
-const INFMTN = () => {
+const Int = () => {
   useEffect(() => {
-    const taglineOptions = ['Hi, this is Riki. https://github.com/phukon']
+    const taglineOptions = ['Xongroh']
     const tagline =
       taglineOptions[Math.floor(Math.random() * taglineOptions.length)]
 
@@ -14,6 +14,7 @@ const INFMTN = () => {
     const message = {
       text: `%c${tagline}`,
       styles: [
+        // Add a background color to the styles using ANSI escape codes
         `color: inherit; font-size: 20px; font-weight: 900; margin-bottom: 12px; line-height: 24px;`,
       ],
       logo: {
@@ -24,8 +25,8 @@ const INFMTN = () => {
         ],
       },
       line: {
-        text: `%c\nThoroughly reading the documentation📜 and adhering to industry best practices is recommended. I built this project in a rush, juggling life's mundane affairs, as no developers were there to assist. Therefore, the presence of bugs is expected. ⚠Lots of optimization needed. \n %c`,
-        styles: [`color: inherit; font-size: 14px;`, ''],
+        text: `%c\n\u2022Adhere to industry best practices. \n\u2022Read the documentation thoroughly.\n📜https://github.com/teamxongroh\n\n\n📢https://github.com/phukon\n %c`,
+        styles: [`color: #87CEEB; font-size: 14px;`, ''],
       },
     }
 
@@ -44,4 +45,4 @@ const INFMTN = () => {
   return null // This component doesn't render anything in the DOM
 }
 
-export default INFMTN
+export default Int

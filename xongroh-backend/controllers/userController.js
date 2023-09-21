@@ -110,34 +110,49 @@ export const getUser = asyncHandler(async (req, res) => {
   }
 })
 
-/** PUT: http://localhost:8080/api/updateuser 
- * @param: {
-  "header" : "<token>"
-}
-body: {
-    firstName: '',
-    address : '',
-    profile : ''
-}
-*/
-export const updateUser = asyncHandler(async (req, res) => {
-  try {
-    const { userId } = req.user
 
-    if (userId) {
-      const body = req.body
+// @desc Update a user
+// @route PATCH /users
+// @access Private
+export const updateUser = async (req, res) => {
+  const { username, email, firstName, lastName, profilePicture, id } = req.body
 
-      // Update the data
-      await UserModel.updateOne({ _id: userId }, body)
-
-      return res.status(201).send({ msg: 'Record Updated...!' })
-    } else {
-      return res.status(401).send({ error: 'User Not Found...!' })
-    }
-  } catch (error) {
-    return res.status(401).send({ error })
+  // Confirm data
+  if (!username || !email || !firstName || !lastName || !profilePicture || !id) {
+    return res
+      .status(400)
+      .json({ message: 'All fields except password are required' })
   }
-})
+
+  // Does the user exist to update?
+  const user = await UserModel.findById(id).exec()
+
+  if (!user) {
+    return res.status(400).json({ message: 'User not found' })
+  }
+
+  // Check for duplicate
+  const duplicate = await UserModel.findOne({ username })
+    .collation({ locale: 'en', strength: 2 })
+    .lean()
+    .exec()
+
+  // Allow updates to the original user
+  if (duplicate && duplicate?._id.toString() !== id) {
+    return res.status(409).json({ message: 'Duplicate username' })
+  }
+
+  user.username = username
+
+  // if (password) {
+  //   // Hash password
+  //   user.password = await bcrypt.hash(password, 10) // salt rounds
+  // }
+
+  const updatedUser = await user.save()
+
+  res.json({ message: `${updatedUser.username} updated` })
+}
 
 /** GET: http://localhost:8080/api/generateOTP */
 export const generateOTP = asyncHandler(async (req, res) => {

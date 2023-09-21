@@ -52,8 +52,6 @@ const Profile = () => {
   } else if (isSuccess) {
     const { ids, entities } = posts
 
-    console.log(posts)
-
     content = ids?.length ? (
       ids.map((postId) => (
         <Link key={postId} to={`/dash/posts/${postId}`}>
@@ -71,7 +69,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="overflow-hidden bg-[#FFF5E8]">
+    <div className="overflow-hidden bg-[#FFF5E8] mb-20">
       <div className="flex flex-col">
         <img src={Assets.dummy1} className=" h-40 object-cover" />
         <div className="header shadow-card flex flex-col items-center rounded-b-3xl bg-[#C8E4B2] px-3 pb-6 pt-5">
@@ -98,7 +96,10 @@ const Profile = () => {
             <button className="shadow-button mx-4 h-9 w-28 rounded-3xl bg-[#DFCCFB] px-4 py-1 text-sm	 font-medium">
               Create
             </button>
-            <button className="shadow-button mx-4 h-9 w-28 rounded-3xl bg-[#FFFFFF] px-4 py-1 text-sm font-medium">
+            <button
+              className="shadow-button mx-4 h-9 w-28 rounded-3xl bg-[#FFFFFF] px-4 py-1 text-sm font-medium"
+              onClick={() => navigate('edit')}
+            >
               Edit profile
             </button>
           </div>
@@ -124,9 +125,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="px-4">
-        {content}
-      </div>
+      <div className="px-4">{content}</div>
     </div>
   )
 }

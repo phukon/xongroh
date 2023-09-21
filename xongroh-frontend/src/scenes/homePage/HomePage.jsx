@@ -4,7 +4,7 @@ import useAuth from '@/hooks/useAuth'
 const HomePage = () => {
   const {username, status} = useAuth()
   return (
-    <div className="overflow-hidden bg-[#FAF2FF]">
+    <div className="overflow-hidden bg-[#FAF2FF] mb-16">
       <div className="header shadow-card rounded-b-3xl bg-[#F5F0BB] px-5 pb-12">
         <p className="text-medium p-5 pb-7 text-base font-normal ">
           Hi <span className="font-bold">{username}</span>, have a nice day!
