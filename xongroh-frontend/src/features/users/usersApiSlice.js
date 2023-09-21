@@ -31,6 +31,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         } else return [{ type: 'User', id: 'LIST' }]
       },
     }),
+    getUserById: builder.query({
+      query: (userId) => `/user/getUserById/${userId}`,
+      validateStatus: (response, result) => {
+        return response.status === 200 && !result.isError
+      },
+      providesTags: (result, error, arg) => [{ type: 'User', id: arg }],
+    }),
     addNewUser: builder.mutation({
       query: (initialUserData) => ({
         url: '/users',
@@ -64,6 +71,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetUsersQuery,
+  useGetUserByIdQuery,
   useAddNewUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
@@ -77,7 +85,6 @@ const selectUsersData = createSelector(
   selectUsersResult,
   (usersResult) => usersResult.data // normalized state object with ids & entities
 )
-
 
 //getSelectors creates these selectors and we rename them with aliases using destructuring
 export const {
