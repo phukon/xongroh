@@ -6,11 +6,18 @@ import { useVerifyUserMutation } from '@/features/auth/authApiSlice'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useGetPostsQuery } from '@/features/posts/postsApiSlice'
 import { Link } from 'react-router-dom'
+import { useGetUserByIdQuery } from '@/features/users/usersApiSlice'
 
 const Profile = () => {
   const navigate = useNavigate()
   const { username } = useAuth()
   const { id } = useParams()
+  const {
+    data,
+    isLoading: userLoading,
+    isSuccess: userSuccess,
+    isError: userError,
+  } = useGetUserByIdQuery(id)
 
   const [verifyUser] = useVerifyUserMutation()
 
@@ -59,7 +66,7 @@ const Profile = () => {
             title={entities[postId].title}
             content={entities[postId].content}
             cover={entities[postId].cover}
-            author={entities[postId].author} 
+            author={entities[postId].author}
           />
         </Link>
       ))
@@ -78,7 +85,7 @@ const Profile = () => {
               <div className="font-bold">25</div>
               <div className="text-sm	font-medium">Creations</div>
             </div>
-            <img src={Assets.user2} className="relative bottom-16" />
+            <img src={data.profilePicture} className="relative bottom-16 w-28 h-28 rounded-full overflow-hidden" />
             <div className="text-center">
               <div className="font-bold">25k</div>
               <div className="text-sm	font-medium">Supporters</div>

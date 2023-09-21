@@ -1,3 +1,11 @@
+/* 
+  I didn't use useState to manage the input values because
+  I'm also trying to preset the data in the input fields from
+  the server. This can result in the values being undefined
+  while the data loads, making the controlled inputs uncontrolled
+  and throwing an error.
+  ~Riki
+*/
 import React, { useEffect, useState } from 'react'
 import convertToBase64 from '@/utils/convert'
 import { useParams } from 'react-router-dom'
@@ -42,7 +50,7 @@ const UserEdit = () => {
       firstName: document.getElementById('firstName').value,
       lastName: document.getElementById('lastName').value,
       profilePicture,
-      id
+      id,
     }
     updateUser(updatedUserData)
   }

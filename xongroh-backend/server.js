@@ -11,7 +11,7 @@ import corsOptions from './config/corsOptions.js'
 import connectDB from './config/dbConn.js'
 import mongoose from 'mongoose'
 import userRoute from './routes/userRoute.js'
-import postRoute from './routes/postRoute.js';
+import postRoute from './routes/postRoute.js'
 import authRoute from './routes/authRoutes.js'
 
 import rootRoute from './routes/root.js'
@@ -23,6 +23,17 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const app = express()
+app.use(express.json({ limit: '16mb' }))
+
+// Error handling middleware to catch "request entity too large" error
+// Base64 documents can be atmost 16mb in size
+// ~Riki
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 413 && 'body' in err) {
+    return res.status(413).json({ message: 'Request entity too large' })
+  }
+  next()
+})
 
 console.log(process.env.NODE_ENV)
 connectDB()
@@ -48,7 +59,7 @@ app.use(
 app.use('/', rootRoute)
 app.use('/v1/auth', authRoute)
 app.use('/v1/user', userRoute)
-app.use('/v1/post', postRoute);
+app.use('/v1/post', postRoute)
 app.use('/v1/api', apiCheckRoute)
 
 // app.use(require("./routes/auth"));
