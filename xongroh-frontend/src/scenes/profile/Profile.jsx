@@ -11,8 +11,6 @@ import { useGetUserByIdQuery } from '@/features/users/usersApiSlice'
 const Profile = () => {
   const navigate = useNavigate()
   const { username, userId } = useAuth()
-  console.log('userId', userId)
-  console.log('username', username)
   const { id } = useParams()
   const {
     data,
