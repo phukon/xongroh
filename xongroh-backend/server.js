@@ -23,11 +23,9 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const app = express()
-app.use(express.json({ limit: '16mb' }))
 
-// Error handling middleware to catch "request entity too large" error
-// Base64 documents can be atmost 16mb in size
-// ~Riki
+
+
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 413 && 'body' in err) {
     return res.status(413).json({ message: 'Request entity too large' })
@@ -42,7 +40,10 @@ const PORT = process.env.PORT || 8000
 app.disable('x-powered-by') // to hide stack details
 app.use(logger)
 app.use(cors(corsOptions))
-app.use(express.json())
+// Error handling middleware to catch "request entity too large" error
+// Base64 documents can be atmost 16mb in size
+// ~Riki
+app.use(express.json({ limit: '16mb' }))
 app.use(cookieParser())
 
 // Overall, this code snippet allows the web
