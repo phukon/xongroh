@@ -85,7 +85,10 @@ const Profile = () => {
               <div className="font-bold">25</div>
               <div className="text-sm	font-medium">Creations</div>
             </div>
-            <img src={data.profilePicture} className="relative bottom-16 w-28 h-28 rounded-full overflow-hidden" />
+            <img
+              src={data?.profilePicture || ''}
+              className="relative bottom-16 w-28 h-28 rounded-full overflow-hidden"
+            />
             <div className="text-center">
               <div className="font-bold">25k</div>
               <div className="text-sm	font-medium">Supporters</div>
