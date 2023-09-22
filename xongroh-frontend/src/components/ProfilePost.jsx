@@ -1,5 +1,3 @@
-import Assets from '@/assets/Assets'
-
 const ProfilePost = (props) => {
 
   const { title, content, cover, author } = props
@@ -22,7 +20,7 @@ const ProfilePost = (props) => {
             <div>
               <img
                 className="h-8 w-8 rounded-full "
-                src={Assets.user1}
+                src='null'
                 alt="dp"
               />
             </div>

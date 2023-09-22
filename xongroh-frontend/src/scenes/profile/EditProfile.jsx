@@ -49,7 +49,7 @@ const UserEdit = () => {
       email: document.getElementById('email').value,
       firstName: document.getElementById('firstName').value,
       lastName: document.getElementById('lastName').value,
-      profilePicture,
+      profilePicture: profilePicture || userDataQuery?.profilePicture,
       id,
     }
     updateUser(updatedUserData)

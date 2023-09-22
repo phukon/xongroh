@@ -80,7 +80,8 @@ exports.refresh = (req, res) => {
         {
           UserInfo: {
             username: foundUser.username,
-            roles: foundUser.roles,
+            roles: foundUser.user_type,
+            userId: foundUser._id,
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
