@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+const crypto = require('crypto')
 
 const generateOTP = (length) => {
   const chars = '0123456789' // Characters to use for OTP generation
@@ -13,4 +13,4 @@ const generateOTP = (length) => {
   return otp.join('')
 }
 
-export default generateOTP
+module.exports = generateOTP

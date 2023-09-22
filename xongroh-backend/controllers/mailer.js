@@ -1,6 +1,6 @@
-import nodemailer from 'nodemailer'
-import Mailgen from 'mailgen'
-import 'dotenv/config'
+const nodemailer = require('nodemailer')
+const Mailgen = require('mailgen')
+require('dotenv').config()
 
 // https://ethereal.email/create
 let nodeConfig = {
@@ -32,7 +32,7 @@ let MailGenerator = new Mailgen({
   "subject" : "",
 }
 */
-export const registerMail = async (req, res) => {
+exports.registerMail = async (req, res) => {
   const { username, userEmail, text, subject } = req.body
 
   // body of the email

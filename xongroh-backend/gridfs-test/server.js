@@ -1,48 +1,61 @@
-import fs from 'fs'
-import { MongoClient, GridFSBucket, ObjectId } from 'mongodb'
-import path from 'path'
+const fs = require('fs')
+const { MongoClient, GridFSBucket, ObjectId } = require('mongodb')
+const path = require('path')
 
-// const url =
+const url = 'YOUR_MONGODB_CONNECTION_URL' // Replace with your MongoDB connection URL
 
 const dbName = 'gridfs-test'
-const client = await MongoClient.connect(url)
-const db = client.db(dbName) // Your MongoDB database name
-const bucket = new GridFSBucket(db, { bucketName: 'bucket1' }) // Use GridFSBucket from 'mongodb' and pass the db instance
+const client = new MongoClient(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
 
 async function uploadFileToGridFS() {
   const filePath = './pic1.jpg' // Replace with the actual file path
   const originalFileName = path.basename(filePath) // Extract the original file name
 
-  const uploadStream = bucket.openUploadStream(originalFileName)
-  const readStream = fs.createReadStream(filePath)
+  try {
+    await client.connect()
+    const db = client.db(dbName) // Your MongoDB database name
+    const bucket = new GridFSBucket(db, { bucketName: 'bucket1' }) // Use GridFSBucket from 'mongodb' and pass the db instance
 
-  readStream.pipe(uploadStream)
+    const uploadStream = bucket.openUploadStream(originalFileName)
+    const readStream = fs.createReadStream(filePath)
 
-  uploadStream.on('finish', () => {
-    console.log('File uploaded successfully.')
+    readStream.pipe(uploadStream)
+
+    uploadStream.on('finish', () => {
+      console.log('File uploaded successfully.')
+    })
+
+    uploadStream.on('error', (error) => {
+      console.error('Error uploading file:', error)
+    })
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error)
+  } finally {
     client.close()
-  })
-
-  uploadStream.on('error', (error) => {
-    console.error('Error uploading file:', error)
-    client.close()
-  })
+  }
 }
 
 uploadFileToGridFS()
 
-// retrieving from gridfs:
+// Retrieving from GridFS:
 
 // async function retrieveFileFromGridFS() {
-//     const fileId = '64c3ca9e3ed1f78967348344';
-//     const outputFile = './downloads/myfile'; // The base output path (without extension)
+//   const fileId = '64c3ca9e3ed1f78967348344';
+//   const outputFile = './downloads/myfile'; // The base output path (without extension)
+
+//   try {
+//     await client.connect();
+//     const db = client.db(dbName); // Your MongoDB database name
+//     const bucket = new GridFSBucket(db, { bucketName: 'bucket1' });
 
 //     const downloadStream = bucket.openDownloadStream(new ObjectId(fileId));
 //     const fileInfo = await bucket.find({ _id: new ObjectId(fileId) }).toArray();
 
 //     if (fileInfo.length === 0) {
 //       console.error('File not found with the provided fileId.');
-//       client.close();
 //       return;
 //     }
 
@@ -55,13 +68,16 @@ uploadFileToGridFS()
 
 //     downloadStream.on('end', () => {
 //       console.log('File retrieved successfully.');
-//       client.close();
 //     });
 
 //     downloadStream.on('error', (error) => {
 //       console.error('Error retrieving file:', error);
-//       client.close();
 //     });
+//   } catch (error) {
+//     console.error('Error connecting to MongoDB:', error);
+//   } finally {
+//     client.close();
 //   }
+// }
 
-//   retrieveFileFromGridFS();
+// retrieveFileFromGridFS();

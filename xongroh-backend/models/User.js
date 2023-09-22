@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema(
   {
@@ -25,10 +25,10 @@ const userSchema = new mongoose.Schema(
     },
     user_type: {
       type: String,
-      enum: ['Creator', 'Patron', 'Admin']
+      enum: ['Creator', 'Patron', 'Admin'],
     },
     dob: {
-      type: Date
+      type: Date,
     },
     phone: String,
     created_at: {
@@ -52,4 +52,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-export default mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', userSchema)

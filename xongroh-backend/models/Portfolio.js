@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const portfolioSchema = new mongoose.Schema({
   title: {
@@ -34,8 +34,8 @@ const portfolioSchema = new mongoose.Schema({
     },
   ],
   shares: Number,
-})
+});
 
-const Portfolio = mongoose.model('Portfolio', portfolioSchema)
+const Portfolio = mongoose.model('Portfolio', portfolioSchema);
 
-module.exports = Portfolio
+module.exports = Portfolio;

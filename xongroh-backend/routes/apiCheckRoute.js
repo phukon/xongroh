@@ -1,9 +1,9 @@
-import { Router } from 'express'
+const { Router } = require('express')
 const router = Router()
-import APIStatus from '../models/apiStatus.js'
-import asyncHandler from 'express-async-handler'
+const APIStatus = require('../models/apiStatus.js')
+const asyncHandler = require('express-async-handler')
 
-//controller
+// Controller
 const checkApiStatus = asyncHandler(async (req, res) => {
   const _id = '64b5a9f8a1a9fde6798cf5c7'
 
@@ -49,7 +49,7 @@ const addApiStatus = asyncHandler(async (req, res) => {
   return res.status(201).send({ msg: 'Status added' })
 })
 
-export const updateApiStatus = asyncHandler(async (req, res) => {
+const updateApiStatus = asyncHandler(async (req, res) => {
   try {
     const _id = '64b5a9f8a1a9fde6798cf5c7'
 
@@ -64,9 +64,9 @@ export const updateApiStatus = asyncHandler(async (req, res) => {
   }
 })
 
-// routes
+// Routes
 router.route('/apiStatus').get(checkApiStatus)
 router.route('/apiStatus').post(addApiStatus)
 router.route('/apiStatus').put(updateApiStatus)
 
-export default router
+module.exports = router

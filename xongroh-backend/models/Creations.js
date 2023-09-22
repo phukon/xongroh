@@ -66,5 +66,4 @@ const creationSchema = new mongoose.Schema({
 })
 
 const Creation = mongoose.model('Creation', creationSchema)
-
 module.exports = Creation
