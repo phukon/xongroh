@@ -1,8 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
-import PostPage from '@/scenes/postPage/PostPage'
 import PageNotFound from './components/PageNotFound'
 import Search from '@/features/search/routes/Search'
-import CommunityPage from '@/scenes/communities/CommunityPage'
 import Profile from './features/profile/routes/Profile'
 import Layout from '@/scenes/Layout'
 import Prefetch from '@/features/auth/Prefetch'
@@ -34,8 +32,8 @@ function App() {
               <Route path="profile/:id" element={<Profile />} />
               <Route path="profile/:id/edit" element={<EditProfileForm />} />
               <Route path="profile/user-not-found" element={<UserNotFound />} />
-              <Route path="communitypage" element={<CommunityPage />} />
-              <Route path="postpage" element={<PostPage />} />
+              {/* <Route path="communitypage" element={<CommunityPage />} /> */}
+              {/* <Route path="postpage" element={<PostPage />} /> */}
               <Route path="users">
                 <Route index element={<UsersList />} />
                 <Route path=":userId" element={<UserPage />} />

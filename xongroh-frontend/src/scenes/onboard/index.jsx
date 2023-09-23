@@ -10,11 +10,27 @@ import {
   useLoginMutation,
   useRegisterMutation,
 } from '@/features/auth/authApiSlice'
-import { set } from 'date-fns'
 
 function AuthenticationPage() {
+  const unsplash =
+    'https://api.unsplash.com/photos/random/?client_id=XPPWxHD5JMiw0Eq6DqlacVopjtvThQ2jaZbwEspvMwM'
+  useEffect(() => {
+    fetch(unsplash)
+      .then((response) => response.json())
+      .then((jsonData) => {
+        setBackgroundImageUrl(jsonData.urls.regular)
+      })
+      .catch((error) => console.log(error))
+  }, [])
+
+  fetch(unsplash)
+    .then((response) => response.json)
+    .then((jsonData) => jsonData.urls.regular)
+    .catch((error) => console.log(error))
+
   const userRef = useRef()
   const errRef = useRef()
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
@@ -25,7 +41,6 @@ function AuthenticationPage() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
   const [login, { isLoading }] = useLoginMutation()
   const [register] = useRegisterMutation()
 
@@ -122,7 +137,8 @@ function AuthenticationPage() {
         <div
           className="bg-cover bg-center absolute inset-0"
           style={{
-            backgroundImage: `url(${backgroundWebP})`,
+            backgroundImage: `url(${backgroundImageUrl || backgroundWebP || ''})`,
+            // backgroundImage: `url(${backgroundWebP})`,
           }}
         />
 
