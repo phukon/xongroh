@@ -1,6 +1,13 @@
-const ProfilePost = (props) => {
+import { useGetUserByIdQuery } from '@/features/users/usersApiSlice'
 
+const ProfilePost = (props) => {
   const { title, content, cover, author } = props
+  const {
+    data,
+    isLoading: userLoading,
+    isSuccess: userSuccess,
+    isError: userError,
+  } = useGetUserByIdQuery(author)
 
   const divStyle = {
     backgroundImage: `url(${cover})`,
@@ -20,7 +27,7 @@ const ProfilePost = (props) => {
             <div>
               <img
                 className="h-8 w-8 rounded-full "
-                src='null'
+                src={data?.profilePicture || ''}
                 alt="dp"
               />
             </div>
@@ -38,8 +45,7 @@ const ProfilePost = (props) => {
             {title}
           </div>
           <div className="pl-3 pr-4 pt-2 text-xs font-normal ">
-            <p className="line-clamp-4">{content}
-            </p>
+            <p className="line-clamp-4">{content}</p>
           </div>
         </div>
       </div>

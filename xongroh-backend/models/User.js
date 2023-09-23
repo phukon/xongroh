@@ -46,7 +46,8 @@ const userSchema = new mongoose.Schema(
     lastName: { type: String },
     mobile: { type: String }, // Use a string for mobile numbers to support international formats
     address: { type: String },
-    profilePicture: { type: String }, // Add a field for profile pictures
+    profilePicture: { type: String }, // base64 picture
+    cover: { type: String }, // base64 picture
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   },
   { timestamps: true }
