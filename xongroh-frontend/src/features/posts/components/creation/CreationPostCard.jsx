@@ -3,6 +3,7 @@ import { useGetPostsQuery } from '@/features/posts/postsApiSlice'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useGetUserByIdQuery } from '@/features/users/usersApiSlice' // Import the user query
+import { Link } from 'react-router-dom'
 
 const CreationPostCard = () => {
   const {
@@ -61,18 +62,20 @@ const PostCard = ({ postId, post }) => {
       <Card className="mt-5">
         <CardHeader className="p-4">
           <div>
-            <Button variant="normal" size="normal">
-              <div className="flex items-center">
-                <div>
-                  <img
-                    className="h-9 w-9 rounded-full"
-                    src={author.profilePicture || ''}
-                    alt="profile"
-                  />
+            <Link to={`profile/${author._id}`}>
+              <Button variant="normal" size="normal">
+                <div className="flex items-center">
+                  <div>
+                    <img
+                      className="h-9 w-9 rounded-full"
+                      src={author.profilePicture || ''}
+                      alt="profile"
+                    />
+                  </div>
+                  <div className="pl-4">{author.username}</div>
                 </div>
-                <div className="pl-4">{author.username}</div>
-              </div>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </CardHeader>
         <CardContent className="px-4 pb-0">

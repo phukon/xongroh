@@ -60,7 +60,7 @@ class FilterTabs extends Component {
 
   renderNewContent() {
     return (
-      <div>
+      <div className='pb-16'>
         <CreationPostCard />
       </div>
     )

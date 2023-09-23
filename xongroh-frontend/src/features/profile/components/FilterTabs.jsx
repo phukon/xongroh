@@ -64,7 +64,7 @@ class FilterTabs extends Component {
 
   renderCreationContent() {
     return (
-      <div>
+      <div className='pb-16'>
         <CreationPostCard />
       </div>
     )
@@ -72,7 +72,7 @@ class FilterTabs extends Component {
 
   renderTribeContent() {
     return (
-      <div>
+      <div className="pb-16">
         <TribeFeed />
       </div>
     )
@@ -80,7 +80,7 @@ class FilterTabs extends Component {
 
   renderStoreContent() {
     return (
-      <div>
+      <div className="pb-16">
         <Card>
           <CardHeader>
             <CardTitle>Store</CardTitle>
@@ -93,7 +93,7 @@ class FilterTabs extends Component {
 
   renderEventContent() {
     return (
-      <div>
+      <div className="pb-16">
         <Card className="justify-center">
           <CardHeader>
             <CardTitle>Events</CardTitle>
