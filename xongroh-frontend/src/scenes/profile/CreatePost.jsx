@@ -36,13 +36,15 @@ const CreatePost = () => {
     e.preventDefault()
 
     try {
-      const formDataToSend = new FormData()
-      formDataToSend.append('title', formData.title)
-      formDataToSend.append('content', formData.content)
-      formDataToSend.append('author', formData.author)
-      formDataToSend.append('cover', formData.cover)
+      const postData = {
+        title: formData.title,
+        content: formData.content,
+        author: formData.author,
+        cover: formData.cover,
+      }
 
-      await createPost(formDataToSend).unwrap()
+      await createPost(postData).unwrap()
+
       setFormData({
         title: '',
         content: '',
