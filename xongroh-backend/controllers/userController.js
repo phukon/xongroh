@@ -64,6 +64,7 @@ exports.register = async (req, res) => {
     password: hashedPwd,
     email,
     profilePicture: placeholderImg,
+    cover: placeholderImg,
   }
 
   // Create and store new user
@@ -113,7 +114,7 @@ exports.getUserById = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 exports.updateUser = async (req, res) => {
-  const { username, email, firstName, lastName, profilePicture, id } = req.body
+  const { username, email, firstName, lastName, profilePicture, id, cover} = req.body
 
   // Confirm data
   if (
@@ -122,7 +123,8 @@ exports.updateUser = async (req, res) => {
     !firstName ||
     !lastName ||
     !profilePicture ||
-    !id
+    !id ||
+    !cover
   ) {
     return res
       .status(400)
@@ -152,6 +154,7 @@ exports.updateUser = async (req, res) => {
   user.firstName = firstName
   user.lastName = lastName
   user.profilePicture = profilePicture
+  user.cover = cover
 
   // if (password) {
   //   // Hash password

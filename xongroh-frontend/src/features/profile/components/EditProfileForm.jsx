@@ -1,11 +1,3 @@
-/* 
-  I didn't use useState to manage the input values because
-  I'm also trying to preset the data in the input fields from
-  the server. This can result in the values being undefined
-  while the data loads, making the controlled inputs uncontrolled
-  and throwing an error.
-  ~Riki
-*/
 import React, { useEffect, useState } from 'react'
 import convertToBase64 from '@/utils/convert'
 import { useParams } from 'react-router-dom'
@@ -26,33 +18,58 @@ const EditProfileForm = () => {
   const [updateUser, { isLoading, isSuccess, isError, error }] =
     useUpdateUserMutation()
 
-  const [profilePicture, setProfilePicture] = useState('')
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    profilePicture: '',
+    cover: '',
+  })
+
   useEffect(() => {
     if (!userLoading && userDataQuery) {
-      const { username, email, firstName, lastName } = userDataQuery
-      document.getElementById('username').value = username || ''
-      document.getElementById('email').value = email || ''
-      document.getElementById('firstName').value = firstName || ''
-      document.getElementById('lastName').value = lastName || ''
+      setFormData({
+        username: userDataQuery.username || '',
+        email: userDataQuery.email || '',
+        firstName: userDataQuery.firstName || '',
+        lastName: userDataQuery.lastName || '',
+        profilePicture: userDataQuery.profilePicture || '',
+        cover: userDataQuery.cover || '',
+      })
     }
   }, [userLoading, userDataQuery])
 
-  const onUpload = async (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+  }
+
+  const handleProfilePictureUpload = async (e) => {
     const base64 = await convertToBase64(e.target.files[0])
-    setProfilePicture(base64)
+    setFormData({
+      ...formData,
+      profilePicture: base64,
+    })
+  }
+
+  const handleCoverUpload = async (e) => {
+    const base64Cover = await convertToBase64(e.target.files[0])
+    setFormData({
+      ...formData,
+      cover: base64Cover,
+    })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const updatedUserData = {
-      username: document.getElementById('username').value,
-      email: document.getElementById('email').value,
-      firstName: document.getElementById('firstName').value,
-      lastName: document.getElementById('lastName').value,
-      profilePicture: profilePicture || userDataQuery?.profilePicture,
+    updateUser({
+      ...formData,
       id,
-    }
-    updateUser(updatedUserData)
+    })
   }
 
   return (
@@ -62,7 +79,7 @@ const EditProfileForm = () => {
         <div className="mb-4">
           <label htmlFor="profilePicture" className="block font-medium">
             <img
-              src={profilePicture || userDataQuery?.profilePicture}
+              src={formData.profilePicture || userDataQuery?.profilePicture}
               alt="profilePicture"
             />
             Profile Picture:
@@ -71,7 +88,7 @@ const EditProfileForm = () => {
             type="file"
             id="profilePicture"
             name="profilePicture"
-            onChange={onUpload}
+            onChange={handleProfilePictureUpload}
             className="mt-1 p-2 border rounded w-full"
           />
         </div>
@@ -83,6 +100,8 @@ const EditProfileForm = () => {
             type="text"
             id="username"
             name="username"
+            value={formData.username}
+            onChange={handleInputChange}
             className="mt-1 p-2 border rounded w-full"
           />
         </div>
@@ -94,6 +113,8 @@ const EditProfileForm = () => {
             type="email"
             id="email"
             name="email"
+            value={formData.email}
+            onChange={handleInputChange}
             className="mt-1 p-2 border rounded w-full"
           />
         </div>
@@ -105,6 +126,8 @@ const EditProfileForm = () => {
             type="text"
             id="firstName"
             name="firstName"
+            value={formData.firstName}
+            onChange={handleInputChange}
             className="mt-1 p-2 border rounded w-full"
           />
         </div>
@@ -116,6 +139,21 @@ const EditProfileForm = () => {
             type="text"
             id="lastName"
             name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+            className="mt-1 p-2 border rounded w-full"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="cover" className="block font-medium">
+            <img src={formData.cover || userDataQuery?.cover} alt="cover" />
+            Cover Image:
+          </label>
+          <input
+            type="file"
+            id="cover"
+            name="cover"
+            onChange={handleCoverUpload}
             className="mt-1 p-2 border rounded w-full"
           />
         </div>
