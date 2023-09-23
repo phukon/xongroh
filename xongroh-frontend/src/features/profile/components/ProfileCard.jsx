@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useGetUserByIdQuery } from '@/features/users/usersApiSlice'
 
 const ProfileCardItem = ({ name, cover, dp, creations, supporting, bio }) => {
+  const navigate = useNavigate()
   const [buttonText, setButtonText] = useState('Support')
   const handleButtonClick = () => {
     setButtonText((prevButtonText) =>
@@ -75,8 +76,9 @@ const ProfileCardItem = ({ name, cover, dp, creations, supporting, bio }) => {
                 variant="normal"
                 size="normal"
                 className="text-secondary-foreground"
+                onClick={() => navigate('edit')}
               >
-                Message
+                Edit Profile
               </Button>
             </div>
           </div>

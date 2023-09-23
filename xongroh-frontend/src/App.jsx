@@ -1,11 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
-// import LoginPage from '@/scenes/loginPage'
-// import RegisterPage from '@/scenes/registerPage'
-import HomePage from '@/scenes/homePage/HomePage'
 import PostPage from '@/scenes/postPage/PostPage'
-import PageNotFound from '@/scenes/pageNotFound/PageNotFound'
+import PageNotFound from './components/PageNotFound'
 import Search from '@/features/search/routes/Search'
-import MyCommunities from '@/scenes/communities/MyCommunities'
 import CommunityPage from '@/scenes/communities/CommunityPage'
 import Profile from './features/profile/routes/Profile'
 import Layout from '@/scenes/Layout'
@@ -17,7 +13,9 @@ import UserPage from '@/features/users/UserPage'
 import PersistLogin from '@/features/auth/PersistLogin'
 import Public from '@/features/auth/Public'
 import UserNotFound from '@/scenes/userNotFound/UserNotFound'
-import EditProfile from '@/scenes/profile/EditProfile'
+import EditProfileForm from './features/profile/components/EditProfileForm'
+import Home from '@/features/home/routes/Home'
+import Communities from '@/features/community/routes/Communities'
 
 function App() {
   return (
@@ -30,11 +28,11 @@ function App() {
         <Route element={<PersistLogin />}>
           <Route element={<Prefetch />}>
             <Route path="dash" element={<DashLayout />}>
-              <Route index element={<HomePage />} />
+              <Route index element={<Home />} />
               <Route path="search" element={<Search />} />
-              <Route path="communities" element={<MyCommunities />} />
+              <Route path="communities" element={<Communities />} />
               <Route path="profile/:id" element={<Profile />} />
-              <Route path="profile/:id/edit" element={<EditProfile />} />
+              <Route path="profile/:id/edit" element={<EditProfileForm />} />
               <Route path="profile/user-not-found" element={<UserNotFound />} />
               <Route path="communitypage" element={<CommunityPage />} />
               <Route path="postpage" element={<PostPage />} />
