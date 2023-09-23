@@ -66,7 +66,6 @@ class FilterTabs extends Component {
     return (
       <div>
         <CreationPostCard />
-        <CreationPostCard />
       </div>
     )
   }
