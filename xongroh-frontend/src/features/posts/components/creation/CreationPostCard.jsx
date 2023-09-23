@@ -1,6 +1,8 @@
+import React from 'react'
 import { useGetPostsQuery } from '@/features/posts/postsApiSlice'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { useGetUserByIdQuery } from '@/features/users/usersApiSlice' // Import the user query
 
 const CreationPostCard = () => {
   const {
@@ -24,49 +26,75 @@ const CreationPostCard = () => {
   }
 
   if (isSuccess) {
-    const { ids, entities } = creationPosts
     return (
       <div>
-        {ids.map((postId) => (
-          <Card key={postId} className="mt-5">
-            <CardHeader className="p-4">
-              <div>
-                <Button variant="normal" size="normal">
-                  <div className="flex items-center">
-                    <div>
-                      <img
-                        className="h-9 w-9 rounded-full"
-                        src={entities[postId].cover || ''}
-                        alt="profile"
-                      />
-                    </div>
-                    <div className="pl-4">{entities[postId].author}</div>
-                  </div>
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="px-4 pb-0">
-              <p className="line-clamp-8 text-sm text-muted-foreground">
-                {entities[postId].content}
-              </p>
-            </CardContent>
-            <CardFooter className="p-4">
-              <div className="flex items-center">
-                <div>
-                  <Button variant="normal" size="normal">
-                    {entities[postId].interactions}
-                  </Button>
-                </div>
-                <div className="pl-3">
-                  <h1 className="line-clamp-2 text-sm font-semibold">
-                    {entities[postId].title}
-                  </h1>
-                </div>
-              </div>
-            </CardFooter>
-          </Card>
+        {creationPosts.ids.map((postId) => (
+          <PostCard
+            key={postId}
+            postId={postId}
+            post={creationPosts.entities[postId]}
+          />
         ))}
       </div>
+    )
+  }
+
+  // Default fallback
+  return null
+}
+
+const PostCard = ({ postId, post }) => {
+  const {
+    data: userData,
+    isLoading: userLoading,
+    isSuccess: userSuccess,
+  } = useGetUserByIdQuery(post?.author)
+
+  if (userLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (userSuccess) {
+    const author = userData
+
+    return (
+      <Card className="mt-5">
+        <CardHeader className="p-4">
+          <div>
+            <Button variant="normal" size="normal">
+              <div className="flex items-center">
+                <div>
+                  <img
+                    className="h-9 w-9 rounded-full"
+                    src={author.profilePicture || ''}
+                    alt="profile"
+                  />
+                </div>
+                <div className="pl-4">{author.username}</div>
+              </div>
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="px-4 pb-0">
+          <p className="line-clamp-8 text-sm text-muted-foreground">
+            {post.content}
+          </p>
+        </CardContent>
+        <CardFooter className="p-4">
+          <div className="flex items-center">
+            <div>
+              <Button variant="normal" size="normal">
+                {post.interactions}
+              </Button>
+            </div>
+            <div className="pl-3">
+              <h1 className="line-clamp-2 text-sm font-semibold">
+                {post.title}
+              </h1>
+            </div>
+          </div>
+        </CardFooter>
+      </Card>
     )
   }
 

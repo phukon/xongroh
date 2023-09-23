@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Public = () => {
   const [showAlert, setShowAlert] = useState(true)
+  const navigate = useNavigate()
 
   const hideAlert = () => {
     setShowAlert(false)
   }
+
+  useEffect(() => {
+    navigate('/login')
+  }, [navigate])
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
@@ -14,7 +19,8 @@ const Public = () => {
         <div className="bg-yellow-300 border-l-4 border-yellow-600 p-4 rounded-md mb-4 max-w-2xl w-full">
           <div className="flex items-center justify-between">
             <p className="text-yellow-900">
-              A new database has been provisioned. That implies that the old data has been deleted.
+              A new database has been provisioned. That implies that the old
+              data has been deleted.
               <b> So create an account and then login.</b>
             </p>
             <button

@@ -1,49 +1,114 @@
-import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
-import {useState} from "react";
-import {Navigate} from "react-router-dom";
-import Editor from "../Editor";
+import React, { useState } from 'react'
+import { useAddNewPostMutation } from '@/features/posts/postsApiSlice'
+import convertToBase64 from '@/utils/convert'
+import useAuth from '@/hooks/useAuth'
 
-export default function CreatePost() {
-  const [title,setTitle] = useState('');
-  const [summary,setSummary] = useState('');
-  const [content,setContent] = useState('');
-  const [files, setFiles] = useState('');
-  const [redirect, setRedirect] = useState(false);
-  async function createNewPost(ev) {
-    const data = new FormData();
-    data.set('title', title);
-    data.set('summary', summary);
-    data.set('content', content);
-    data.set('file', files[0]);
-    ev.preventDefault();
-    const response = await fetch('http://localhost:4000/post', {
-      method: 'POST',
-      body: data,
-      credentials: 'include',
-    });
-    if (response.ok) {
-      setRedirect(true);
+const CreatePost = () => {
+  const { userId } = useAuth()
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    cover: null,
+    author: userId,
+  })
+
+  const [createPost, { isLoading, isSuccess, isError, error }] =
+    useAddNewPostMutation()
+
+  const handleInputChange = async (e) => {
+    const { name, value, files } = e.target
+
+    if (name === 'cover') {
+      const base64 = await convertToBase64(files[0])
+      setFormData({
+        ...formData,
+        [name]: base64,
+      })
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      })
     }
   }
 
-  if (redirect) {
-    return <Navigate to={'/'} />
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const formDataToSend = new FormData()
+      formDataToSend.append('title', formData.title)
+      formDataToSend.append('content', formData.content)
+      formDataToSend.append('author', formData.author)
+      formDataToSend.append('cover', formData.cover)
+
+      await createPost(formDataToSend).unwrap()
+      setFormData({
+        title: '',
+        content: '',
+        cover: null,
+        author: userId,
+      })
+    } catch (error) {
+      console.error('Error creating post:', error)
+    }
   }
+
   return (
-    <form onSubmit={createNewPost}>
-      <input type="title"
-             placeholder={'Title'}
-             value={title}
-             onChange={ev => setTitle(ev.target.value)} />
-      <input type="summary"
-             placeholder={'Summary'}
-             value={summary}
-             onChange={ev => setSummary(ev.target.value)} />
-      <input type="file"
-             onChange={ev => setFiles(ev.target.files)} />
-      <Editor value={content} onChange={setContent} />
-      <button style={{marginTop:'5px'}}>Create post</button>
-    </form>
-  );
+    <div className="max-w-xl mx-auto mt-8 p-4 mb-16">
+      <h2 className="text-2xl font-semibold mb-4">Create New Post</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="mb-4">
+          <label htmlFor="title" className="block font-medium">
+            Title:
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            className="mt-1 p-2 border rounded w-full"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="content" className="block font-medium">
+            Content:
+          </label>
+          <textarea
+            id="content"
+            name="content"
+            value={formData.content}
+            onChange={handleInputChange}
+            className="mt-1 p-2 border rounded w-full"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="cover" className="block font-medium">
+            Cover Picture:
+          </label>
+          <input
+            type="file"
+            id="cover"
+            name="cover"
+            onChange={handleInputChange}
+            className="mt-1 p-2 border rounded w-full"
+            accept="image/*"
+          />
+        </div>
+        {isSuccess && <p>Post created successfully!</p>}
+        {isError && <p>Error: {error.message}</p>}
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full md:w-auto"
+        >
+          {isLoading ? 'Creating...' : 'Create Post'}
+        </button>
+      </form>
+    </div>
+  )
 }
+
+export default CreatePost

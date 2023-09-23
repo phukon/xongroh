@@ -14,6 +14,7 @@ import EditProfileForm from './features/profile/components/EditProfileForm'
 import Home from '@/features/home/routes/Home'
 import Communities from '@/features/community/routes/Communities'
 import OnboardPage from '@/scenes/onboard'
+import CreatePost from './scenes/profile/CreatePost'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="search" element={<Search />} />
               <Route path="communities" element={<Communities />} />
               <Route path="profile/:id" element={<Profile />} />
+              <Route path="profile/:id/createpost" element={<CreatePost />} />
               <Route path="profile/:id/edit" element={<EditProfileForm />} />
               <Route path="profile/user-not-found" element={<UserNotFound />} />
               {/* <Route path="communitypage" element={<CommunityPage />} /> */}
