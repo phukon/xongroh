@@ -6,7 +6,6 @@ import Layout from '@/scenes/Layout'
 import Prefetch from '@/features/auth/Prefetch'
 import DashLayout from '@/components/DashLayout'
 import UsersList from '@/features/users/UsersList'
-import AuthenticationPage from '@/scenes/onboard'
 import UserPage from '@/features/users/UserPage'
 import PersistLogin from '@/features/auth/PersistLogin'
 import Public from '@/features/auth/Public'
@@ -14,13 +13,14 @@ import UserNotFound from '@/scenes/userNotFound/UserNotFound'
 import EditProfileForm from './features/profile/components/EditProfileForm'
 import Home from '@/features/home/routes/Home'
 import Communities from '@/features/community/routes/Communities'
+import OnboardPage from '@/scenes/onboard'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Public />} />
-        <Route path="login" element={<AuthenticationPage />} />
+        <Route path="login" element={<OnboardPage />} />
         {/* <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} /> */}
         <Route element={<PersistLogin />}>
