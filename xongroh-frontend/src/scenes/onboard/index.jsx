@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Onboard from './Onboard'
 const envType = import.meta.env.VITE_ENVTYPE
+const unsplash = import.meta.env.VITE_UNSPLASH
 
 const OnboardPage = () => {
   const [backgroundImageUrl, setBackgroundImageUrl] = useState('')
-  const unsplash =
-    'https://api.unsplash.com/photos/random/?client_id=XPPWxHD5JMiw0Eq6DqlacVopjtvThQ2jaZbwEspvMwM'
 
   useEffect(() => {
     if (envType === 'development') {

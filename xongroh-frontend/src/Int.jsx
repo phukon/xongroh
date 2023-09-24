@@ -25,7 +25,7 @@ const Int = () => {
         ],
       },
       line: {
-        text: `%c\n\u2022Adhere to industry best practices.\n  https://github.com/alan2207/bulletproof-react\n\n\u2022Excessive use of Git Merge is not recommended. Rebase the HEADs instead.\n\n\u2022Don't use experimental features and/or packages with vulnerabilities. \n  Don't use ES6 modules for Node, stick to CJS.(Stability Index: 1)\n  It once crashed the serverless function on Vercel.\n  https://nodejs.org/docs/v12.13.0/api/esm.html#esm_ecmascript_modules\n\n\u2022Read the documentation thoroughly.\n📜https://github.com/teamxongroh\n\n\n📢Riki https://github.com/phukon\n %c`,
+        text: `%c\n\u2022Adhere to industry best practices.\n  https://github.com/alan2207/bulletproof-react\n\n\u2022Excessive use of Git Merge is not recommended. Rebase the HEADs instead.\n\n\u2022Ensure clear and consistent API versioning using industry-standard\n methods and maintain comprehensive documentation to facilitate stable and\n efficient development.\n\n\u2022Don't use experimental features and/or packages with vulnerabilities. \n Don't use ES6 modules for Node, stick to CJS.(Stability Index: 1)\n It once crashed the serverless function on Vercel.\n https://nodejs.org/docs/v12.13.0/api/esm.html#esm_ecmascript_modules\n\n\u2022Read the documentation thoroughly.\n📜https://github.com/teamxongroh\n\n\n📢Riki https://github.com/phukon\n %c`,
         styles: [`color: #87CEEB; font-size: 14px;`, ''],
       },
     }
