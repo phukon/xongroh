@@ -1,87 +1,32 @@
-﻿# Xongroh Server Readme
+﻿## Routes
 
-This repository contains information about the Xongroh social marketplace's API endpoints and how to interact with them. Xongroh is the first-ever social marketplace designed exclusively for Creators, providing a platform for creative individuals to connect, showcase their work, and engage with their audience.
+### User Routes
 
-**Stay tuned for more updates and features as we continue to enhance the Xongroh platform. We're constantly working to provide a seamless experience for both creators and users.**
+| Endpoint                            | Type   | Description                                         |
+|-------------------------------------|--------|-----------------------------------------------------|
+| 🟢 `/v1/auth/register`               | POST   | Register a new user.                               |
+| 🟢 `/v1/auth/authenticate`           | POST   | Authenticate a user.                               |
+| 🔵 `/v1/user/getAllUsers`           | GET    | Get a list of all users.                           |
+| 🔵 `/v1/user/getUserById/:id`       | GET    | Get user details by ID.                            |
+| 🔵 `/v1/user/generateOTP`           | GET    | Generate a one-time password for user verification.|
+| 🔵 `/v1/user/verifyOTP`             | GET    | Verify a one-time password for user verification.  |
+| 🔵 `/v1/user/createResetSession`    | GET    | Create a password reset session for a user.        |
+| 🟠 `/v1/user/updateuser`            | PATCH  | Update user information.                           |
+| 🟠 `/v1/user/resetPassword`         | PUT    | Reset a user's password.                           |
 
-## Getting Started
+### Post Routes
 
-Stay tuned for more updates and features as we continue to enhance the Xongroh platform. We're constantly working to provide a seamless experience for both creators and users.
+| Endpoint                            | Type   | Description               |
+|-------------------------------------|--------|---------------------------|
+| 🔵 `/v1/post/getAllPosts`           | GET    | Get a list of all posts.  |
+| 🟢 `/v1/post/createPost`            | POST   | Create a new post.        |
+| 🟠 `/v1/post/updatePost`           | PUT    | Update a post.            |
+| 🔴 `/v1/post/deletePost`           | DELETE | Delete a post.            |
 
-## API Endpoints
+### Authentication Routes
 
-Here are the currently available API endpoints provided by Xongroh Server:
-
-### User Registration
-
-- **Endpoint:** `/auth/register`
-- **Type:** POST
-- **Status:** Active
-
-### User Registration via Email
-
-- **Endpoint:** `/registerMail`
-- **Type:** POST
-- **Status:** Active
-
-### User Authentication
-
-- **Endpoint:** `/authenticate`
-- **Type:** POST
-- **Status:** Active
-
-### User Login
-
-- **Endpoint:** `/auth/login`
-- **Type:** POST
-- **Status:** Active
-
-### User Profile
-
-- **Endpoint:** `/:username`
-- **Type:** GET
-- **Status:** Active
-
-### Generate One-Time Password (OTP)
-
-- **Endpoint:** `/generateOTP`
-- **Type:** GET
-- **Status:** Active
-
-### Verify One-Time Password (OTP)
-
-- **Endpoint:** `/verifyOTP`
-- **Type:** GET
-- **Status:** Active
-
-### Create Password Reset Session
-
-- **Endpoint:** `/createResetSession`
-- **Type:** GET
-- **Status:** Active
-
-### Update User Information
-
-- **Endpoint:** `/updateUser`
-- **Type:** PUT
-- **Status:** Active
-
-### Reset Password
-
-- **Endpoint:** `/resetPassword`
-- **Type:** PUT
-- **Status:** Active
-
-## Contact Information
-
-Feel free to reach out to us through the following channels:
-
-- WhatsApp: [Message Us](https://wa.me/919127510087?text=hi)
-- Instagram: [@xongroh](https://instagram.com/xongroh)
-- Twitter: [@xongroh](https://twitter.com/xongroh)
-
-## Legal
-
-© 2023 Xongroh. All rights reserved.
-
-Thank you for choosing Xongroh, the social marketplace for Creators! We look forward to seeing your creativity flourish on our platform.
+| Endpoint                            | Type   | Description         |
+|-------------------------------------|--------|---------------------|
+| 🟢 `/v1/auth/login`                 | POST   | User login.         |
+| 🔵 `/v1/auth/refresh`               | GET    | Refresh the user's access token. |
+| 🟢 `/v1/auth/logout`                | POST   | User logout.        |
