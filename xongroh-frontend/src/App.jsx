@@ -15,6 +15,7 @@ import Home from '@/features/home/routes/Home'
 import Communities from '@/features/community/routes/Communities'
 import OnboardPage from '@/scenes/onboard'
 import CreatePost from './scenes/profile/CreatePost'
+import CreationPostPage from '@/features/posts/routes/CreationPostPage'
 
 function App() {
   return (
@@ -29,7 +30,8 @@ function App() {
             <Route path="dash" element={<DashLayout />}>
               <Route index element={<Home />} />
               <Route path="search" element={<Search />} />
-              <Route path="communities" element={<Communities />} />
+              <Route path="communities" element={<Communities />} />{' '}
+              <Route path="creationpostpage" element={<CreationPostPage />} />
               <Route path="profile/:id" element={<Profile />} />
               <Route path="profile/:id/createpost" element={<CreatePost />} />
               <Route path="profile/:id/edit" element={<EditProfileForm />} />

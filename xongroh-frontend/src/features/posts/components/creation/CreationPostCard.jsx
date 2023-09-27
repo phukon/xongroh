@@ -2,8 +2,10 @@ import React from 'react'
 import { useGetPostsQuery } from '@/features/posts/postsApiSlice'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { useGetUserByIdQuery } from '@/features/users/usersApiSlice' // Import the user query
-import { Link } from 'react-router-dom'
+
+import { useGetUserByIdQuery } from '@/features/users/usersApiSlice'
+import { Link, useNavigate } from 'react-router-dom'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 const CreationPostCard = () => {
   const {
@@ -45,6 +47,11 @@ const CreationPostCard = () => {
 }
 
 const PostCard = ({ postId, post }) => {
+  const navigate = useNavigate()
+  const handlePostClick = () => {
+    navigate(`creationpostpage`) // navigate(`/posts/${post.id}`);
+  }
+
   const {
     data: userData,
     isLoading: userLoading,
@@ -52,7 +59,11 @@ const PostCard = ({ postId, post }) => {
   } = useGetUserByIdQuery(post?.author)
 
   if (userLoading) {
-    return <div>Loading...</div>
+    return (
+      <div>
+        <ClipLoader color="#00000" />
+      </div>
+    )
   }
 
   if (userSuccess) {
@@ -79,7 +90,11 @@ const PostCard = ({ postId, post }) => {
           </div>
         </CardHeader>
         <CardContent className="px-4 pb-0">
-          <p className="line-clamp-8 text-sm text-muted-foreground">
+          <p
+            className="line-clamp-8 text-sm text-muted-foreground"
+            onClick={handlePostClick}
+            style={{ cursor: 'pointer' }}
+          >
             {post.content}
           </p>
         </CardContent>

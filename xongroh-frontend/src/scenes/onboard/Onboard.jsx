@@ -1,5 +1,6 @@
 import xongroh from '@/assets/xongroh.svg'
 import backgroundWebP from '@/assets/background.webp'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 import usePersist from '@/hooks/usePersist'
 import { useRef, useState, useEffect } from 'react'
@@ -96,7 +97,13 @@ function Onboard({ backgroundImageUrl }) {
   const handlePwdInput = (e) => setPassword(e.target.value)
   const handleToggle = () => setPersist((prev) => !prev)
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return (
+    <div className="flex justify-center items-center h-screen">
+      <ClipLoader
+        color="#00000"
+      />
+    </div>
+  )
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-gray-100">

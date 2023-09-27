@@ -19,7 +19,7 @@ const PageNotFound = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Link to="/" className="text-primary hover:underline">
+          <Link to="/dash" className="text-primary hover:underline">
             &larr; Go back to the Homepage.
           </Link>
         </CardContent>
