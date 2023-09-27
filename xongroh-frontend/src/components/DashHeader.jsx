@@ -46,10 +46,10 @@ function DashHeader() {
             </div>
 
             <div className="flex flex-row space-x-6">
-              <Link to="/notifications">
+              <Link to="notifications">
                 <img className="h-8 w-8" src={Assets.bell} alt="notification" />
               </Link>
-              <Link to="/messages">
+              <Link to="messages">
                 <img className="h-8 w-8" src={Assets.chat} alt="chat" />
               </Link>
               <button

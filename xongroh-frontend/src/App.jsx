@@ -14,8 +14,12 @@ import EditProfileForm from './features/profile/components/EditProfileForm'
 import Home from '@/features/home/routes/Home'
 import Communities from '@/features/community/routes/Communities'
 import OnboardPage from '@/scenes/onboard'
-import CreatePost from './scenes/profile/CreatePost'
+import CreatePost from '@/scenes/profile/CreatePost'
 import CreationPostPage from '@/features/posts/routes/CreationPostPage'
+import Notifications from '@/features/notification/routes/Notifications'
+import Messages from '@/features/message/routes/Messages'
+import Drafts from '@/features/home/routes/Drafts'
+import MyDiscussions from '@/features/home/routes/MyDiscussions'
 
 function App() {
   return (
@@ -36,6 +40,10 @@ function App() {
               <Route path="profile/:id/createpost" element={<CreatePost />} />
               <Route path="profile/:id/edit" element={<EditProfileForm />} />
               <Route path="profile/user-not-found" element={<UserNotFound />} />
+              <Route path="mydiscussions" element={<MyDiscussions />} />
+              <Route path="mydrafts" element={<Drafts />} />
+              <Route path="messages" element={<Messages />} />
+              <Route path="notifications" element={<Notifications />} />
               {/* <Route path="communitypage" element={<CommunityPage />} /> */}
               {/* <Route path="postpage" element={<PostPage />} /> */}
               <Route path="users">
