@@ -55,7 +55,7 @@ const CreationPostPage = () => {
   }
 
   return (
-    <div className="pt-6 ">
+    <div className="pt-6 pb-20">
       <PostHeader postData={postData} />
 
       <PostContent postData={postData} />

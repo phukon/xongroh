@@ -73,7 +73,7 @@ const PostCard = ({ postId, post }) => {
       <Card className="mt-5">
         <CardHeader className="p-4">
           <div>
-            <Link to={`profile/${author._id}`}>
+            <Link to={`/dash/profile/${author._id}`}>
               <Button variant="normal" size="normal">
                 <div className="flex items-center">
                   <div>
