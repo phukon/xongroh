@@ -1,4 +1,5 @@
 const Post = require('../models/Post.js')
+const mongoose = require('mongoose')
 
 // @desc Get all posts
 // @route GET /posts
@@ -12,6 +13,23 @@ exports.getAllPosts = async (req, res) => {
   }
 
   res.json(posts)
+}
+
+// @desc Get a post by id
+// @route GET /getPostById/:id
+// @access Public
+exports.getPostById = async (req, res) => {
+  const { postId } = req.params
+  try {
+    const post = await Post.findById(postId).lean()
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' })
+    }
+    res.json(post)
+  } catch(error) {
+    console.error(error)
+    res.status(500).json({ error: 'Server error' })
+  }
 }
 
 // @desc Create a post
@@ -56,6 +74,36 @@ exports.updatePost = async (req, res) => {
     res.status(400).json({ message: 'Invalid post data received' })
   }
 }
+
+// @desc Like a post
+// @route PUT /posts/:id
+// @access Private
+exports.likePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { userId } = req.body;
+    const post = await Post.findById(postId);
+    const isLiked = post.likes.get(userId);
+
+    if (isLiked) {
+      post.likes.delete(userId);
+    } else {
+      post.likes.set(userId, true);
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      { likes: post.likes },
+      { new: true }
+    );
+
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+
 
 // @desc Delete a post
 // @route DELETE /posts/:id

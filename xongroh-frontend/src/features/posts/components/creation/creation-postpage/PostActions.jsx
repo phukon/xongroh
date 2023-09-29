@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 
 
 const PostActions = ({ postData, isLiked, isSaved, onLikeClick, onSaveClick, onShareClick }) => {
+  const numberOfLikes = postData?.likes?.length || 0
     return (
       <div className="flex gap-3 overflow-x-scroll px-4 pb-4">
         <div>
@@ -11,11 +12,11 @@ const PostActions = ({ postData, isLiked, isSaved, onLikeClick, onSaveClick, onS
             onClick={onLikeClick}
             className={isLiked ? 'text-secondary-foreground' : ''}
           >
-            {isLiked ? 'Supports' : 'Support'}
-            <span className="pl-1 text-xs">({postData.likes})</span>
+            {isLiked ? 'Supporting' : 'Support'}
+            <span className="pl-1 text-xs">({numberOfLikes})</span>
           </Button>
         </div>
-        
+
         <div>
           <Button
             variant="normal"
@@ -33,7 +34,7 @@ const PostActions = ({ postData, isLiked, isSaved, onLikeClick, onSaveClick, onS
           </Button>
         </div>
       </div>
-    );
+    )
   };
 
   export default PostActions

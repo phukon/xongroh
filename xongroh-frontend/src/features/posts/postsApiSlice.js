@@ -33,6 +33,17 @@ export const postsApiSlice = apiSlice.injectEndpoints({
         } else return [{ type: 'Post', id: 'LIST' }]
       },
     }),
+    getPostById: builder.query({
+      query: (postId) => ({
+        url: `/post/getPostById/${postId}`,
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError
+        },
+      }),
+      transformResponse: (responseData) => {
+        return responseData
+      },
+    }),
     addNewPost: builder.mutation({
       query: (initialPost) => ({
         url: '/post/createPost',
@@ -53,6 +64,13 @@ export const postsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
     }),
+    likePost: builder.mutation({
+      query: ({ postId, userId }) => ({
+        url: `/post/likePost/${postId}`,
+        method: 'PATCH',
+        body: { userId },
+      }),
+    }),
     deletePost: builder.mutation({
       query: ({ id }) => ({
         url: `/post/deletePost`,
@@ -66,11 +84,12 @@ export const postsApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetPostsQuery,
+  useGetPostByIdQuery,
   // useGetPostsByUserIdQuery,
   useAddNewPostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
-  useAddReactionMutation,
+  useLikePostMutation,
 } = postsApiSlice
 
 // returns the query result object

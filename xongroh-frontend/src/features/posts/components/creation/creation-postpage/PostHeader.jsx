@@ -1,7 +1,15 @@
 import { Button } from '@/components/ui/button'
 import Assets from '@/assets/Assets'
+import { useGetUserByIdQuery } from '@/features/users/usersApiSlice'
 
 const PostHeader = ({ postData }) => {
+
+    const {
+      data: userData,
+      isLoading: userLoading,
+      isSuccess: userSuccess,
+    } = useGetUserByIdQuery(postData.author)
+
   return (
     <div className="flex justify-between px-4">
       <div>
@@ -10,11 +18,11 @@ const PostHeader = ({ postData }) => {
             <div>
               <img
                 className="h-9 w-9 rounded-full"
-                src={postData.dp}
+                src={userData?.profilePicture || ''}
                 alt="profile"
               />
             </div>
-            <div className="pl-4">{postData.name}</div>
+            <div className="pl-4">{userData?.username}</div>
           </div>
         </Button>
       </div>

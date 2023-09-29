@@ -35,7 +35,10 @@ function App() {
               <Route index element={<Home />} />
               <Route path="search" element={<Search />} />
               <Route path="communities" element={<Communities />} />{' '}
-              <Route path="creationpostpage" element={<CreationPostPage />} />
+              <Route
+                path="creationpostpage/:postId"
+                element={<CreationPostPage />}
+              />
               <Route path="profile/:id" element={<Profile />} />
               <Route path="profile/:id/createpost" element={<CreatePost />} />
               <Route path="profile/:id/edit" element={<EditProfileForm />} />
