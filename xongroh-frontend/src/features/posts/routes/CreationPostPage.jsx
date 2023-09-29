@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import PostHeader from '@/features/posts/components/creation/creation-postpage/PostHeader'
 import PostContent from '@/features/posts/components/creation/creation-postpage/PostContent'
 import PostActions from '@/features/posts/components/creation/creation-postpage/PostActions'
@@ -25,26 +25,41 @@ const CreationPostPage = () => {
     isError: postError,
   } = useGetPostByIdQuery(postId ? postId : null)
 
-  const [activeTab, setActiveTab] = React.useState('comments')
-  const [isLiked, setIsLiked] = React.useState(false)
-  const [isSaved, setIsSaved] = React.useState(false)
+  const [activeTab, setActiveTab] = useState('comments')
+  const [isLiked, setIsLiked] = useState(false) // Initialize as false
+  const [isSaved, setIsSaved] = useState(false)
+
+  useEffect(() => {
+    if (postSuccess && post.likes && post.likes.hasOwnProperty(userId)) {
+      setIsLiked(true)
+    } else {
+      setIsLiked(false)
+    }
+  }, [postSuccess, userId])
+
+  const initialNumberOfLikes = post?.likes ? Object.keys(post.likes).length : 0
+  const [numberOfLikes, setNumberOfLikes] = useState(initialNumberOfLikes)
 
   const handleTabClick = (tab) => {
     setActiveTab(tab)
   }
 
-  const handleLikeClick = () => {
-    setIsLiked((prevIsLiked) => {
-      if (prevIsLiked) {
-        const updatedLikes = post.likes.filter((like) => like !== userId)
-        likePost({ postId: post._id, userId: userId })
-        return !prevIsLiked
-      } else {
-        const updatedLikes = [...post.likes, userId]
-        likePost({ postId: post._id, userId: userId })
-        return !prevIsLiked
+  const handleLikeClick = async () => {
+    if (!isLoading) {
+      try {
+        if (isLiked) {
+          await likePost({ postId: post._id, userId: userId })
+          setIsLiked(false)
+          setNumberOfLikes((prevNumberOfLikes) => prevNumberOfLikes - 1)
+        } else {
+          await likePost({ postId: post._id, userId: userId })
+          setIsLiked(true)
+          setNumberOfLikes((prevNumberOfLikes) => prevNumberOfLikes + 1)
+        }
+      } catch (error) {
+        console.error('Error liking/unliking post:', error)
       }
-    })
+    }
   }
 
   const handleShareClick = () => {
@@ -71,6 +86,7 @@ const CreationPostPage = () => {
             onLikeClick={handleLikeClick}
             onSaveClick={handleSaveClick}
             onShareClick={handleShareClick}
+            numberOfLikes={numberOfLikes}
           />
         </>
       )}

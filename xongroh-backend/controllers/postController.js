@@ -87,8 +87,10 @@ exports.likePost = async (req, res) => {
 
     if (isLiked) {
       post.likes.delete(userId);
+      message = 'Post has been unliked.';
     } else {
       post.likes.set(userId, true);
+      message = 'Post has been liked.';
     }
 
     const updatedPost = await Post.findByIdAndUpdate(
@@ -97,12 +99,11 @@ exports.likePost = async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json(updatedPost);
+    res.status(200).json({ message, updatedPost });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
-};
-
+}
 
 
 // @desc Delete a post
