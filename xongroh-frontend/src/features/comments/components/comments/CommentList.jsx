@@ -18,6 +18,11 @@ const CommentList = ({ postId, comments }) => {
   }
 
   const handleCommentButtonClick = async () => {
+    const trimmedCommentText = commentText.trim()
+    if (trimmedCommentText === '') {
+      return 
+    }
+
     try {
       await commentTrigger({
         text: commentText,
