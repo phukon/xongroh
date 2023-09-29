@@ -31,16 +31,15 @@ const CreationPostPage = () => {
   const [isSaved, setIsSaved] = useState(false)
 
   useEffect(() => {
-    if (postSuccess && post.likes && post.likes.hasOwnProperty(userId)) {
-      setIsLiked(true)
-      const initialNumberOfLikes = Object.keys(post.likes).length
-      setNumberOfLikes(initialNumberOfLikes)
-    } else if (postSuccess && post.likes) {
-      const initialNumberOfLikes = Object.keys(post.likes).length
-      setNumberOfLikes(initialNumberOfLikes)
-      setIsLiked(false)
-    } else {
-      setIsLiked(false)
+    if (postSuccess) {
+      if (post.likes && post.likes.hasOwnProperty(userId)) {
+        setIsLiked(true)
+      } else {
+        setIsLiked(false)
+      }
+
+      const likeCount = Object.keys(post.likes).length
+      setNumberOfLikes(likeCount)
     }
   }, [postSuccess, userId])
 
@@ -118,8 +117,12 @@ const CreationPostPage = () => {
         </div>
 
         <div className="mx-4 mt-2 text-lg font-normal text-muted-foreground ">
-          {activeTab === 'comments' && <CommentsContent />}
-          {activeTab === 'feedback' && <FeedbackContent />}
+          {postSuccess && (
+            <>
+              {activeTab === 'comments' && <CommentsContent postId = {post._id} comments = {post.comments} />}
+              {activeTab === 'feedback' && <FeedbackContent />}
+            </>
+          )}
         </div>
       </div>
     </div>

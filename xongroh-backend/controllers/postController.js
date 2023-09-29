@@ -108,7 +108,7 @@ exports.likePost = async (req, res) => {
 exports.comments = async (req, res) => {
   try {
     const postId = req.params.postId;
-    const { text, authorId } = req.body;
+    const { text, userId } = req.body;
 
     const post = await Post.findById(postId);
 
@@ -118,7 +118,7 @@ exports.comments = async (req, res) => {
 
     const newComment = {
       text,
-      author: authorId,
+      author: userId,
     };
 
     post.comments.push(newComment);

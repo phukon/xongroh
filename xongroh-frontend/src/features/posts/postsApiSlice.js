@@ -1,5 +1,4 @@
 import { createSelector, createEntityAdapter } from '@reduxjs/toolkit'
-import { sub } from 'date-fns'
 import { apiSlice } from '../api/apiSlice'
 
 const postsAdapter = createEntityAdapter({
@@ -71,6 +70,13 @@ export const postsApiSlice = apiSlice.injectEndpoints({
         body: { userId },
       }),
     }),
+    commentTrigger: builder.mutation({
+      query: ({postId, userId, text}) => ({
+        url: `/post/comments/${postId}`,
+        method: 'POST',
+        body : {userId, text}
+      })
+    }),
     deletePost: builder.mutation({
       query: ({ id }) => ({
         url: `/post/deletePost`,
@@ -90,6 +96,7 @@ export const {
   useUpdatePostMutation,
   useDeletePostMutation,
   useLikePostMutation,
+  useCommentTriggerMutation,
 } = postsApiSlice
 
 // returns the query result object
