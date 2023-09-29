@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import PostTimeStamp from '@/features/posts/components/creation/creation-postpage/PostTimeStamp'
 import PostHeader from '@/features/posts/components/creation/creation-postpage/PostHeader'
 import PostContent from '@/features/posts/components/creation/creation-postpage/PostContent'
 import PostActions from '@/features/posts/components/creation/creation-postpage/PostActions'
@@ -34,6 +35,10 @@ const CreationPostPage = () => {
       setIsLiked(true)
       const initialNumberOfLikes = Object.keys(post.likes).length
       setNumberOfLikes(initialNumberOfLikes)
+    } else if (postSuccess && post.likes) {
+      const initialNumberOfLikes = Object.keys(post.likes).length
+      setNumberOfLikes(initialNumberOfLikes)
+      setIsLiked(false)
     } else {
       setIsLiked(false)
     }
@@ -80,6 +85,7 @@ const CreationPostPage = () => {
       {postSuccess && (
         <>
           <PostHeader postData={post} />
+          <PostTimeStamp timestamp={post.timestamp} />
           <PostContent postData={post} />
           <PostActions
             postData={post}

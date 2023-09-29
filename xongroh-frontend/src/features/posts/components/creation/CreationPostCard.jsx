@@ -68,6 +68,7 @@ const PostCard = ({ postId, post }) => {
 
   if (userSuccess) {
     const author = userData
+    const interactions = Object.keys(post.likes).length
 
     return (
       <Card className="mt-5">
@@ -102,7 +103,7 @@ const PostCard = ({ postId, post }) => {
           <div className="flex items-center">
             <div>
               <Button variant="normal" size="normal">
-                {post.interactions}
+                {interactions}
               </Button>
             </div>
             <div className="pl-3">
