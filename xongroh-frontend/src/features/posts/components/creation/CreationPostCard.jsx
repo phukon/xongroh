@@ -92,13 +92,21 @@ const PostCard = ({ postId, post }) => {
         </CardHeader>
         <CardContent className="px-4 pb-0">
           <p
-            className="line-clamp-8 text-sm text-muted-foreground"
+            className="text-sm text-muted-foreground"
             onClick={handlePostClick}
-            style={{ cursor: 'pointer' }}
+            style={{
+              cursor: 'pointer',
+              overflow: 'hidden',
+              whiteSpace: 'wrap',
+              wordWrap: 'break-word',
+            }}
           >
-            {post.content}
+            {post.content.length > 100
+              ? `${post.content.slice(0, 150)}...`
+              : post.content}
           </p>
         </CardContent>
+
         <CardFooter className="p-4">
           <div className="flex items-center">
             <div>

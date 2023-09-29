@@ -41,7 +41,7 @@ exports.createPost = async (req, res) => {
   if (!title || !content || !author) {
     return res.status(400).json({ message: 'All fields are required' })
   }
-  const postObject = { title, content, cover, author }
+  const postObject = { title, content, cover, author, likes: new Map() }
   const post = await Post.create(postObject)
 
   if (post) {
@@ -102,6 +102,33 @@ exports.likePost = async (req, res) => {
     res.status(200).json({ message, updatedPost });
   } catch (err) {
     res.status(404).json({ message: err.message });
+  }
+}
+
+exports.comments = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const { text, authorId } = req.body;
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    const newComment = {
+      text,
+      author: authorId,
+    };
+
+    post.comments.push(newComment);
+
+    await post.save();
+
+    res.status(201).json({ message: 'Comment added successfully', comment: newComment });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 }
 
