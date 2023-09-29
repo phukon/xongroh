@@ -32,13 +32,15 @@ const CreationPostPage = () => {
   useEffect(() => {
     if (postSuccess && post.likes && post.likes.hasOwnProperty(userId)) {
       setIsLiked(true)
+      const initialNumberOfLikes = Object.keys(post.likes).length
+      setNumberOfLikes(initialNumberOfLikes)
     } else {
       setIsLiked(false)
     }
   }, [postSuccess, userId])
 
-  const initialNumberOfLikes = post?.likes ? Object.keys(post.likes).length : 0
-  const [numberOfLikes, setNumberOfLikes] = useState(initialNumberOfLikes)
+  // const initialNumberOfLikes = post?.likes ? Object.keys(post.likes).length : 0
+  const [numberOfLikes, setNumberOfLikes] = useState(0)
 
   const handleTabClick = (tab) => {
     setActiveTab(tab)
