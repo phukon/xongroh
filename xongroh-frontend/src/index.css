@@ -58,3 +58,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Default layout for mobile screens */
+.dash-container {
+  display: block; /* Stack header, content, and footer vertically for mobile */
+}
+
+/* Media query for desktop layout */
+@media (min-width: 768px) {
+  /* Reset the default mobile styles */
+  .dash-container {
+    display: flex;
+    flex-direction: row; /* Arrange header and content side by side */
+    justify-content: space-between; /* Create space between header and content */
+    align-items: stretch; /* Stretch header and content to fill the height */
+  }
+}

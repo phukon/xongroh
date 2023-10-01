@@ -1,5 +1,5 @@
 const UserModel = require('../models/User.js')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const otpGenerator = require('./otp-gen.js')
 const asyncHandler = require('express-async-handler')
 const mongoose = require('mongoose')

@@ -1,36 +1,48 @@
-import React from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
 import DashHeader from '@/components/DashHeader'
 import DashFooter from '@/components/DashFooter'
+import DesktopBarLeft from '@/components/DesktopBarLeft'
+import DesktopBarRight from '@/components/DesktopBarRight'
 
 const DashLayout = () => {
-  // Get the current location from react-router-dom
-  const location = useLocation()
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768)
 
-  // Define a function to determine the background color based on the URL
-  const getBackgroundColor = () => {
-    switch (location.pathname) {
-      case '/dash':
-        return '#F5F0BB'
-      case '/dash/search':
-        return '#CDF0EA'
-      case '/dash/communities':
-        return '#B8E8FC'
-      case '/dash/profile':
-        return '#C8E4B2'
-      default:
-        return '#FFFF'
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768)
     }
-  }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
     <>
-      {/* Pass the background color as a prop to DashHeader */}
-      <DashHeader bgColor={getBackgroundColor()} />
-      <div className="dash-container">
-        <Outlet />
-      </div>
-      <DashFooter />
+      {isDesktop ? (
+        <div className="flex flex-row">
+          <div className="w-1/3">
+            <DesktopBarLeft />
+          </div>
+          <div className="w-1/2">
+            <Outlet />
+          </div>
+          <div className="w-1/3">
+            <DesktopBarRight />
+          </div>
+        </div>
+      ) : (
+        <>
+          <DashHeader />
+          <div className="dash-container">
+            <Outlet />
+          </div>
+          <DashFooter />
+        </>
+      )}
     </>
   )
 }
