@@ -119,7 +119,13 @@ const CreationPostPage = () => {
         <div className="mx-4 mt-2 text-lg font-normal text-muted-foreground ">
           {postSuccess && (
             <>
-              {activeTab === 'comments' && <CommentsContent postId = {post._id} comments = {post.comments} />}
+              {activeTab === 'comments' && (
+                <CommentsContent
+                  postId={post._id}
+                  currentUserId={userId}
+                  comments={post.comments}
+                />
+              )}
               {activeTab === 'feedback' && <FeedbackContent />}
             </>
           )}

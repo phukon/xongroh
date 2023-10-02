@@ -26,7 +26,7 @@ exports.getPostById = async (req, res) => {
       return res.status(404).json({ error: 'Post not found' })
     }
     res.json(post)
-  } catch(error) {
+  } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Server error' })
   }
@@ -80,58 +80,140 @@ exports.updatePost = async (req, res) => {
 // @access Private
 exports.likePost = async (req, res) => {
   try {
-    const { postId } = req.params;
-    const { userId } = req.body;
-    const post = await Post.findById(postId);
-    const isLiked = post.likes.get(userId);
+    const { postId } = req.params
+    const userId = req.userId
+    const post = await Post.findById(postId)
+    const isLiked = post.likes.get(userId)
 
     if (isLiked) {
-      post.likes.delete(userId);
-      message = 'Post has been unliked.';
+      post.likes.delete(userId)
+      message = 'Post has been unliked.'
     } else {
-      post.likes.set(userId, true);
-      message = 'Post has been liked.';
+      post.likes.set(userId, true)
+      message = 'Post has been liked.'
     }
 
     const updatedPost = await Post.findByIdAndUpdate(
       postId,
       { likes: post.likes },
       { new: true }
-    );
+    )
 
-    res.status(200).json({ message, updatedPost });
+    res.status(200).json({ message, updatedPost })
   } catch (err) {
-    res.status(404).json({ message: err.message });
+    res.status(404).json({ message: err.message })
   }
 }
 
 exports.comments = async (req, res) => {
   try {
-    const postId = req.params.postId;
-    const { text, userId } = req.body;
+    const postId = req.params.postId
+    const { text, parentId } = req.body
+    const userId = req.userId
 
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId)
 
     if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
+      return res.status(404).json({ message: 'Post not found' })
     }
 
     const newComment = {
       text,
       author: userId,
-    };
+      parentId,
+    }
 
-    post.comments.push(newComment);
+    post.comments.push(newComment)
 
-    await post.save();
+    await post.save()
 
-    res.status(201).json({ message: 'Comment added successfully', comment: newComment });
+    const newCommentId = post.comments[post.comments.length - 1]._id
+
+    res
+      .status(201)
+      .json({ message: 'Comment added successfully', comment: { _id: newCommentId, ...newComment } })
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error(error)
+    res.status(500).json({ message: 'Server error' })
   }
 }
 
+// @desc UPDATE a comment
+// @route PUT /posts/comments/:commentId
+// @access Private
+exports.updateComment = async (req, res) => {
+  try {
+    const { text } = req.body
+    const { commentId } = req.params
+    const userId = req.userId
+
+    const post = await Post.findOne({ 'comments._id': commentId })
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+
+    const comment = post.comments.find((comment) => comment._id === commentId)
+
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' })
+    }
+
+    if (comment.author.toString() !== userId) {
+      return res
+        .status(401)
+        .json({ message: 'You are not authorized to update this comment' })
+    }
+
+    comment.text = text
+
+    await post.save()
+
+    res.status(200).json({ message: 'Comment updated successfully' })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
+// @desc Delete a comment
+// @route DELETE /posts/comments/:commentId
+// @access Private
+exports.deleteComment = async (req, res) => {
+  try {
+    const { commentId } = req.params
+    const userId = req.userId
+
+    const post = await Post.findOne({ 'comments._id': commentId })
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+
+    const comment = post.comments.find((comment) => comment._id === commentId)
+
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' })
+    }
+
+    if (comment.author.toString() !== userId) {
+      return res
+        .status(401)
+        .json({ message: 'You are not authorized to delete this comment' })
+    }
+
+    const index = post.comments.findIndex((comment) => comment.id === commentId)
+
+    post.comments.splice(index, 1)
+
+    await post.save()
+
+    res.status(200).json({ message: 'Comment deleted successfully' })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
 
 // @desc Delete a post
 // @route DELETE /posts/:id

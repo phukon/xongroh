@@ -7,7 +7,8 @@ const commentSchema = new mongoose.Schema({
   likes: {
     type: Map,
     of: Boolean,
-  }
+  },
+  parentId: {type: String, default: null} // change to undefined if not working
 });
 
 const postSchema = new mongoose.Schema({

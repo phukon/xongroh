@@ -49,7 +49,7 @@ const CreationPostCard = () => {
 const PostCard = ({ postId, post }) => {
   const navigate = useNavigate()
   const handlePostClick = () => {
-    navigate(`/dash/creationpostpage/${postId}`) // navigate(`/posts/${post.id}`);
+    navigate(`/dash/creationpostpage/${postId}`)
   }
 
   const {

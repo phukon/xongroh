@@ -64,17 +64,29 @@ export const postsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
     }),
     likePost: builder.mutation({
-      query: ({ postId, userId }) => ({
+      query: ({ postId }) => ({
         url: `/post/likePost/${postId}`,
         method: 'PATCH',
-        body: { userId },
       }),
     }),
     commentTrigger: builder.mutation({
-      query: ({postId, userId, text}) => ({
+      query: ({postId, parentId, text}) => ({
         url: `/post/comments/${postId}`,
         method: 'POST',
-        body : {userId, text}
+        body : {text, parentId}
+      })
+    }),
+    updateCommentTrigger: builder.mutation({
+      query: ({commentId, text}) => ({
+        url: `/post/comments/${commentId}`,
+        method: 'PATCH',
+        body: {text}
+      })
+    }),
+    deleteCommentTrigger: builder.mutation({
+      query: ({commentId}) => ({
+        url: `/post/comments/${commentId}`,
+        method: 'DELETE'
       })
     }),
     deletePost: builder.mutation({
@@ -96,6 +108,8 @@ export const {
   useUpdatePostMutation,
   useDeletePostMutation,
   useLikePostMutation,
+  useUpdateCommentTriggerMutation,
+  useDeleteCommentTriggerMutation,
   useCommentTriggerMutation,
 } = postsApiSlice
 
