@@ -62,11 +62,7 @@ exports.updatePost = async (req, res) => {
     return res.status(400).json({ message: 'All fields are required' })
   }
 
-  const post = await Post.findByIdAndUpdate(
-    id,
-    { title, content, cover, author },
-    { new: true }
-  )
+  const post = await Post.findByIdAndUpdate(id, { title, content, cover, author }, { new: true })
 
   if (post) {
     res.status(200).json({ message: `Post ${id} updated` })
@@ -93,11 +89,7 @@ exports.likePost = async (req, res) => {
       message = 'Post has been liked.'
     }
 
-    const updatedPost = await Post.findByIdAndUpdate(
-      postId,
-      { likes: post.likes },
-      { new: true }
-    )
+    const updatedPost = await Post.findByIdAndUpdate(postId, { likes: post.likes }, { new: true })
 
     res.status(200).json({ message, updatedPost })
   } catch (err) {
@@ -120,18 +112,13 @@ exports.savePost = async (req, res) => {
       message = 'Post has been saved.'
     }
 
-    const updatedPost = await Post.findByIdAndUpdate(
-      postId,
-      { saves: post.saves },
-      { new: true }
-    )
+    const updatedPost = await Post.findByIdAndUpdate(postId, { saves: post.saves }, { new: true })
 
     res.status(200).json({ message, updatedPost })
   } catch (err) {
     res.status(404).json({ message: err.message })
   }
 }
-
 
 exports.likeComment = async (req, res) => {
   try {
@@ -143,9 +130,7 @@ exports.likeComment = async (req, res) => {
       return res.status(404).json({ message: 'Post not found' })
     }
 
-    const comment = post.comments.find(
-      (comment) => comment._id.toString() === commentId
-    )
+    const comment = post.comments.find((comment) => comment._id.toString() === commentId)
 
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' })
@@ -196,12 +181,10 @@ exports.comments = async (req, res) => {
     const newCommentId = post.comments[post.comments.length - 1]._id
     const timestamp = post.comments[post.comments.length - 1].timestamp
 
-    res
-      .status(201)
-      .json({
-        message: 'Comment added successfully',
-        comment: { _id: newCommentId, timestamp: timestamp, ...newComment },
-      })
+    res.status(201).json({
+      message: 'Comment added successfully',
+      comment: { _id: newCommentId, timestamp: timestamp, ...newComment },
+    })
   } catch (error) {
     console.error(error)
     res.status(500).json({ message: 'Server error' })
@@ -223,18 +206,14 @@ exports.updateComment = async (req, res) => {
       return res.status(404).json({ message: 'Post not found' })
     }
 
-    const comment = post.comments.find(
-      (comment) => comment._id.toString() === commentId
-    )
+    const comment = post.comments.find((comment) => comment._id.toString() === commentId)
 
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' })
     }
 
     if (comment.author.toString() !== userId) {
-      return res
-        .status(401)
-        .json({ message: 'You are not authorized to update this comment' })
+      return res.status(401).json({ message: 'You are not authorized to update this comment' })
     }
 
     comment.text = text
@@ -262,18 +241,14 @@ exports.deleteComment = async (req, res) => {
       return res.status(404).json({ message: 'Post not found' })
     }
 
-    const comment = post.comments.find(
-      (comment) => comment._id.toString() === commentId
-    )
+    const comment = post.comments.find((comment) => comment._id.toString() === commentId)
 
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' })
     }
 
     if (comment.author.toString() !== userId) {
-      return res
-        .status(401)
-        .json({ message: 'You are not authorized to delete this comment' })
+      return res.status(401).json({ message: 'You are not authorized to delete this comment' })
     }
 
     const index = post.comments.findIndex((comment) => comment.id === commentId)
@@ -288,6 +263,152 @@ exports.deleteComment = async (req, res) => {
     res.status(500).json({ message: 'Server error' })
   }
 }
+
+//------------------feedback---------
+exports.likeFeedback = async (req, res) => {
+  try {
+    const { feedbackId } = req.params
+    const userId = req.userId
+
+    const post = await Post.findOne({ 'feedbacks._id': feedbackId })
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+
+    const feedback = post.feedbacks.find((feedback) => feedback._id.toString() === feedbackId)
+
+    if (!feedback) {
+      return res.status(404).json({ message: 'Feedback not found' })
+    }
+
+    const isLiked = feedback.likes.get(userId)
+
+    if (isLiked) {
+      feedback.likes.delete(userId)
+      message = 'Comment has been unliked.'
+    } else {
+      feedback.likes.set(userId, true)
+      message = 'Comment has been liked.'
+    }
+
+    await post.save()
+
+    res.status(200).json({ message, updatedPost: post })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+    ror
+  }
+}
+
+exports.feedback = async (req, res) => {
+  try {
+    const postId = req.params.postId
+    const { text, parentId } = req.body
+    const userId = req.userId
+
+    const post = await Post.findById(postId)
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+
+    const newFeedback = {
+      text,
+      author: userId,
+      parentId,
+      likes: new Map(),
+    }
+
+    post.feedbacks.push(newFeedback)
+
+    await post.save()
+
+    const newFeedbackId = post.feedbacks[post.feedbacks.length - 1]._id
+    const timestamp = post.feedbacks[post.feedbacks.length - 1].timestamp
+
+    res.status(201).json({
+      message: 'Feedback added successfully',
+      feedback: { _id: newFeedbackId, timestamp: timestamp, ...newFeedback },
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
+// @desc UPDATE a comment
+// @route PUT /posts/comments/:commentId
+// @access Private
+exports.updateFeedback = async (req, res) => {
+  try {
+    const { text } = req.body
+    const { feedbackId } = req.params
+    const userId = req.userId
+    const post = await Post.findOne({ 'feedbacks._id': feedbackId })
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+
+    const feedback = post.feedbacks.find((feedback) => feedback._id.toString() === feedbackId)
+
+    if (!feedback) {
+      return res.status(404).json({ message: 'Feedback not found' })
+    }
+
+    if (feedback.author.toString() !== userId) {
+      return res.status(401).json({ message: 'You are not authorized to update this feedback' })
+    }
+
+    feedback.text = text
+
+    await post.save()
+
+    res.status(200).json({ message: 'Feedback updated successfully' })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
+// @desc Delete a comment
+// @route DELETE /posts/comments/:commentId
+// @access Private
+exports.deleteFeedback = async (req, res) => {
+  try {
+    const { feedbackId } = req.params
+    const userId = req.userId
+
+    const post = await Post.findOne({ 'comments._id': feedbackId })
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+
+    const feedback = post.feedbacks.find((feedback) => feedback._id.toString() === feedbackId)
+
+    if (!feedback) {
+      return res.status(404).json({ message: 'feedback not found' })
+    }
+
+    if (feedback.author.toString() !== userId) {
+      return res.status(401).json({ message: 'You are not authorized to delete this comment' })
+    }
+
+    const index = post.feedback.findIndex((feedback) => feedback.id === feedbackId)
+
+    post.feedback.splice(index, 1)
+
+    await post.save()
+
+    res.status(200).json({ message: 'feedback deleted successfully' })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
+// ----------------------------------
 
 // @desc Delete a post
 // @route DELETE /posts/:id

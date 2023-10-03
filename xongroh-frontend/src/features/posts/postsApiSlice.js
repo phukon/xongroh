@@ -101,6 +101,32 @@ export const postsApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE'
       })
     }),
+    likeFeedback: builder.mutation({
+      query: ({ feedbackId }) => ({
+        url: `/post/likeFeedback/${feedbackId}`,
+        method: 'PATCH',
+      }),
+    }),
+    feedbackTrigger: builder.mutation({
+      query: ({postId, parentId, text}) => ({
+        url: `/post/feedbacks/${postId}`,
+        method: 'POST',
+        body : {text, parentId}
+      })
+    }),
+    updateFeedbackTrigger: builder.mutation({
+      query: ({feedbackId, text}) => ({
+        url: `/post/feedbacks/${feedbackId}`,
+        method: 'PUT',
+        body: {text}
+      })
+    }),
+    deleteFeedbackTrigger: builder.mutation({
+      query: ({feedbackId}) => ({
+        url: `/post/feedbacks/${feedbackId}`,
+        method: 'DELETE'
+      })
+    }),
     deletePost: builder.mutation({
       query: ({ id }) => ({
         url: `/post/deletePost`,
@@ -121,6 +147,10 @@ export const {
   useAddNewPostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
+  useFeedbackTriggerMutation,
+  useLikeFeedbackMutation,
+  useUpdateFeedbackTriggerMutation,
+  useDeleteFeedbackTriggerMutation,
   useLikePostMutation,
   useUpdateCommentTriggerMutation,
   useDeleteCommentTriggerMutation,

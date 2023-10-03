@@ -137,7 +137,9 @@ const CreationPostPage = () => {
               {activeTab === 'comments' && (
                 <CommentsContent postId={post._id} currentUserId={userId} comments={post.comments} />
               )}
-              {activeTab === 'feedback' && <FeedbackContent />}
+              {activeTab === 'feedback' && (
+                <FeedbackContent postId={post._id} currentUserId={userId} feedbacks={post.feedbacks} />
+              )}
             </>
           )}
         </div>

@@ -1,49 +1,92 @@
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import FeedbackList from '@/features/comments/components/feedbacks/FeedbackList'
+import Feedback from './Feedback'
+import FeedbackForm from './FeedbackForm'
+import { useState, useEffect } from 'react'
+import {
+  useFeedbackTriggerMutation,
+  useDeleteFeedbackTriggerMutation,
+  useUpdateFeedbackTriggerMutation,
+} from '@/features/posts/postsApiSlice'
 
-const feedback = [
-  {
-    id: 1,
-    name: 'Superman Bora',
-    text: 'borhia komol borhia...',
-    likes: 1,
-    replies: [
-      {
-        id: 2,
-        name: 'Rupam Bora',
-        text: 'thank you sir',
-        likes: 1,
-      },
-    ],
-  },
-]
+const FeedbackContent = ({ postId, currentUserId, feedbacks }) => {
 
-const FeedbackContent = () => {
+  const [feedbackTrigger, { data, isLoading, isSuccess, isError, error }] = useFeedbackTriggerMutation()
+
+  const [
+    deleteFeedbackTrigger,
+    { isLoading: deleting, isSuccess: deleteSuccess, isError: deleteError, error: deleteErrors },
+  ] = useDeleteFeedbackTriggerMutation()
+
+  const [
+    updateFeedbackTrigger,
+    { isLoading: updating, isSuccess: updateSuccess, isError: updateError, error: updateErrors },
+  ] = useUpdateFeedbackTriggerMutation()
+
+  const [backendFeedbacks, setBackendFeedbacks] = useState([])
+  const [activeFeedback, setActiveFeedback] = useState(null)
+
+  const rootFeedbacks = backendFeedbacks
+    .filter((backendFeedback) => backendFeedback.parentId === null)
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+
+  const getReplies = (feedbackId) =>
+    backendFeedbacks
+      .filter((backendFeedback) => backendFeedback.parentId === feedbackId)
+      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+
+  const addFeedback = (text, parentId, postId) => {
+    feedbackTrigger({ text, parentId, postId })
+    if (isSuccess) {
+      setBackendFeedbacks([data.feedbacks, ...backendFeedbacks])
+      setActiveFeedback(null)
+    }
+  }
+
+  const updateFeedback = (text, feedbackId) => {
+    updateFeedbackTrigger({ text: text, feedbackId })
+    if (updateSuccess) {
+      const updatedBackendFeedbacks = backendFeedbacks.map((backendFeedback) => {
+        if (backendFeedback.id === feedbackId) {
+          return { ...backendFeedback, text: text }
+        }
+        return backendFeedback
+      })
+      setBackendFeedbacks(updatedBackendFeedbacks)
+      setActiveFeedback(null)
+    }
+  }
+
+  const deleteFeedback = (feedbackId) => {
+    if (window.confirm('Are you sure you want to remove the feedback?')) {
+      deleteFeedbackTrigger({ feedbackId: feedbackId })
+      if (deleteSuccess) {
+        const updatedBackendFeedbacks = backendFeedbacks.filter((backendFeedback) => backendFeedback._id !== feedbackId)
+        setBackendFeedbacks(updatedBackendFeedbacks)
+      }
+    }
+  }
+
+  useEffect(() => {
+    setBackendFeedbacks(feedbacks)
+  }, [])
+
   return (
-    <div>
-      <div>
-        <Textarea
-          className=" h-24 rounded-xl"
-          placeholder="Share your thoughts with the creator..."
-        />
-      </div>
-      <div className="px-1 py-4">
-        <Button
-          variant="normal"
-          size="normal"
-          className="text-secondary-foreground"
-        >
-          Send
-        </Button>
-      </div>
-      <div>
-        <FeedbackList feedbacks={feedback} />
-      </div>
-      <div>
-        <p className="py-6 text-xs">
-          Note: Feedbacks are sent to the creator in private.
-        </p>
+    <div className="comments">
+      <FeedbackForm submitLabel="Write" postId={postId} handleSubmit={addFeedback} />
+      <div className="comments-container">
+        {rootFeedbacks.map((rootFeedback) => (
+          <Feedback
+            key={rootFeedback._id}
+            feedback={rootFeedback}
+            replies={getReplies(rootFeedback._id)}
+            activeFeedback={activeFeedback}
+            setActiveFeedback={setActiveFeedback}
+            addFeedback={addFeedback}
+            deleteFeedback={deleteFeedback}
+            updateFeedback={updateFeedback}
+            currentUserId={currentUserId}
+            postId={postId}
+          />
+        ))}
       </div>
     </div>
   )
