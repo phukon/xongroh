@@ -31,7 +31,7 @@ const PostActions = ({
           className={isSaved ? 'text-secondary-foreground' : ''}
         >
           {isSaved ? 'Saved' : 'Save'}
-          <span className="pl-1 text-xs">({postData.saves})</span>
+          <span className="pl-1 text-xs"></span>
         </Button>
       </div>
       <div>

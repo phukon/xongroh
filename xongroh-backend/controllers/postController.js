@@ -41,7 +41,7 @@ exports.createPost = async (req, res) => {
   if (!title || !content || !author) {
     return res.status(400).json({ message: 'All fields are required' })
   }
-  const postObject = { title, content, cover, author, likes: new Map() }
+  const postObject = { title, content, cover, author, likes: new Map(), saves: new Map() }
   const post = await Post.create(postObject)
 
   if (post) {
@@ -104,6 +104,34 @@ exports.likePost = async (req, res) => {
     res.status(404).json({ message: err.message })
   }
 }
+
+exports.savePost = async (req, res) => {
+  try {
+    const { postId } = req.params
+    const userId = req.userId
+    const post = await Post.findById(postId)
+    const isSaved = post.saves.get(userId)
+
+    if (isSaved) {
+      post.saves.delete(userId)
+      message = 'Post has been unsaved.'
+    } else {
+      post.saves.set(userId, true)
+      message = 'Post has been saved.'
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      { saves: post.likes },
+      { new: true }
+    )
+
+    res.status(200).json({ message, updatedPost })
+  } catch (err) {
+    res.status(404).json({ message: err.message })
+  }
+}
+
 
 exports.likeComment = async (req, res) => {
   try {

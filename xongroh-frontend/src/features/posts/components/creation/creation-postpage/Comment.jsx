@@ -17,18 +17,11 @@ const Comment = ({
   currentUserId,
   postId,
 }) => {
-  const isEditing =
-    activeComment &&
-    activeComment.id === comment._id &&
-    activeComment.type === 'editing'
-  const isReplying =
-    activeComment &&
-    activeComment.id === comment._id &&
-    activeComment.type === 'replying'
+  const isEditing = activeComment && activeComment.id === comment._id && activeComment.type === 'editing'
+  const isReplying = activeComment && activeComment.id === comment._id && activeComment.type === 'replying'
   const fiveMinutes = 300000
   const timePassed = new Date() - new Date(comment.timestamp) > fiveMinutes
-  const canDelete =
-    currentUserId === comment.author && replies.length === 0 && !timePassed
+  const canDelete = currentUserId === comment.author && replies.length === 0 && !timePassed
   const canReply = Boolean(currentUserId)
   const canEdit = currentUserId === comment.author && !timePassed
   const replyId = parentId !== null ? parentId : comment._id
@@ -46,24 +39,20 @@ const Comment = ({
     return date.toLocaleDateString('en-US', options)
   }
 
-  const [likeComment, { data, isLoading, isSuccess, isError, error }] =
-    useLikeCommentMutation()
+  const [likeComment, { data, isLoading, isSuccess, isError, error }] = useLikeCommentMutation()
 
   const [isLiked, setIsLiked] = useState(false)
+  const [isSaved, setIsSaved] = useState(false)
   const [numberOfLikes, setNumberOfLikes] = useState(0)
 
-  const {
-    data: userData,
-    isLoading: userLoading,
-    isSuccess: userSuccess,
-  } = useGetUserByIdQuery(comment.author)
+  const { data: userData, isLoading: userLoading, isSuccess: userSuccess } = useGetUserByIdQuery(comment.author)
 
   const createdAt = formatTimestamp(comment.timestamp)
 
   const handleLikeClick = async () => {
     try {
       if (isLiked) {
-        await likeComment({ commentId: comment._id})
+        await likeComment({ commentId: comment._id })
         setIsLiked(false)
         setNumberOfLikes((prevNumberOfLikes) => prevNumberOfLikes - 1)
       } else {
@@ -89,11 +78,7 @@ const Comment = ({
   return (
     <div key={comment._id} className="px-3 pt-6 text-sm">
       <div>
-        <img
-          className="h-9 w-9 rounded-full"
-          src={userData?.profilePicture || ''}
-          alt="profile"
-        />
+        <img className="h-9 w-9 rounded-full" src={userData?.profilePicture || ''} alt="profile" />
       </div>
       <div className="mr-2 text-base font-semibold text-secondary-foreground ">
         <div>
@@ -118,17 +103,11 @@ const Comment = ({
               <Button
                 variant="link"
                 className="pl-0"
-                onClick={() =>
-                  setActiveComment({ id: comment._id, type: 'replying' })
-                }
+                onClick={() => setActiveComment({ id: comment._id, type: 'replying' })}
               >
                 Reply
               </Button>
-              <Button
-                variant="link"
-                onClick={handleLikeClick}
-                className="pl-0 text-secondary-foreground"
-              >
+              <Button variant="link" onClick={handleLikeClick} className="pl-0 text-secondary-foreground">
                 <img src={Assets.heart} alt="hearts" className="pr-1" />
                 {numberOfLikes}
               </Button>
@@ -138,29 +117,18 @@ const Comment = ({
             <Button
               variant="link"
               className="pl-0"
-              onClick={() =>
-                setActiveComment({ id: comment._id, type: 'editing' })
-              }
+              onClick={() => setActiveComment({ id: comment._id, type: 'editing' })}
             >
               Edit
             </Button>
           )}
           {canDelete && (
-            <Button
-              variant="link"
-              className="pl-0"
-              onClick={() => deleteComment(comment._id)}
-            >
+            <Button variant="link" className="pl-0" onClick={() => deleteComment(comment._id)}>
               Delete
             </Button>
           )}
         </div>
-        {isReplying && (
-          <CommentForm
-            submitLabel="Reply"
-            handleSubmit={(text) => addComment(text, replyId, postId)}
-          />
-        )}
+        {isReplying && <CommentForm submitLabel="Reply" handleSubmit={(text) => addComment(text, replyId, postId)} />}
         {replies.length > 0 && (
           <div className="replies">
             {replies.map((reply) => (

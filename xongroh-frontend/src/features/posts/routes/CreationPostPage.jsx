@@ -9,15 +9,17 @@ import FeedbackContent from '@/features/posts/components/creation/creation-postp
 import { useGetPostByIdQuery } from '@/features/posts/postsApiSlice'
 
 import { useParams } from 'react-router-dom'
-import { useLikePostMutation } from '@/features/posts/postsApiSlice'
+import { useLikePostMutation, useSavePostMutation } from '@/features/posts/postsApiSlice'
 import useAuth from '@/hooks/useAuth'
 
 const CreationPostPage = () => {
   const { postId } = useParams()
   const { userId } = useAuth()
 
-  const [likePost, { data, isLoading, isSuccess, isError, error }] =
-    useLikePostMutation()
+  const [likePost, { data, isLoading, isSuccess, isError, error }] = useLikePostMutation()
+
+  const [savePost, { data: saveData, isLoading: saveLoading, isSuccess: saveSuccess, isError: saveError }] =
+    useSavePostMutation()
 
   const {
     data: post,
@@ -29,6 +31,7 @@ const CreationPostPage = () => {
   const [activeTab, setActiveTab] = useState('comments')
   const [isLiked, setIsLiked] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
+  const [numberOfLikes, setNumberOfLikes] = useState(0)
 
   useEffect(() => {
     if (postSuccess) {
@@ -43,28 +46,33 @@ const CreationPostPage = () => {
     }
   }, [postSuccess, userId])
 
-  // const initialNumberOfLikes = post?.likes ? Object.keys(post.likes).length : 0
-  const [numberOfLikes, setNumberOfLikes] = useState(0)
+  useEffect(() => {
+    if (postSuccess) {
+      if (post.saves && post.saves.hasOwnProperty(userId)) {
+        setIsSaved(true)
+      } else {
+        setIsSaved(false)
+      }
+    }
+  }, [postSuccess, userId])
 
   const handleTabClick = (tab) => {
     setActiveTab(tab)
   }
 
   const handleLikeClick = async () => {
-    if (!isLoading) {
-      try {
-        if (isLiked) {
-          await likePost({ postId: post._id, userId: userId })
-          setIsLiked(false)
-          setNumberOfLikes((prevNumberOfLikes) => prevNumberOfLikes - 1)
-        } else {
-          await likePost({ postId: post._id, userId: userId })
-          setIsLiked(true)
-          setNumberOfLikes((prevNumberOfLikes) => prevNumberOfLikes + 1)
-        }
-      } catch (error) {
-        console.error('Error liking/unliking post:', error)
+    try {
+      if (isLiked) {
+        await likePost({ postId: post._id })
+        setIsLiked(false)
+        setNumberOfLikes((prevNumberOfLikes) => prevNumberOfLikes - 1)
+      } else {
+        await likePost({ postId: post._id })
+        setIsLiked(true)
+        setNumberOfLikes((prevNumberOfLikes) => prevNumberOfLikes + 1)
       }
+    } catch (error) {
+      console.error('Error liking/unliking post:', error)
     }
   }
 
@@ -72,11 +80,18 @@ const CreationPostPage = () => {
     // Implement your share logic here
   }
 
-  const handleSaveClick = () => {
-    setIsSaved((prevIsSaved) => {
-      const newSaves = String(parseInt(post.saves, 10) + (prevIsSaved ? -1 : 1))
-      return !prevIsSaved
-    })
+  const handleSaveClick = async () => {
+    try {
+      if (isSaved) {
+        await savePost({ postId: post._id })
+        setIsSaved(false)
+      } else {
+        await savePost({ postId: post._id })
+        setIsSaved(true)
+      }
+    } catch (error) {
+      console.error('Error saving/unsaving post:', error)
+    }
   }
 
   return (
@@ -120,11 +135,7 @@ const CreationPostPage = () => {
           {postSuccess && (
             <>
               {activeTab === 'comments' && (
-                <CommentsContent
-                  postId={post._id}
-                  currentUserId={userId}
-                  comments={post.comments}
-                />
+                <CommentsContent postId={post._id} currentUserId={userId} comments={post.comments} />
               )}
               {activeTab === 'feedback' && <FeedbackContent />}
             </>

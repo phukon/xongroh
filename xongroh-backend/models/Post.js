@@ -21,7 +21,10 @@ const postSchema = new mongoose.Schema({
     type: Map,
     of: Boolean,
   },
-  saves: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  saves: {
+    type: Map,
+    of: Boolean,
+  },
   comments: [commentSchema],
 });
 

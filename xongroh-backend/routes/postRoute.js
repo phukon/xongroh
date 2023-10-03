@@ -16,6 +16,7 @@ router.route('/createPost').post(postsController.createPost)
 router.route('/updatePost').put(postsController.updatePost)
 
 router.route('/likePost/:postId').patch(postsController.likePost)
+router.route('/savePost/:postId').patch(postsController.savePost)
 router.route('/likeComment/:commentId').patch(postsController.likeComment)
 
 router.route('/deletePost').delete(postsController.deletePost)
