@@ -7,13 +7,9 @@ import { useRef, useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '@/features/auth/authSlice'
-import {
-  useLoginMutation,
-  useRegisterMutation,
-} from '@/features/auth/authApiSlice'
+import { useLoginMutation, useRegisterMutation } from '@/features/auth/authApiSlice'
 
 function Onboard({ backgroundImageUrl }) {
-
   const userRef = useRef()
   const errRef = useRef()
   const [username, setUsername] = useState('')
@@ -27,7 +23,7 @@ function Onboard({ backgroundImageUrl }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [login, { isLoading, isError }] = useLoginMutation()
-  const [register] = useRegisterMutation()
+  const [register, { isError: createAccountError }] = useRegisterMutation()
 
   useEffect(() => {
     userRef.current.focus()
@@ -97,18 +93,25 @@ function Onboard({ backgroundImageUrl }) {
   const handlePwdInput = (e) => setPassword(e.target.value)
   const handleToggle = () => setPersist((prev) => !prev)
 
-  if (isLoading) return (
-    <div className="flex justify-center items-center h-screen">
-      <ClipLoader
-        color="#00000"
-      />
-    </div>
-  )
-  if(isError) return (
-    <div className="flex justify-center items-center h-screen">
-      <p>Server under maintenance</p>
-    </div>
-  )
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader color="#00000" />
+      </div>
+    )
+  if (isError)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Server under maintenance</p>
+      </div>
+    )
+
+  if (createAccountError)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Server under maintenance</p>
+      </div>
+    )
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-gray-100">
@@ -133,9 +136,7 @@ function Onboard({ backgroundImageUrl }) {
         <div
           className="bg-cover bg-center absolute inset-0"
           style={{
-            backgroundImage: `url(${
-              backgroundImageUrl || backgroundWebP || ''
-            })`,
+            backgroundImage: `url(${backgroundImageUrl || backgroundWebP || ''})`,
             // backgroundImage: `url(${backgroundWebP})`,
           }}
         />
@@ -144,9 +145,7 @@ function Onboard({ backgroundImageUrl }) {
         <div className="bg-white bg-opacity-80 rounded-lg shadow-md p-8 mx-4 md:mx-8 mt-8 md:mt-0 relative z-10">
           <div className="mb-8 text-center">
             <div className="text-2xl font-medium">Xongroh </div>
-            <h1 className="text-lg font-semibold mt-2">
-              {isLoginMode ? 'Log in' : 'Create an Account'}
-            </h1>
+            <h1 className="text-lg font-semibold mt-2">{isLoginMode ? 'Log in' : 'Create an Account'}</h1>
             <p className="text-sm text-gray-600">
               {isLoginMode
                 ? 'Enter your username and password to log in'
@@ -156,10 +155,7 @@ function Onboard({ backgroundImageUrl }) {
           <form className="space-y-4" onSubmit={handleSubmit}>
             {!isLoginMode ? (
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Email Address
                 </label>
                 <input
@@ -174,10 +170,7 @@ function Onboard({ backgroundImageUrl }) {
                   onChange={handleUserInput}
                   autoComplete="off"
                 />
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                   Username
                 </label>
                 <input
@@ -194,10 +187,7 @@ function Onboard({ backgroundImageUrl }) {
               </div>
             ) : (
               <div>
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                   Username
                 </label>
                 <input
@@ -215,10 +205,7 @@ function Onboard({ backgroundImageUrl }) {
               </div>
             )}
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Password
               </label>
               <input
@@ -238,12 +225,7 @@ function Onboard({ backgroundImageUrl }) {
             </p>
             {isLoginMode && (
               <label htmlFor="persist" className="form__persist">
-                <input
-                  type="checkbox"
-                  id="persist"
-                  onChange={handleToggle}
-                  checked={persist}
-                />
+                <input type="checkbox" id="persist" onChange={handleToggle} checked={persist} />
                 Trust This Device
               </label>
             )}
@@ -257,8 +239,7 @@ function Onboard({ backgroundImageUrl }) {
             </div>
           </form>
           <p className="text-sm text-gray-600 mt-4">
-            By clicking "{isLoginMode ? 'Log in' : 'Create Account'}," you agree
-            to our{' '}
+            By clicking "{isLoginMode ? 'Log in' : 'Create Account'}," you agree to our{' '}
             <Link to="/terms" className="text-primary">
               Terms of Service
             </Link>{' '}
@@ -269,14 +250,8 @@ function Onboard({ backgroundImageUrl }) {
             .
           </p>
           <p className="text-sm text-gray-600 mt-2">
-            {isLoginMode
-              ? "Don't have an account? "
-              : 'Already have an account? '}
-            <button
-              type="button"
-              onClick={handleToggleMode}
-              className="text-primary underline"
-            >
+            {isLoginMode ? "Don't have an account? " : 'Already have an account? '}
+            <button type="button" onClick={handleToggleMode} className="text-primary underline">
               {isLoginMode ? 'Create one here' : 'Log in here'}
             </button>
           </p>
