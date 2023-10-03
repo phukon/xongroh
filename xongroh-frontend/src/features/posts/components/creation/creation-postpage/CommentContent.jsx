@@ -90,7 +90,7 @@ const CommentContent = ({ postId, currentUserId, comments }) => {
   return (
     <div className="comments">
       <CommentForm
-        submitLabel="Write"
+        submitLabel="Comment"
         postId={postId}
         handleSubmit={addComment}
       />

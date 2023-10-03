@@ -22,7 +22,7 @@ const FeedbackForm = ({
     <form onSubmit={onSubmit}>
       <Textarea
         className="comment-form-textarea h-24 rounded-xl"
-        placeholder="Write something..."
+        placeholder="Share your thoughts... .."
         value={text}
         onChange={(e) => setText(e.target.value)}
       />

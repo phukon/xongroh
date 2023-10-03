@@ -114,22 +114,24 @@ const CreationPostPage = () => {
       )}
 
       <div>
-        <div className="mx-3 flex overflow-x-scroll whitespace-nowrap pb-2 pt-4">
-          <Tab
-            tabName="comments"
-            tabText="Comments "
-            // count={post.comments}
-            activeTab={activeTab}
-            onTabClick={handleTabClick}
-          />
-          <Tab
-            tabName="feedback"
-            tabText="Feedbacks "
-            // count={post.feedback}
-            activeTab={activeTab}
-            onTabClick={handleTabClick}
-          />
-        </div>
+        {postSuccess && (
+          <div className="mx-3 flex overflow-x-scroll whitespace-nowrap pb-2 pt-4">
+            <Tab
+              tabName="comments"
+              tabText="Comments "
+              count={post.comments.length}
+              activeTab={activeTab}
+              onTabClick={handleTabClick}
+            />
+            <Tab
+              tabName="feedback"
+              tabText="Feedbacks "
+              count={post.feedbacks.length}
+              activeTab={activeTab}
+              onTabClick={handleTabClick}
+            />
+          </div>
+        )}
 
         <div className="mx-4 mt-2 text-lg font-normal text-muted-foreground ">
           {postSuccess && (

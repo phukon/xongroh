@@ -71,7 +71,7 @@ const FeedbackContent = ({ postId, currentUserId, feedbacks }) => {
 
   return (
     <div className="comments">
-      <FeedbackForm submitLabel="Write" postId={postId} handleSubmit={addFeedback} />
+      <FeedbackForm submitLabel="Send" postId={postId} handleSubmit={addFeedback} />
       <div className="comments-container">
         {rootFeedbacks.map((rootFeedback) => (
           <Feedback
