@@ -69,6 +69,12 @@ export const postsApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
       }),
     }),
+    likeComment: builder.mutation({
+      query: ({ commentId }) => ({
+        url: `/post/likeComment/${commentId}`,
+        method: 'PATCH',
+      }),
+    }),
     commentTrigger: builder.mutation({
       query: ({postId, parentId, text}) => ({
         url: `/post/comments/${postId}`,
@@ -79,7 +85,7 @@ export const postsApiSlice = apiSlice.injectEndpoints({
     updateCommentTrigger: builder.mutation({
       query: ({commentId, text}) => ({
         url: `/post/comments/${commentId}`,
-        method: 'PATCH',
+        method: 'PUT',
         body: {text}
       })
     }),
@@ -104,6 +110,7 @@ export const {
   useGetPostsQuery,
   useGetPostByIdQuery,
   // useGetPostsByUserIdQuery,
+  useLikeCommentMutation,
   useAddNewPostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,

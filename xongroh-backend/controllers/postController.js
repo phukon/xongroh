@@ -105,6 +105,43 @@ exports.likePost = async (req, res) => {
   }
 }
 
+exports.likeComment = async (req, res) => {
+  try {
+    const { commentId } = req.params
+    const userId = req.userId
+
+    const post = await Post.findOne({ 'comments._id': commentId })
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+
+    const comment = post.comments.find(
+      (comment) => comment._id.toString() === commentId
+    )
+
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' })
+    }
+
+    const isLiked = comment.likes.get(userId)
+
+    if (isLiked) {
+      comment.likes.delete(userId)
+      message = 'Comment has been unliked.'
+    } else {
+      comment.likes.set(userId, true)
+      message = 'Comment has been liked.'
+    }
+
+    await post.save()
+
+    res.status(200).json({ message, updatedPost: post })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+    ror
+  }
+}
+
 exports.comments = async (req, res) => {
   try {
     const postId = req.params.postId
@@ -121,6 +158,7 @@ exports.comments = async (req, res) => {
       text,
       author: userId,
       parentId,
+      likes: new Map(),
     }
 
     post.comments.push(newComment)
@@ -128,10 +166,14 @@ exports.comments = async (req, res) => {
     await post.save()
 
     const newCommentId = post.comments[post.comments.length - 1]._id
+    const timestamp = post.comments[post.comments.length - 1].timestamp
 
     res
       .status(201)
-      .json({ message: 'Comment added successfully', comment: { _id: newCommentId, ...newComment } })
+      .json({
+        message: 'Comment added successfully',
+        comment: { _id: newCommentId, timestamp: timestamp, ...newComment },
+      })
   } catch (error) {
     console.error(error)
     res.status(500).json({ message: 'Server error' })
@@ -146,14 +188,16 @@ exports.updateComment = async (req, res) => {
     const { text } = req.body
     const { commentId } = req.params
     const userId = req.userId
-
+    console.log(commentId)
     const post = await Post.findOne({ 'comments._id': commentId })
 
     if (!post) {
       return res.status(404).json({ message: 'Post not found' })
     }
 
-    const comment = post.comments.find((comment) => comment._id === commentId)
+    const comment = post.comments.find(
+      (comment) => comment._id.toString() === commentId
+    )
 
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' })
@@ -190,7 +234,9 @@ exports.deleteComment = async (req, res) => {
       return res.status(404).json({ message: 'Post not found' })
     }
 
-    const comment = post.comments.find((comment) => comment._id === commentId)
+    const comment = post.comments.find(
+      (comment) => comment._id.toString() === commentId
+    )
 
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' })

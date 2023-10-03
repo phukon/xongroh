@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 
 const CommentForm = ({
   handleSubmit,
@@ -12,20 +14,26 @@ const CommentForm = ({
   const isTextareaDisabled = text.length === 0
   const onSubmit = (event) => {
     event.preventDefault()
-    handleSubmit(text, undefined, postId)
+    handleSubmit(text, null, postId)
     setText('')
   }
 
   return (
     <form onSubmit={onSubmit}>
-      <textarea
-        className="comment-form-textarea"
+      <Textarea
+        className="comment-form-textarea h-24 rounded-xl"
+        placeholder="Write something..."
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button className="comment-form-button" disabled={isTextareaDisabled}>
+      <Button
+        variant="normal"
+        size="normal"
+        className="text-secondary-foreground"
+        disabled={isTextareaDisabled}
+      >
         {submitLabel}
-      </button>
+      </Button>
       {hasCancelButton && (
         <button
           type="button"

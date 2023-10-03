@@ -26,7 +26,7 @@ function Onboard({ backgroundImageUrl }) {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [login, { isLoading }] = useLoginMutation()
+  const [login, { isLoading, isError }] = useLoginMutation()
   const [register] = useRegisterMutation()
 
   useEffect(() => {
@@ -102,6 +102,11 @@ function Onboard({ backgroundImageUrl }) {
       <ClipLoader
         color="#00000"
       />
+    </div>
+  )
+  if(isError) return (
+    <div className="flex justify-center items-center h-screen">
+      <p>Server under maintenance</p>
     </div>
   )
 

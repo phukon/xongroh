@@ -27,7 +27,7 @@ const CreationPostPage = () => {
   } = useGetPostByIdQuery(postId ? postId : null)
 
   const [activeTab, setActiveTab] = useState('comments')
-  const [isLiked, setIsLiked] = useState(false) // Initialize as false
+  const [isLiked, setIsLiked] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
 
   useEffect(() => {

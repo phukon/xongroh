@@ -39,17 +39,16 @@ const CommentContent = ({ postId, currentUserId, comments }) => {
   const [backendComments, setBackendComments] = useState([])
   const [activeComment, setActiveComment] = useState(null)
 
-  const rootComments = backendComments.filter(
-    (backendComment) => backendComment.parentId === undefined
-  )
+  const rootComments = backendComments
+    .filter((backendComment) => backendComment.parentId === null)
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
 
   const getReplies = (commentId) =>
     backendComments
       .filter((backendComment) => backendComment.parentId === commentId)
-      .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
 
-  const addComment = (text, parentId = undefined, postId) => {
-    console.log(text, parentId, postId)
+  const addComment = (text, parentId, postId) => {
     commentTrigger({ text, parentId, postId })
     if (isSuccess) {
       setBackendComments([data.comment, ...backendComments])
@@ -58,7 +57,8 @@ const CommentContent = ({ postId, currentUserId, comments }) => {
   }
 
   const updateComment = (text, commentId) => {
-    updateCommentTrigger(text)
+    updateCommentTrigger({ text: text, commentId })
+    console.log(updateSuccess)
     if (updateSuccess) {
       const updatedBackendComments = backendComments.map((backendComment) => {
         if (backendComment.id === commentId) {
@@ -73,7 +73,7 @@ const CommentContent = ({ postId, currentUserId, comments }) => {
 
   const deleteComment = (commentId) => {
     if (window.confirm('Are you sure you want to remove comment?')) {
-      deleteCommentTrigger(commentId)
+      deleteCommentTrigger({ commentId: commentId })
       if (deleteSuccess) {
         const updatedBackendComments = backendComments.filter(
           (backendComment) => backendComment._id !== commentId
@@ -89,8 +89,6 @@ const CommentContent = ({ postId, currentUserId, comments }) => {
 
   return (
     <div className="comments">
-      <h3 className="comments-title">Comments</h3>
-      <div className="comment-form-title">Write comment</div>
       <CommentForm
         submitLabel="Write"
         postId={postId}
