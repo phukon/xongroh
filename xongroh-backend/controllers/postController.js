@@ -122,7 +122,7 @@ exports.savePost = async (req, res) => {
 
     const updatedPost = await Post.findByIdAndUpdate(
       postId,
-      { saves: post.likes },
+      { saves: post.saves },
       { new: true }
     )
 

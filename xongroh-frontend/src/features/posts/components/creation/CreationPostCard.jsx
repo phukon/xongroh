@@ -68,7 +68,9 @@ const PostCard = ({ postId, post }) => {
 
   if (userSuccess) {
     const author = userData
-    const interactions = Object.keys(post.likes).length
+    const likeCount = Object.keys(post.likes).length
+    const saveCount = Object.keys(post.saves).length
+    const interactions = likeCount + saveCount
 
     return (
       <Card className="mt-5">
