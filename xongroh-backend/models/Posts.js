@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const commentSchema = new mongoose.Schema({
   text: { type: String, required: true },
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
   timestamp: { type: Date, default: Date.now },
   likes: {
     type: Map,
@@ -13,7 +13,7 @@ const commentSchema = new mongoose.Schema({
 
 const feedbackSchema = new mongoose.Schema({
   text: { type: String, required: true },
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
   timestamp: { type: Date, default: Date.now },
   likes: {
     type: Map,
@@ -27,7 +27,7 @@ const postSchema = new mongoose.Schema({
   cover: { type: String },
   content: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
   likes: {
     type: Map,
     of: Boolean,
@@ -41,6 +41,6 @@ const postSchema = new mongoose.Schema({
   isDraft: { type: Boolean, default: false },
 })
 
-const Post = mongoose.model('Post', postSchema)
+const Post = mongoose.model('Posts', postSchema)
 
 module.exports = Post

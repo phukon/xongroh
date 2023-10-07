@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
     },
     user_type: {
       type: String,
-      enum: ['Creator', 'Patron', 'Admin'],
+      enum: ['creator', 'patron', 'admin'],
     },
     dob: {
       type: Date,
@@ -35,22 +35,37 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    creations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Creations' }],
-    supporting: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
+    supporting: {
+      type: Map,
+      of: Boolean,
+    },
     portfolio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Portfolio' }],
-    communities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Community' }],
-    tribe: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tribe' }],
-    saved: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Creations' }],
+    communities: {
+      type: Map,
+      of: Boolean,
+    },
+    tribe: {
+      type: Map,
+      of: Boolean,
+    },
+    saved: {
+      type: Map,
+      of: Boolean,
+    },
     bio: { type: String },
     firstName: { type: String },
     lastName: { type: String },
-    mobile: { type: String }, // Use a string for mobile numbers to support international formats
+    mobile: { type: String },
     address: { type: String },
-    profilePicture: { type: String }, // base64 picture
-    cover: { type: String }, // base64 picture
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    profilePicture: { type: String },
+    cover: { type: String },
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
   },
   { timestamps: true }
 )
 
-module.exports = mongoose.model('User', userSchema)
+
+
+module.exports = mongoose.model('Users', userSchema)

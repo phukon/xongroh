@@ -1,5 +1,6 @@
-const Post = require('../models/Post.js')
+const Post = require('../models/Posts.js')
 const mongoose = require('mongoose')
+const UserModel = require('../models/Users.js')
 
 // @desc Get all posts
 // @route GET /posts
@@ -41,8 +42,18 @@ exports.createPost = async (req, res) => {
   if (!title || !content || !author) {
     return res.status(400).json({ message: 'All fields are required' })
   }
-  const postObject = { title, content, cover, author, likes: new Map(), saves: new Map() }
+  const authorObjectId = new mongoose.Types.ObjectId(author);
+  const postObject = { title, content, cover, author: authorObjectId, likes: new Map(), saves: new Map() }
+
   const post = await Post.create(postObject)
+  const user = await UserModel.findById(authorObjectId)
+  if (!user) {
+    return res.status(400).json({ message: 'Invalid author' })
+  }
+  const postId = (post._id)
+  user.posts.push(postId)
+  await user.save()
+
 
   if (post) {
     res.status(201).json({ message: `New post ${title} created` })

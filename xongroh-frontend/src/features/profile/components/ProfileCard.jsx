@@ -111,8 +111,8 @@ const ProfileCard = () => {
         name={data.username}
         cover={data.cover}
         dp={data.profilePicture}
-        creations={data.creations}
-        supporting={data.supporting}
+        creations={data.posts.length}
+        supporting={Object.keys(data.supporting).length}
         bio={data.bio}
       />
     )

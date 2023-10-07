@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import convertToBase64 from '@/utils/convert'
 import { useParams } from 'react-router-dom'
-import {
-  useUpdateUserMutation,
-  useGetUserByIdQuery,
-} from '@/features/users/usersApiSlice'
+import { useUpdateUserMutation, useGetUserByIdQuery } from '@/features/users/usersApiSlice'
 
 const EditProfileForm = () => {
   const { id } = useParams()
@@ -15,8 +12,7 @@ const EditProfileForm = () => {
     isError: userError,
   } = useGetUserByIdQuery(id)
 
-  const [updateUser, { isLoading, isSuccess, isError, error }] =
-    useUpdateUserMutation()
+  const [updateUser, { isLoading, isSuccess, isError, error }] = useUpdateUserMutation()
 
   const [formData, setFormData] = useState({
     username: '',
@@ -25,6 +21,7 @@ const EditProfileForm = () => {
     lastName: '',
     profilePicture: '',
     cover: '',
+    user_type: '', // Initialize with a default value
   })
 
   useEffect(() => {
@@ -36,6 +33,7 @@ const EditProfileForm = () => {
         lastName: userDataQuery.lastName || '',
         profilePicture: userDataQuery.profilePicture || '',
         cover: userDataQuery.cover || '',
+        user_type: userDataQuery.user_type || '',
       })
     }
   }, [userLoading, userDataQuery])
@@ -78,10 +76,7 @@ const EditProfileForm = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="mb-4">
           <label htmlFor="profilePicture" className="block font-medium">
-            <img
-              src={formData.profilePicture || userDataQuery?.profilePicture}
-              alt="profilePicture"
-            />
+            <img src={formData.profilePicture || userDataQuery?.profilePicture} alt="profilePicture" />
             Profile Picture:
           </label>
           <input
@@ -91,6 +86,20 @@ const EditProfileForm = () => {
             onChange={handleProfilePictureUpload}
             className="mt-1 p-2 border rounded w-full"
           />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="user_type">Account type</label>
+          <select
+            id="user_type"
+            name="user_type"
+            value={formData.user_type}
+            onChange={handleInputChange}
+            className="mt-1 p-2 border rounded w-full"
+          >
+            <option value="creator">Creator</option>
+            <option value="patron">Patron</option>
+            <option value="admin">Admin</option>
+          </select>
         </div>
         <div className="mb-4">
           <label htmlFor="username" className="block font-medium">
@@ -159,10 +168,7 @@ const EditProfileForm = () => {
         </div>
         {isSuccess && <p>Update successful!</p>}
         {isError && <p>Error: {error.message}</p>}
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full md:w-auto"
-        >
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full md:w-auto">
           {isLoading ? 'Updating...' : 'Update'}
         </button>
       </form>

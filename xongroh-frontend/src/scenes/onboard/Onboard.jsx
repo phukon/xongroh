@@ -23,7 +23,7 @@ function Onboard({ backgroundImageUrl }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [login, { isLoading, isError }] = useLoginMutation()
-  const [register, { isError: createAccountError }] = useRegisterMutation()
+  const [register] = useRegisterMutation()
 
   useEffect(() => {
     userRef.current.focus()
@@ -102,14 +102,7 @@ function Onboard({ backgroundImageUrl }) {
   if (isError)
     return (
       <div className="flex justify-center items-center h-screen">
-        <p>Server under maintenance</p>
-      </div>
-    )
-
-  if (createAccountError)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p>Server under maintenance</p>
+        <p>Wrong credentials or Server error</p>
       </div>
     )
 
