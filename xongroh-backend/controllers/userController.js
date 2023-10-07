@@ -79,7 +79,7 @@ exports.register = async (req, res) => {
     res.status(400).json({ message: 'Invalid user data received' })
   }
 }
-
+ 
 // @desc Get all users
 // @route GET /usersAllUsers
 // @access Private
