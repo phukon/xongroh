@@ -61,12 +61,8 @@ exports.register = async (req, res) => {
     profilePicture: placeholderImg,
     cover: placeholderImg,
     user_type: user_type,
-    supporting: new Map(),
     communities: new Map(),
-    portfolio: new Map(),
     tribe: new Map(),
-    saved: new Map(),
-    following: new Map(),
   }
 
   // Create and store new user
@@ -95,6 +91,43 @@ exports.getAllUsers = asyncHandler(async (req, res) => {
 
   res.json(users)
 })
+
+// @desc support a user
+// @route POST /users/support
+// @access Private
+exports.supportUser = async (req, res) => {
+  const userId = req.userId
+  const userObjectId = new mongoose.Types.ObjectId(userId)
+
+  const { supportedUserId } = req.params
+  const supportedUserObjectId = new mongoose.Types.ObjectId(supportedUserId)
+
+  try {
+    if(userId === supportedUserId) {
+      return res.status(400).json({ error: 'You cannot support yourself' })
+    }
+
+    const supportedUser = await UserModel.findById(supportedUserObjectId)
+
+    if (!supportedUser) {
+      return res.status(404).json({ error: 'Supporting user not found' })
+    }
+
+    const user = await UserModel.findById(userObjectId)
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' })
+    }
+
+    user.supporting.unshift(supportedUserObjectId)
+    supportedUser.followers.unshift(userObjectId)
+    user.save()
+    supportedUser.save()
+    res.json({ message: `Supported ${supportedUser.username}!` })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Server error' })
+  }
+}
 
 // @desc Get a user by id
 // @route GET /users/:id

@@ -66,6 +66,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'User', id: arg.id }],
     }),
+    supportTrigger: builder.mutation({
+      query: ({supportedUserId}) => ({
+        url: `/user/support/${supportedUserId}`,
+        method: 'PUT'
+      })
+    }),
   }),
 })
 
@@ -75,6 +81,7 @@ export const {
   useAddNewUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useSupportTriggerMutation
 } = usersApiSlice
 
 // returns the query result object

@@ -36,10 +36,7 @@ const userSchema = new mongoose.Schema(
       default: Date.now,
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
-    supporting: {
-      type: Map,
-      of: Boolean,
-    },
+    supporting: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
     portfolio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Portfolio' }],
     communities: {
       type: Map,
@@ -49,10 +46,7 @@ const userSchema = new mongoose.Schema(
       type: Map,
       of: Boolean,
     },
-    saved: {
-      type: Map,
-      of: Boolean,
-    },
+    saved: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
     bio: { type: String },
     firstName: { type: String },
     lastName: { type: String },

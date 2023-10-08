@@ -115,15 +115,24 @@ exports.savePost = async (req, res) => {
     const post = await Post.findById(postId)
     const isSaved = post.saves.get(userId)
 
+    const authorObjectId = new mongoose.Types.ObjectId(userId);
+    const user = await UserModel.findById(authorObjectId)
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid author' })
+    }
+
     if (isSaved) {
       post.saves.delete(userId)
+      user.saved.pop(postId)
       message = 'Post has been unsaved.'
     } else {
       post.saves.set(userId, true)
+      user.saved.push(postId)
       message = 'Post has been saved.'
     }
 
     const updatedPost = await Post.findByIdAndUpdate(postId, { saves: post.saves }, { new: true })
+    await user.save()
 
     res.status(200).json({ message, updatedPost })
   } catch (err) {

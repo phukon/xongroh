@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import { useGetUsersQuery } from '@/features/users/usersApiSlice'
+import { useGetUsersQuery, useSupportTriggerMutation } from '@/features/users/usersApiSlice'
+import useAuth from '@/hooks/useAuth'
 
-const CreatorProfileCardItem = ({ name, username, profilePicture }) => {
+const CreatorProfileCardItem = ({ name, username, profilePicture, userId, currentUserId }) => {
+  const [supportTrigger, { data, isLoading, isSuccess, isError, error }] = useSupportTriggerMutation()
   const [buttonText, setButtonText] = useState('Support')
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (buttonText === 'Support') {
+      console.log('Support button clicked')
+      await supportTrigger({ supportedUserId: userId })
+      console.log('after')
       setButtonText('View')
     }
+  }
+
+  if (userId === currentUserId) {
+    return null
   }
 
   return (
@@ -24,11 +27,7 @@ const CreatorProfileCardItem = ({ name, username, profilePicture }) => {
         <div>
           <CardHeader className="p-0">
             <div className="flex items-center">
-              <img
-                className="h-12 w-12 rounded-full"
-                src={profilePicture}
-                alt="profile"
-              />
+              <img className="h-12 w-12 rounded-full" src={profilePicture} alt="profile" />
               <div className="pl-4">
                 <CardTitle>{name}</CardTitle>
                 <CardDescription>@{username}</CardDescription>
@@ -40,20 +39,12 @@ const CreatorProfileCardItem = ({ name, username, profilePicture }) => {
           <CardContent className="p-0">
             {buttonText === 'View' ? (
               <Link to={`/profile/${username}`}>
-                <Button
-                  variant="normal"
-                  size="normal"
-                  onClick={handleButtonClick}
-                >
+                <Button variant="normal" size="normal" onClick={handleButtonClick}>
                   {buttonText}
                 </Button>
               </Link>
             ) : (
-              <Button
-                variant="normal"
-                size="normal"
-                onClick={handleButtonClick}
-              >
+              <Button variant="normal" size="normal" onClick={handleButtonClick}>
                 {buttonText}
               </Button>
             )}
@@ -65,6 +56,8 @@ const CreatorProfileCardItem = ({ name, username, profilePicture }) => {
 }
 
 const CreatorProfileCard = () => {
+  const { userId: currentUserId } = useAuth()
+
   const {
     data: users,
     isLoading,
@@ -95,6 +88,8 @@ const CreatorProfileCard = () => {
             name={users.entities[userId].name}
             username={users.entities[userId].username}
             profilePicture={users.entities[userId].profilePicture}
+            userId={userId}
+            currentUserId={currentUserId}
           />
         </div>
       ))
