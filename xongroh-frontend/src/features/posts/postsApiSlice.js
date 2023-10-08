@@ -43,6 +43,17 @@ export const postsApiSlice = apiSlice.injectEndpoints({
         return responseData
       },
     }),
+    getPostsByUserId: builder.query({
+      query: (userId) => ({
+        url: `/post/getPostsByUserId/${userId}`,
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError
+        },
+      }),
+      transformResponse: (responseData) => {
+        return responseData
+      },
+    }),
     addNewPost: builder.mutation({
       query: (initialPost) => ({
         url: '/post/createPost',
@@ -141,6 +152,7 @@ export const postsApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetPostsQuery,
   useGetPostByIdQuery,
+  useGetPostsByUserIdQuery,
   // useGetPostsByUserIdQuery,
   useSavePostMutation,
   useLikeCommentMutation,

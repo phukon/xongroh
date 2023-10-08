@@ -33,6 +33,22 @@ exports.getPostById = async (req, res) => {
   }
 }
 
+exports.getPostsByUserId = async (req, res) => {
+  const {userId} = req.params
+
+  try {
+    const user = await UserModel.findById(userId).populate('posts').exec()
+
+    if (user.posts.length === 0) {
+      return res.status(404).json({ message: 'No posts found for this user.' })
+    }
+    res.json(user.posts)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Server error' })
+  }
+}
+
 // @desc Create a post
 // @route POST /posts
 // @access Private
@@ -42,7 +58,7 @@ exports.createPost = async (req, res) => {
   if (!title || !content || !author) {
     return res.status(400).json({ message: 'All fields are required' })
   }
-  const authorObjectId = new mongoose.Types.ObjectId(author);
+  const authorObjectId = new mongoose.Types.ObjectId(author)
   const postObject = { title, content, cover, author: authorObjectId, likes: new Map(), saves: new Map() }
 
   const post = await Post.create(postObject)
@@ -50,10 +66,9 @@ exports.createPost = async (req, res) => {
   if (!user) {
     return res.status(400).json({ message: 'Invalid author' })
   }
-  const postId = (post._id)
+  const postId = post._id
   user.posts.push(postId)
   await user.save()
-
 
   if (post) {
     res.status(201).json({ message: `New post ${title} created` })
@@ -115,7 +130,7 @@ exports.savePost = async (req, res) => {
     const post = await Post.findById(postId)
     const isSaved = post.saves.get(userId)
 
-    const authorObjectId = new mongoose.Types.ObjectId(userId);
+    const authorObjectId = new mongoose.Types.ObjectId(userId)
     const user = await UserModel.findById(authorObjectId)
     if (!user) {
       return res.status(400).json({ message: 'Invalid author' })

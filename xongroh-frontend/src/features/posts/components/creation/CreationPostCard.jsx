@@ -1,42 +1,54 @@
 import React from 'react'
-import { useGetPostsQuery } from '@/features/posts/postsApiSlice'
+import { useGetPostsQuery, useGetPostsByUserIdQuery } from '@/features/posts/postsApiSlice'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
 import { useGetUserByIdQuery } from '@/features/users/usersApiSlice'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import ClipLoader from 'react-spinners/ClipLoader'
 
-const CreationPostCard = () => {
+const CreationPostCard = ({ type }) => {
+  const { id } = useParams()
+
   const {
-    data: creationPosts,
+    data,
     isLoading,
-    isSuccess,
+    isSuccess: userSuccess,
     isError,
-    error,
-  } = useGetPostsQuery('Posts', {
-    pollingInterval: 5 * 60 * 1000,
-    refetchOnFocus: false,
-    refetchOnMountOrArgChange: true,
-  })
+    error
+  } = type === 'profile' && id
+    ? useGetPostsByUserIdQuery(id)
+    : useGetPostsQuery('Posts', {
+        pollingInterval: 5 * 60 * 1000,
+        refetchOnFocus: false,
+        refetchOnMountOrArgChange: true,
+      })
 
   if (isLoading) {
     return <div>Loading...</div>
   }
 
   if (isError) {
-    return <div>Error loading posts: {error.message}</div>
+    return <div>No posts {error.message}</div>
   }
 
-  if (isSuccess) {
+  if (type === 'profile' && userSuccess && !isLoading && !isError) {
     return (
       <div>
-        {creationPosts.ids.map((postId) => (
-          <PostCard
-            key={postId}
-            postId={postId}
-            post={creationPosts.entities[postId]}
-          />
+        {data?.map((post) => (
+          <PostCard key={post._id} postId={post._id} post={post} />
+        ))}
+      </div>
+    )
+  } else {
+    ;<p>No posts</p>
+  }
+
+  if (type === undefined && userSuccess) {
+    return (
+      <div>
+        {data.ids.map((postId) => (
+          <PostCard key={postId} postId={postId} post={data.entities[postId]} />
         ))}
       </div>
     )
@@ -52,11 +64,7 @@ const PostCard = ({ postId, post }) => {
     navigate(`/dash/creationpostpage/${postId}`)
   }
 
-  const {
-    data: userData,
-    isLoading: userLoading,
-    isSuccess: userSuccess,
-  } = useGetUserByIdQuery(post?.author)
+  const { data: userData, isLoading: userLoading, isSuccess: userSuccess } = useGetUserByIdQuery(post?.author)
 
   if (userLoading) {
     return (
@@ -80,11 +88,7 @@ const PostCard = ({ postId, post }) => {
               <Button variant="normal" size="normal">
                 <div className="flex items-center">
                   <div>
-                    <img
-                      className="h-9 w-9 rounded-full"
-                      src={author.profilePicture || ''}
-                      alt="profile"
-                    />
+                    <img className="h-9 w-9 rounded-full" src={author.profilePicture || ''} alt="profile" />
                   </div>
                   <div className="pl-4">{author.username}</div>
                 </div>
@@ -103,9 +107,7 @@ const PostCard = ({ postId, post }) => {
               wordWrap: 'break-word',
             }}
           >
-            {post.content.length > 100
-              ? `${post.content.slice(0, 150)}...`
-              : post.content}
+            {post.content.length > 100 ? `${post.content.slice(0, 150)}...` : post.content}
           </p>
         </CardContent>
 
@@ -117,9 +119,7 @@ const PostCard = ({ postId, post }) => {
               </Button>
             </div>
             <div className="pl-3">
-              <h1 className="line-clamp-2 text-sm font-semibold">
-                {post.title}
-              </h1>
+              <h1 className="line-clamp-2 text-sm font-semibold">{post.title}</h1>
             </div>
           </div>
         </CardFooter>

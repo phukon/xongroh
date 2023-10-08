@@ -65,7 +65,7 @@ class FilterTabs extends Component {
   renderCreationContent() {
     return (
       <div className='pb-16'>
-        <CreationPostCard />
+        <CreationPostCard type='profile'/>
       </div>
     )
   }

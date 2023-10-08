@@ -11,6 +11,7 @@ router.route('/updatePost').put(postsController.updatePost)
 router.route('/deletePost').delete(postsController.deletePost)
 router.route('/likePost/:postId').patch(postsController.likePost)
 router.route('/savePost/:postId').patch(postsController.savePost)
+router.route('/getPostsByUserId/:userId').get(postsController.getPostsByUserId)
 
 // comments
 router.route('/comments/:postId').post(postsController.comments)
