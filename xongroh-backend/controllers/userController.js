@@ -103,7 +103,7 @@ exports.supportUser = async (req, res) => {
   const supportedUserObjectId = new mongoose.Types.ObjectId(supportedUserId)
 
   try {
-    if(userId === supportedUserId) {
+    if (userId === supportedUserId) {
       return res.status(400).json({ error: 'You cannot support yourself' })
     }
 
@@ -114,14 +114,28 @@ exports.supportUser = async (req, res) => {
     }
 
     const user = await UserModel.findById(userObjectId)
+
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
     }
 
-    user.supporting.unshift(supportedUserObjectId)
-    supportedUser.followers.unshift(userObjectId)
-    user.save()
-    supportedUser.save()
+
+    const isAlreadySupporting = user.supporting.includes(supportedUserObjectId)
+
+    if (isAlreadySupporting) {
+
+      user.supporting = user.supporting.filter((supportingId) => supportingId.toString() !== supportedUserId)
+
+      supportedUser.followers = supportedUser.followers.filter((followerId) => followerId.toString() !== userId)
+    } else {
+      user.supporting.unshift(supportedUserObjectId)
+
+      supportedUser.followers.unshift(userObjectId)
+    }
+
+    await user.save()
+    await supportedUser.save()
+
     res.json({ message: `Supported ${supportedUser.username}!` })
   } catch (error) {
     console.error(error)

@@ -1,15 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useGetUserByIdQuery } from '@/features/users/usersApiSlice'
 import useAuth from '@/hooks/useAuth'
+import { useSupportTriggerMutation } from '@/features/users/usersApiSlice'
 
-const ProfileCardItem = ({ name, cover, dp, creations, supporting, bio, isCurrentUser }) => {
+const ProfileCardItem = ({ name, cover, dp, creations, supporting, bio, isCurrentUser, id, userId }) => {
+  const [supportTrigger, { isLoading, isSuccess, isError, error }] = useSupportTriggerMutation()
   const navigate = useNavigate()
   const [buttonText, setButtonText] = useState('Support')
   const handleButtonClick = () => {
     setButtonText((prevButtonText) => (prevButtonText === 'Support' ? 'Supporting' : 'Support'))
+    if (buttonText === 'Support') {
+      supportTrigger({ supportedUserId: id })
+    }
   }
+    const { data, isLoading: userLoading, isSuccess: userSuccess, isError: userError } = useGetUserByIdQuery(userId)
+
+  useEffect(() => {
+    if (data?.supporting.includes(id)) {
+      setButtonText('Supporting')
+    }
+  }, [data, userId])
 
   return (
     <div className="overflow-hidden">
@@ -103,6 +115,8 @@ const ProfileCard = () => {
         supporting={Object.keys(data.supporting).length}
         bio={data.bio}
         isCurrentUser={isCurrentUser}
+        id={id}
+        userId={userId}
       />
     )
   }
