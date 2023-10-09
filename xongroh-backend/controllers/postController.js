@@ -34,7 +34,7 @@ exports.getPostById = async (req, res) => {
 }
 
 exports.getPostsByUserId = async (req, res) => {
-  const {userId} = req.params
+  const { userId } = req.params
 
   try {
     const user = await UserModel.findById(userId).populate('posts').exec()
@@ -286,7 +286,9 @@ exports.deleteComment = async (req, res) => {
       return res.status(401).json({ message: 'You are not authorized to delete this comment' })
     }
 
-    const index = post.comments.findIndex((comment) => comment.id === commentId)
+    const index = post.comments.findIndex((comment) => {
+      comment._id === commentId
+    })
 
     post.comments.splice(index, 1)
 
@@ -414,7 +416,7 @@ exports.deleteFeedback = async (req, res) => {
     const { feedbackId } = req.params
     const userId = req.userId
 
-    const post = await Post.findOne({ 'comments._id': feedbackId })
+    const post = await Post.findOne({ 'feedbacks._id': feedbackId })
 
     if (!post) {
       return res.status(404).json({ message: 'Post not found' })
@@ -430,9 +432,9 @@ exports.deleteFeedback = async (req, res) => {
       return res.status(401).json({ message: 'You are not authorized to delete this comment' })
     }
 
-    const index = post.feedback.findIndex((feedback) => feedback.id === feedbackId)
+    const index = post.feedbacks.findIndex((feedback) => feedback._id === feedbackId)
 
-    post.feedback.splice(index, 1)
+    post.feedbacks.splice(index, 1)
 
     await post.save()
 

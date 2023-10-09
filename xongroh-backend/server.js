@@ -47,18 +47,18 @@ app.use(cookieParser());
 // application to serve static files to the client
 // without having to write individual routes for each file.
 app.use(
-  '/',
+  '/server',
   express.static(path.join(__dirname, 'public'), { cacheControl: false })
 );
 
 // This code snippet allows the web application
 // to serve the index.html file to the client when
 // the client requests the root URL.
-app.use('/', rootRoute);
-app.use('/v1/auth', authRoute);
-app.use('/v1/user', userRoute);
-app.use('/v1/post', postRoute);
-app.use('/v1/api', apiCheckRoute);
+app.use('/server', rootRoute);
+app.use('/server/v1/auth', authRoute);
+app.use('/server/v1/user', userRoute);
+app.use('/server/v1/post', postRoute);
+app.use('/server/v1/api', apiCheckRoute);
 
 // app.use(require("./routes/auth"));
 

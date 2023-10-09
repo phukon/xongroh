@@ -1,41 +1,86 @@
-import CommentList from '@/features/comments/components/comments/CommentList'
 import Comment from './Comment'
 import CommentForm from './CommentForm'
 import { useState, useEffect } from 'react'
-import {
-  useCommentTriggerMutation,
-  useDeleteCommentTriggerMutation,
-  useUpdateCommentTriggerMutation,
-} from '@/features/posts/postsApiSlice'
+import { selectCurrentToken } from '@/features/auth/authSlice'
+import { useSelector } from 'react-redux'
 
 const CommentContent = ({ postId, currentUserId, comments }) => {
-  // const sortedComments = comments.slice().sort((a, b) => {
-  //   return new Date(b.timestamp) - new Date(a.timestamp)
-  // })
+  //start----------hotfix----------------
+  // hotfix-1
+  const apiUrl = import.meta.env.VITE_API
+  const authToken = useSelector(selectCurrentToken)
 
-  const [commentTrigger, { data, isLoading, isSuccess, isError, error }] =
-    useCommentTriggerMutation()
+  async function commentTrig(apiUrl, authToken, text, parentId, postId) {
+    try {
+      const requestBody = { text, parentId }
+      const response = await fetch(`${apiUrl}post/comments/${postId}`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      })
 
-  const [
-    deleteCommentTrigger,
-    {
-      isLoading: deleting,
-      isSuccess: deleteSuccess,
-      isError: deleteError,
-      error: deleteErrors,
-    },
-  ] = useDeleteCommentTriggerMutation()
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
 
-  const [
-    updateCommentTrigger,
-    {
-      isLoading: updating,
-      isSuccess: updateSuccess,
-      isError: updateError,
-      error: updateErrors,
-    },
-  ] = useUpdateCommentTriggerMutation()
+      return response.json()
+    } catch (error) {
+      throw error
+    }
+  }
 
+  // -----------------------------//
+  // hotfix-2
+  async function deleteCommentTrig(commentId) {
+    try {
+      const response = await fetch(`${apiUrl}post/comments/${commentId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+
+      return response.json()
+    } catch (error) {
+      throw error
+    }
+  }
+
+  // hotfix-3
+  async function updateCommentTrig(text, commentId) {
+    try {
+      const requestBody = { text }
+      const response = await fetch(`${apiUrl}post/comments/${commentId}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      })
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+
+      return response.json()
+    } catch (error) {
+      throw error
+    }
+  }
+
+  //end----------hotfix----------------
   const [backendComments, setBackendComments] = useState([])
   const [activeComment, setActiveComment] = useState(null)
 
@@ -49,37 +94,31 @@ const CommentContent = ({ postId, currentUserId, comments }) => {
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
 
   const addComment = (text, parentId, postId) => {
-    commentTrigger({ text, parentId, postId })
-    if (isSuccess) {
-      setBackendComments([data.comment, ...backendComments])
+    commentTrig(apiUrl, authToken, text, parentId, postId).then((comment) => {
+      setBackendComments([comment.comment, ...backendComments])
       setActiveComment(null)
-    }
+    })
   }
 
   const updateComment = (text, commentId) => {
-    updateCommentTrigger({ text: text, commentId })
-    console.log(updateSuccess)
-    if (updateSuccess) {
+    updateCommentTrig(text, commentId).then(() => {
       const updatedBackendComments = backendComments.map((backendComment) => {
-        if (backendComment.id === commentId) {
+        if (backendComment._id === commentId) {
           return { ...backendComment, text: text }
         }
         return backendComment
       })
       setBackendComments(updatedBackendComments)
       setActiveComment(null)
-    }
+    })
   }
 
   const deleteComment = (commentId) => {
     if (window.confirm('Are you sure you want to remove comment?')) {
-      deleteCommentTrigger({ commentId: commentId })
-      if (deleteSuccess) {
-        const updatedBackendComments = backendComments.filter(
-          (backendComment) => backendComment._id !== commentId
-        )
+      deleteCommentTrig(commentId).then(() => {
+        const updatedBackendComments = backendComments.filter((backendComment) => backendComment._id !== commentId)
         setBackendComments(updatedBackendComments)
-      }
+      })
     }
   }
 
@@ -89,11 +128,7 @@ const CommentContent = ({ postId, currentUserId, comments }) => {
 
   return (
     <div className="comments">
-      <CommentForm
-        submitLabel="Comment"
-        postId={postId}
-        handleSubmit={addComment}
-      />
+      <CommentForm submitLabel="Comment" postId={postId} handleSubmit={addComment} />
       <div className="comments-container">
         {rootComments.map((rootComment) => (
           <Comment

@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Assets from '@/assets/Assets'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 // import CommunityProfileList from '@/features/community/components/explore/CommunityProfileList'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { useSendLogoutMutation } from '@/features/auth/authApiSlice'
 
 const communityPopulars = [
   { name: 'Art Community', members: '100', dp: Assets.art },
@@ -16,6 +18,15 @@ const communityPopulars = [
 ]
 
 const RightBar = () => {
+  const navigate = useNavigate()
+  const [sendLogout, { isLoading, isSuccess, isError, error }] = useSendLogoutMutation()
+  useEffect(() => {
+    if (isSuccess) navigate('/')
+  }, [isSuccess, navigate])
+
+  if (isLoading) return <p>Logging Out...</p>
+  if (isError) return <p>Error: {error.data?.message}</p>
+
   return (
     <nav className="w-2/7 sticky top-0 ml-3 flex  h-screen flex-col bg-[#FAFAFA] p-1 pt-6 shadow-lg overflow-y-scroll ">
       <div className="flex flex-col px-6">
@@ -31,13 +42,15 @@ const RightBar = () => {
             <span className="font-medium">Messages</span>
           </Link>
         </div>
+        <div className="pb-4">
+          <button className="icon-button" title="Logout" onClick={sendLogout}>
+            <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
+          </button>
+        </div>
       </div>
       <div className="px-4">
         <h2 className="pt-8 text-lg font-bold">Popular Communities</h2>
-    <div className="pt-8 lg:columns-1" >
-        {/* <CommunityProfileList communityCards={communityPopulars} /> */}
-        </div>
-       
+        <div className="pt-8 lg:columns-1">{/* <CommunityProfileList communityCards={communityPopulars} /> */}</div>
       </div>
     </nav>
   )

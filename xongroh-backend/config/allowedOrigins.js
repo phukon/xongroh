@@ -1,9 +1,6 @@
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:3500',
-  'https://xongroh.vercel.app',
-  'https://xongroh-public.vercel.app',
-];
+const allowedOriginsJson = process.env.ALLOWED_ORIGINS_JSON || '[]'
+
+const allowedOrigins = JSON.parse(allowedOriginsJson)
 
 module.exports = allowedOrigins;
 
