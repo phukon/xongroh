@@ -2,8 +2,8 @@
   "apps": [
     {
       "name": "xongroh",
-      "script": "serve",
-      "args": "-s xongroh/xongroh-frontend/build -p 3000",
+      "script": "npx",
+      "args": "serve -s xongroh-frontend/build -p 3000",
       "interpreter": "none"
     }
   ]
