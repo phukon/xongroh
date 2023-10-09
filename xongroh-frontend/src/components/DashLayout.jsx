@@ -2,44 +2,48 @@ import React, { useState, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import DashHeader from '@/components/DashHeader'
 import DashFooter from '@/components/DashFooter'
-import DesktopBarLeft from '@/components/DesktopBarLeft'
-import DesktopBarRight from '@/components/DesktopBarRight'
+import LeftBar from '@/components/LeftBar'
+import RightBar from '@/components/RightBar'
 
-const DashLayout = () => {
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768)
+const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(window.matchMedia(query).matches)
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768)
-    }
+    const mediaQuery = window.matchMedia(query)
+    const handler = (event) => setMatches(event.matches)
 
-    window.addEventListener('resize', handleResize)
+    mediaQuery.addEventListener('change', handler)
 
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+    return () => mediaQuery.removeEventListener('change', handler)
+  }, [query])
+
+  return matches
+}
+
+const DashLayout = () => {
+  const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 
   return (
     <>
-      {isDesktop ? (
+      {isLargeScreen ? (
         <div className="flex flex-row">
-          <div className="w-1/3">
-            <DesktopBarLeft />
+          <div className="w-1/4  ">
+            <LeftBar />
           </div>
           <div className="w-1/2">
+            <DashHeader />
             <Outlet />
           </div>
-          <div className="w-1/3">
-            <DesktopBarRight />
+          <div className="w-1/4  ">
+            <RightBar />
           </div>
         </div>
       ) : (
         <>
           <DashHeader />
-          <div className="dash-container">
+          <main className="mb-16">
             <Outlet />
-          </div>
+          </main>
           <DashFooter />
         </>
       )}

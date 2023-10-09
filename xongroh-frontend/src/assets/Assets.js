@@ -29,7 +29,11 @@ import support from '@/assets/support.svg'
 import greendot from '@/assets/greendot.svg'
 import back from '@/assets/back.svg'
 import heart from '@/assets/heart.svg'
-
+import add from '@/assets/add.svg'
+import profileActive from '@/assets/profileActive.svg'
+import searchActive from '@/assets/searchActive.svg'
+import worldActive from '@/assets/worldActive.svg'
+import homeActive from '@/assets/homeActive.svg'
 
 
 
@@ -61,7 +65,12 @@ const Assets = {
   user3,
   greendot,
   back,
-  heart
+  heart,
+  add,
+  searchActive,
+  profileActive,
+  worldActive,
+  homeActive,
 }
 
 export default Assets

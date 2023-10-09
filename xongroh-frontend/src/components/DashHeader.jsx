@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Assets from '@/assets/Assets'
+import { Link, useLocation, useNavigate} from 'react-router-dom'
+import { Button } from '@/components/ui/button'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSendLogoutMutation } from '@/features/auth/authApiSlice'
-import { useEffect } from 'react'
-import { Button } from '@/components/ui/button'
 
 function DashHeader() {
   // Get the current location from react-router-dom
@@ -23,8 +23,7 @@ function DashHeader() {
   }
 
   const navigate = useNavigate()
-  const [sendLogout, { isLoading, isSuccess, isError, error }] =
-    useSendLogoutMutation()
+  const [sendLogout, { isLoading, isSuccess, isError, error }] = useSendLogoutMutation()
 
   useEffect(() => {
     if (isSuccess) navigate('/')
@@ -52,11 +51,7 @@ function DashHeader() {
               <Link to="messages">
                 <img className="h-8 w-8" src={Assets.chat} alt="chat" />
               </Link>
-              <button
-                className="icon-button"
-                title="Logout"
-                onClick={sendLogout}
-              >
+              <button className="icon-button" title="Logout" onClick={sendLogout}>
                 <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
               </button>
             </div>
@@ -64,7 +59,6 @@ function DashHeader() {
         </>
       )
     } else {
-      // If the route is not the homepage, check if it has a custom name
       if (customRouteNames[location.pathname]) {
         return (
           <>
@@ -78,12 +72,25 @@ function DashHeader() {
                     </Button>
                   </Link>
                 </div>
-                <div className="pl-2 text-2xl font-bold">
-                  {customRouteNames[location.pathname]}
-                </div>
+                <div className="pl-2 text-2xl font-bold">{customRouteNames[location.pathname]}</div>
               </div>
             </div>
           </>
+        )
+      } else if (location.pathname.includes('/dash/profile') && location.pathname.includes('/createpost')) {
+        return (
+          <div className="py-4 pl-4">
+            <div className="flex text-xl font-bold items-center">
+              <div className="pr-1">
+                <Link to="/dash">
+                  <Button className="p-0" variant="link">
+                    <img src={Assets.back} alt="" />
+                  </Button>
+                </Link>
+              </div>
+              <div className="pl-2 text-2xl font-bold">Create post</div>
+            </div>
+          </div>
         )
       } else if (location.pathname.startsWith('/dash/profile/')) {
         return (
@@ -105,10 +112,7 @@ function DashHeader() {
           <>
             <div className="py-4">
               <Link to="/dash">
-                <Button
-                  className="text-md font-semibold text-secondary-foreground"
-                  variant="link"
-                >
+                <Button className="text-md font-semibold text-secondary-foreground" variant="link">
                   <img src={Assets.back} alt="" className="h-5 pr-1" /> Back
                 </Button>
               </Link>

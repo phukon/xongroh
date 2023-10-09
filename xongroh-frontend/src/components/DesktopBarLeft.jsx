@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import Assets from '@/assets/Assets'
+import { Link, useNavigate } from 'react-router-dom'
+
 import useAuth from '@/hooks/useAuth'
 import { useSendLogoutMutation } from '@/features/auth/authApiSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,8 +11,7 @@ import { useEffect } from 'react'
 const DesktopBarLeft = () => {
   const { userId } = useAuth()
   const navigate = useNavigate()
-  const [sendLogout, { isLoading, isSuccess, isError, error }] =
-    useSendLogoutMutation()
+  const [sendLogout, { isLoading, isSuccess, isError, error }] = useSendLogoutMutation()
 
   useEffect(() => {
     if (isSuccess) navigate('/')
@@ -45,10 +45,7 @@ const DesktopBarLeft = () => {
         </Link>
       </div>
       <div className="p-2">
-        <Link
-          to={`/dash/profile/${userId}`}
-          className="flex items-center space-x-2"
-        >
+        <Link to={`/dash/profile/${userId}`} className="flex items-center space-x-2">
           <img className="h-8 w-8" src={Assets.profile} alt="Profile" />
           <span>Profile</span>
         </Link>

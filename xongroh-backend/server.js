@@ -15,7 +15,7 @@ const postRoute = require('./routes/postRoute.js');
 const authRoute = require('./routes/authRoutes.js');
 const rootRoute = require('./routes/root.js');
 // const { fileURLToPath } = require('url');
-// const { dirname } = require('path');
+// const { dirname } = require('path'); for ES6 imports
 const apiCheckRoute = require('./routes/apiCheckRoute.js');
 
 // const __filename = fileURLToPath(import.meta.url);
