@@ -1,4 +1,5 @@
 import React from 'react'
+import DOMPurify from 'dompurify'
 import { useGetPostsQuery, useGetPostsByUserIdQuery } from '@/features/posts/postsApiSlice'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -15,7 +16,7 @@ const CreationPostCard = ({ type }) => {
     isLoading,
     isSuccess: userSuccess,
     isError,
-    error
+    error,
   } = type === 'profile' && id
     ? useGetPostsByUserIdQuery(id)
     : useGetPostsQuery('Posts', {
@@ -79,6 +80,8 @@ const PostCard = ({ postId, post }) => {
     const likeCount = Object.keys(post.likes).length
     const saveCount = Object.keys(post.saves).length
     const interactions = likeCount + saveCount
+    const dirty = post.content.length > 100 ? `${post.content.slice(0, 150)}...` : post.content
+    const clean = DOMPurify.sanitize(dirty, { USE_PROFILES: { html: true } })
 
     return (
       <Card className="mt-5">
@@ -97,7 +100,7 @@ const PostCard = ({ postId, post }) => {
           </div>
         </CardHeader>
         <CardContent className="px-4 pb-0">
-          <p
+          <div
             className="text-sm text-muted-foreground"
             onClick={handlePostClick}
             style={{
@@ -106,9 +109,8 @@ const PostCard = ({ postId, post }) => {
               whiteSpace: 'wrap',
               wordWrap: 'break-word',
             }}
-          >
-            {post.content.length > 100 ? `${post.content.slice(0, 150)}...` : post.content}
-          </p>
+            dangerouslySetInnerHTML={{ __html: clean }}
+          ></div>
         </CardContent>
 
         <CardFooter className="p-4">

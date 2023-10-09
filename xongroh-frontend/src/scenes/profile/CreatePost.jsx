@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useAddNewPostMutation } from '@/features/posts/postsApiSlice'
 import convertToBase64 from '@/utils/convert'
 import useAuth from '@/hooks/useAuth'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 const CreatePost = () => {
   const { userId } = useAuth()
@@ -12,8 +14,7 @@ const CreatePost = () => {
     author: userId,
   })
 
-  const [createPost, { isLoading, isSuccess, isError, error }] =
-    useAddNewPostMutation()
+  const [createPost, { isLoading, isSuccess, isError, error }] = useAddNewPostMutation()
 
   const handleInputChange = async (e) => {
     const { name, value, files } = e.target
@@ -30,6 +31,13 @@ const CreatePost = () => {
         [name]: value,
       })
     }
+  }
+
+  const handleContentChange = (value) => {
+    setFormData({
+      ...formData,
+      content: value,
+    })
   }
 
   const handleSubmit = async (e) => {
@@ -75,17 +83,18 @@ const CreatePost = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="content" className="block font-medium">
+          <label className="block font-medium">
             Content:
           </label>
-          <textarea
+          <ReactQuill theme="snow" value={formData.content} onChange={handleContentChange} />
+          {/* <textarea
             id="content"
             name="content"
             value={formData.content}
             onChange={handleInputChange}
             className="mt-1 p-2 border rounded w-full"
             required
-          />
+          /> */}
         </div>
         <div className="mb-4">
           <label htmlFor="cover" className="block font-medium">
@@ -102,10 +111,7 @@ const CreatePost = () => {
         </div>
         {isSuccess && <p>Post created successfully!</p>}
         {isError && <p>Error: {error.message}</p>}
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full md:w-auto"
-        >
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full md:w-auto">
           {isLoading ? 'Creating...' : 'Create Post'}
         </button>
       </form>
