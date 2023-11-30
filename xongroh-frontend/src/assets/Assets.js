@@ -17,11 +17,8 @@ import user2 from '@/assets/user2.png'
 import user3 from '@/assets/user3.jpg'
 import bookmark from '@/assets/bookmark.svg'
 import more from '@/assets/more.svg'
-
-
-
-import bookmark from '@/assets/bookmark.svg'
-import more from '@/assets/more.svg'
+import xongroh from '@/assets/xongroh.svg'
+import background from '@/assets/background.webp'
 import comment from '@/assets/comment.svg'
 import feedback from '@/assets/feedback.svg'
 import share from '@/assets/share.svg'
@@ -34,8 +31,6 @@ import profileActive from '@/assets/profileActive.svg'
 import searchActive from '@/assets/searchActive.svg'
 import worldActive from '@/assets/worldActive.svg'
 import homeActive from '@/assets/homeActive.svg'
-
-
 
 const Assets = {
   chat,
@@ -55,9 +50,9 @@ const Assets = {
   art,
   photography,
   bookmark,
-  more
-  bookmark,
   more,
+  xongroh,
+  background,
   support,
   share,
   comment,
